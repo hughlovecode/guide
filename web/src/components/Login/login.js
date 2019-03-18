@@ -475,7 +475,7 @@ export default class Login extends React.Component{
         return(
             <div className='back' >
             <Row className='back2'>
-                <Col span='14'></Col>
+                <Col span='7'></Col>
                 <Col span='10' className='login' >
                     <div className='LoginDiv' style={{height:'auto',paddingBottom:'30px'}}>
                         <Row className='SwitchBox'>
@@ -545,12 +545,14 @@ export default class Login extends React.Component{
                                 <Col span='20' >
                                     <Row>
                                         <Col span={16}>
+                                        {/*
                                             <Select defaultValue="学生" style={{ marginBottom: 16,width:'80px' }} onChange={this.getRegisterStatus}>
                                               <Option value="教师">教师</Option>
                                               <Option value="学生">学生</Option>
                                             </Select>
+                                        */}    
                                             <div style={{ marginBottom: 16}}>
-                                              <Input addonBefore="学号" type="number" value={this.state.registerId} placeholder='请输入您的学生号/教师号' onChange={e=>this.setRegisterId(e)}/>
+                                              <Input addonBefore="id号" type="number" value={this.state.registerId} placeholder='请输入您的id号' onChange={e=>this.setRegisterId(e)}/>
                                             </div>
                                             <div style={{ marginBottom: 16 }}>
                                               <Input addonBefore="姓名" value={this.state.registerName} placeholder='请输入您的姓名' onChange={e=>this.setRegisterName(e)}/>
@@ -617,6 +619,7 @@ export default class Login extends React.Component{
                         </Row>
                     </div>
                 </Col>
+                <Col span='7'></Col>
             </Row>
             </div>
         )
