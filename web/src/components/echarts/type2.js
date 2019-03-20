@@ -10,11 +10,12 @@ import 'echarts/lib/component/markPoint';
 import 'echarts/lib/component/markLine';
 
 
-export default class type1 extends React.Component {
+export default class type2 extends React.Component {
   constructor(props){
     super(props)
   }
   componentDidMount() { 
+    console.log('111111111')
     console.log(this.props)
     
     // 初始化
@@ -53,7 +54,7 @@ export default class type1 extends React.Component {
       ],
         series : [
           {
-              name:'签到人数',
+              name:'签到次数(总共'+this.props.data.len+'次)',
               type:'bar',
               data: this.props.data.ydata.ydata1,
               markPoint : {

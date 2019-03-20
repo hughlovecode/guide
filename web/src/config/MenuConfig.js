@@ -34,10 +34,6 @@ const menuList = [
                 key: '/course/modifyManage',
             }
         ]
-    },
-    {
-        title: '学生管理',
-        key: '/studentManage'
     }
 
 ];
