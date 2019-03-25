@@ -1,6 +1,6 @@
 const menuList = [
     {
-        title: '个人信息管理',
+        title: '导游信息管理',
         key: '/Info',
         children: [
             {
@@ -14,7 +14,7 @@ const menuList = [
         ]
     },
     {
-        title: '课程管理',
+        title: '行程管理',
         key: '/course',
         children: [
             {

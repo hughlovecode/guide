@@ -3,6 +3,7 @@ import { Input,Row,Col,Button ,Upload, message, Icon,Modal} from 'antd';
 import './changeMyInfo.styl'
 import http from "../../../axios";
 import Bmob from "hydrogen-js-sdk";
+const {TextArea}=Input;
 Bmob.initialize("bcca23c72b60e95d2e9bc1dd0916533a", "db4b514fef75e21afaade6481a94c3eb")
 export default class ChangeMyInfo extends React.Component{
     componentWillMount(){
@@ -30,6 +31,9 @@ export default class ChangeMyInfo extends React.Component{
                     userName:temp.userName,
                     userPhone:temp.userPhone,
                     email:temp.email,
+                    company:temp.company,
+                    job:temp.job,
+                    introduce:temp.introduce,
                     courseList:temp.courseList
                 })
                 //console.log(this.state.status)
@@ -47,6 +51,11 @@ export default class ChangeMyInfo extends React.Component{
             modifyEmail:e.target.value
         })
     }
+    getIntroduce=e=>{
+        this.setState({
+            modifyIntroduce:e.target.value
+        })
+    }
     modifyInfo=()=>{
         if((this.state.modifyUserName===undefined||this.state.modifyUserName.length===0)&&(this.state.modifyEmail===undefined||this.state.modifyEmail.length===0)){
             this.setState({
@@ -56,29 +65,21 @@ export default class ChangeMyInfo extends React.Component{
         }else{
             let email=this.state.modifyEmail
             let userName=this.state.modifyUserName
-            let params;
-            if((email!==undefined&&email.length>0)&&(userName!==undefined&&userName.length>0)){
-                params={
-                    userId:this.state.userId,
-                    email:email,
-                    userName:userName
-                }
-
-            }else if(email!==undefined&&email.length>0){
-                params={
-                    userId:this.state.userId,
-                    email:email
-                }
-            }else if(userName!==undefined&&userName.length>0){
-                params={
-                    userId:this.state.userId,
-                    userName:userName
-                }
-            }else{
-                this.setState({
-                    isShowTip:true,
-                    tipInfo:'异常抛出'
-                })
+            let introduce=this.state.modifyIntroduce
+            let params={
+                email:this.state.email,
+                userName:this.state.userName,
+                introduce:this.state.introduce,
+                userId:this.state.userId
+            };
+            if(email!==undefined&&email.length>0){
+                params.email=email
+            }
+            if(userName!==undefined&&userName.length>0){
+                params.userName=userName
+            }
+            if(introduce!==undefined&&introduce.length>0){
+                params.introduce=introduce
             }
             http.post('/userInfo/modify',params).then((res)=>{
                 if(res.status!=='0'){
@@ -167,7 +168,7 @@ export default class ChangeMyInfo extends React.Component{
                 
 
                 </Col>
-                <Col span='11' style={{display:'flex',justifyContent:'flex-start'}}>
+                <Col span='11' style={{display:'flex',height:'100%',justifyContent:'flex-start',alignItems:'center'}}>
 
                     <ul style={{listStyle:'none',width:'300px'}}>
                         <li><span>姓名:</span>
@@ -179,8 +180,14 @@ export default class ChangeMyInfo extends React.Component{
                         <li><span>手机:</span>
                             <Input placeholder={this.state.userPhone} size='large' disabled/>
                         </li>
-                        <li><span>系统号:</span>
-                            <Input placeholder={this.state.userId} size='large' disabled/>
+                        <li><span>公司:</span>
+                            <Input placeholder={this.state.company} size='large' disabled/>
+                        </li>
+                        <li><span>职位:</span>
+                            <Input placeholder={this.state.job} size='large' disabled/>
+                        </li>
+                        <li><span>格言:</span>
+                            <TextArea placeholder={this.state.introduce} size='large' onChange={e=>{this.getIntroduce(e)}}/>
                         </li>
                         <li><Button className='changeMyInfo-button' onClick={this.modifyInfo}>确认</Button></li>
                     </ul>

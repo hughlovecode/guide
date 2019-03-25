@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row,Col,Card,Icon,Avatar } from 'antd';
+import { Row,Col,List,Card,Icon,Avatar,Typography } from 'antd';
 import http from './../../../axios/index'
 import './myInfo.styl'
 const { Meta } = Card;
@@ -20,7 +20,8 @@ export default class MyInfo extends React.Component{
                 alert('好像出了点以外刷新看看')
             }else{
                 let temp=res.result.info;
-                //console.log(temp)
+                console.log('temp:')
+                console.log(temp)
                 this.setState({
                     userId:temp.userId,
                     userImg:temp.userImg,
@@ -28,29 +29,35 @@ export default class MyInfo extends React.Component{
                     userName:temp.userName,
                     email:temp.email,
                     courseList:temp.courseList,
-                    courseTree:this.getcourseTree(temp.courseList)
+                    company:temp.company,
+                    job:temp.job,
+                    introduce:temp.introduce,
+                    userPhone:temp.userPhone
                 })
-                //console.log(this.state.status)
 
             }
         })
     }
-    getcourseTree=(data)=>{
-        if(data.length>0){
-            return data.map((item)=>{
-                return <Row gutter={16} key={item.courseId}><Card title={item.courseName} bordered={false} style={{width:300}}>{item.courseInfo}</Card></Row>
-            })
-        }else{
-            return ''
-        }
-    }
-
     render(){
+        let data = [
+          this.state.userId?{'name':'用户ID','value':this.state.userId}:{},
+          this.state.userName?{'name':'姓名','value':this.state.userName}:{},
+          this.state.email?{'name':'邮箱','value':this.state.email}:{},
+          this.state.company?{'name':'公司','value':this.state.company}:{},
+          this.state.job?{'name':'职位','value':this.state.job}:{},
+          this.state.introduce?{'name':'格言','value':this.state.introduce}:{},
+        ];
+        let tree = new Array();
+        data.forEach(item=> {
+            if (JSON.stringify(item) !== '{}'){
+                tree.push(item)
+            }
+        })
         return(
             <Row className='Info-all'>
 
                 <Col span='12' className='info-left'>
-                <div >
+                <div>
                 <Card
                     style={{ width: 320 }}
                     cover={<img alt="example" src={this.state.userImg} style={{width:320,maxHeight:320}}/>}
@@ -65,14 +72,15 @@ export default class MyInfo extends React.Component{
                 </Card></div>
                 </Col>
                 <Col span='12' className='info-right'>
-                    <div style={{ height:'100%',width:'100%',paddingLeft:'30px'}}>
-
-
-
-                        <div className='CourseInfo'>
-                            <span style={{fontSize:'20px',fontWeight:900,paddingLeft:'10px'}}>我的课程</span>
-                            {this.state.courseTree}
-
+                    <div style={{ width:'320px','paddingLeft':'30px'}}>
+                        <div className='SomeInfo'>
+                            <List
+                              header={<div>Some Tips</div>}
+                              bordered
+                              dataSource={tree}
+                              //renderItem={item => (<List.Item><Typography.Text mark>[ITEM]</Typography.Text> {item}</List.Item>)}
+                              renderItem={item=>(<List.Item><Typography.Text mark>[{item.name}]</Typography.Text> {item.value}</List.Item>:'')}
+                            />
                         </div>
                     </div>
                 </Col>
