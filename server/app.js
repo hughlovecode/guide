@@ -6,22 +6,26 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+//1.定义入口路由
+var userInfo=require('./routes/userInfo');
+var course=require('./routes/course')
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser()); 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
+//2.使用路由 
+app.use('/userInfo',userInfo);
+app.use('/course',course);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
