@@ -48,14 +48,14 @@ export default class AddMyCourse extends React.Component{
 					this.setState({
 						isError:false,
 						isSuccess:true,
-						successInfo:'已经创建了新的课程'
+						successInfo:'已经创建了新的旅程'
 					})
 					return Promise.resolve()
 				}else if(res.status === '2'){
 					this.setState({
 						isError:true,
 						isSuccess:false,
-						errorInfo:'很抱歉,您创建的课程在表中已经存在,请创建表中不存在的课程'
+						errorInfo:'很抱歉,您创建的旅程在表中已经存在,请创建表中不存在的旅程'
 					})
 					return Promise.reject()
 				}else{
@@ -121,7 +121,7 @@ export default class AddMyCourse extends React.Component{
     const uploadButton = (
       <div>
         <Icon type='plus' />
-        <div className="ant-upload-text">上传课程图像</div>
+        <div className="ant-upload-text">上传旅程图像</div>
       </div>
     );	
         return(
@@ -132,16 +132,16 @@ export default class AddMyCourse extends React.Component{
             		<div style={{display:'flex'}}>
             			<section style={{flex:'3'}}>
             				<div style={{ marginBottom: 16 }}>
-      							<Input addonBefore="课程名"  placeholder="请输入课程名" onChange={e=>this.getCourseName(e)}/>
+      							<Input addonBefore="旅程名"  placeholder="请输入旅程名" onChange={e=>this.getCourseName(e)}/>
     						</div>
     						<div style={{ marginBottom: 16 }}>
-      							<Input addonBefore="课程号"  placeholder="请输入课程号" onChange={e=>this.getCourseId(e)}/>
+      							<Input addonBefore="旅程号"  placeholder="请输入旅程号" onChange={e=>this.getCourseId(e)}/>
     						</div>
     						<div style={{ marginBottom: 16 }}>
-      							<Input addonBefore="课序号"  placeholder="请输入课序号" onChange={e=>this.getCourseSN(e)}/>
+      							<Input addonBefore="序号"  placeholder="请输入序号" onChange={e=>this.getCourseSN(e)}/>
     						</div>
     						<div style={{ marginBottom: 16 }}>
-      							<Input addonBefore="教室地址"  placeholder="请输入教室地址" onChange={e=>this.getClassAddress(e)}/>
+      							<Input addonBefore="出发点"  placeholder="请输入出发点" onChange={e=>this.getClassAddress(e)}/>
     						</div>
             			</section>
     					<section style={{flex:'1',display:'flex',justifyContent:'center',alignItems:'center'}}>
@@ -159,7 +159,7 @@ export default class AddMyCourse extends React.Component{
             			
             		</div>
     				<div style={{ marginBottom: 16 }}>
-      					<TextArea rows={4} placeholder='请输入一些课程基本信息' onChange={e=>this.getCourseInfo(e)}/>
+      					<TextArea rows={4} placeholder='请输入一些旅程基本信息' onChange={e=>this.getCourseInfo(e)}/>
     				</div>
     				<div style={{float:'right'}}>
     					<Button  onClick={this.setParams}>确定</Button>

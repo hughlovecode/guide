@@ -76,7 +76,7 @@ export default class StudentManage extends React.Component{
 						          title={item.courseName}
 						          description={item.courseInfo}
 						        />
-						        <Button data-courseid={item.courseId} data-coursesn={item.courseSN} onClick={e=>this.toStudents(e)}>学生管理</Button>
+						        <Button data-courseid={item.courseId} data-coursesn={item.courseSN} onClick={e=>this.toStudents(e)}>游客管理</Button>
 						      </List.Item>
 						    )}
 						/>

@@ -307,13 +307,13 @@ export default class MyStudents extends React.Component{
 		const uploadButton = (
 	      <div>
 	        <Icon type='plus' />
-	        <div className="ant-upload-text">上传课程图像</div>
+	        <div className="ant-upload-text">上传旅程图像</div>
 	      </div>
 	    );
 		return(
 			<div>
 				<Row>
-					<Button style={{float:'right',margin:'20px 130px'}} onClick={this.addStudent}>添加学生</Button>
+					<Button style={{float:'right',margin:'20px 130px'}} onClick={this.addStudent}>添加游客</Button>
 				</Row>
 				<Row >
 					<Col span={3}></Col>
@@ -326,7 +326,7 @@ export default class MyStudents extends React.Component{
 						        <List.Item.Meta
 						          avatar={<Avatar src={item.studentImg} />}
 						          title={item.studentName}
-						          description={"该同学一共签到了"+item.signTag+"次,总共"+item.count+"次!"}
+						          description={"该游客一共签到了"+item.signTag+"次,总共"+item.count+"次!"}
 						        />
 						        <Button data-studentid={item.studentId} onClick={e=>this.delete(e)} style={{marginRight:'20px'}}>删除</Button>
 						        <Button data-studentid={item.studentId} onClick={e=>this.detail(e)}>详情</Button>
@@ -346,7 +346,7 @@ export default class MyStudents extends React.Component{
                 <p>{this.state.modalInfo}</p>
                 </Modal>
                 <Modal
-                    title="添加学生"
+                    title="添加游客"
                     visible={this.state.isVisible2}
                     onCancel={this.iGotIt}
                     footer={[
@@ -358,14 +358,14 @@ export default class MyStudents extends React.Component{
                 	<Col span={4}></Col>
                 	<Col span={16}>
                 		<div style={{ marginBottom: 16 }}>
-						   <Input addonBefore="学号:" onChange={e=>this.getAddStudentId(e)} value={this.state.addStudentId} placegolder='请输入学生学号'/>
+						   <Input addonBefore="id:" onChange={e=>this.getAddStudentId(e)} value={this.state.addStudentId} placegolder='请输入游客id'/>
 						</div>
                 	</Col>
                 	<Col span={4}></Col>
                 </Row>
                 </Modal>
                 <Modal
-                    title="学生信息"
+                    title="游客信息"
                     visible={this.state.modifyModal}
                     onCancel={this.clickCancelModify}
                     footer={[
@@ -377,7 +377,7 @@ export default class MyStudents extends React.Component{
                 	<Row>
                 		<Col span={18}>
                 			<div style={{ marginBottom: 16 }}>
-						      <Input addonBefore="学号:" disabled onChange={e=>this.getStudentId(e)} value={this.state.studentInfo.userId}/>
+						      <Input addonBefore="id:" disabled onChange={e=>this.getStudentId(e)} value={this.state.studentInfo.userId}/>
 						    </div>
 						    <div style={{ marginBottom: 16 }}>
 						      <Input addonBefore="电话:" disabled value={this.state.studentInfo.userPhone}/>

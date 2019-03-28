@@ -103,7 +103,7 @@ export default class MyHomework extends React.Component{
 		return(
 				<div>
 					<Row>
-						<Button style={{float:'right',margin:'20px 130px'}} onClick={this.addStudent}>添加作业</Button>
+						<Button style={{float:'right',margin:'20px 130px'}} onClick={this.addStudent}>添加通知</Button>
 					</Row>
 					<Row>
 						<Col span={3}></Col>
@@ -126,7 +126,7 @@ export default class MyHomework extends React.Component{
 						<Col span={3}></Col>
 					</Row>
 					<Modal
-                    title="添加作业"
+                    title="添加通知"
                     visible={this.state.isShowAddModal}
                     onCancel={this.clickCancelAddModal}
                     footer={[
@@ -140,10 +140,10 @@ export default class MyHomework extends React.Component{
                 		<Col span={3}/>
                 		<Col span={18}>
                 			<div style={{ marginBottom: 16 }}>
-						      <Input addonBefore="标题:" onChange={e=>this.setHomeworkTitle(e)} value={this.state.newHomeworkTitle} placeholder='请输入作业标题'/>
+						      <Input addonBefore="标题:" onChange={e=>this.setHomeworkTitle(e)} value={this.state.newHomeworkTitle} placeholder='请输入通知标题'/>
 						    </div>
 						    <div style={{ marginBottom: 16 }}>
-						      <TextArea rows={4} placeholder='请输入您的作业详情' value={this.state.newHomeworkContent} onChange={e=>this.setHomeworkContent(e)}/>
+						      <TextArea rows={4} placeholder='请输入您的通知详情' value={this.state.newHomeworkContent} onChange={e=>this.setHomeworkContent(e)}/>
 						    </div>
                 		</Col>
                 		<Col span={3}/>	

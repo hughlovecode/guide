@@ -90,7 +90,7 @@ export default class InfiniteListExample extends React.Component {
                                 <List.Item.Meta
                                     avatar={<Avatar src={item.studentImg} />}
                                     title={<a href="https://ant.design">{item.studentName}</a>}
-                                    description={'这名学生在全部的'+item.count+'次课程中,一共签到了'+item.signInCount.length+'次'}
+                                    description={'这游客在全部的'+item.count+'次签到中,一共签到了'+item.signInCount.length+'次'}
                                 />
                                 <div>{item.studentId}</div>
                             </List.Item>

@@ -80,7 +80,7 @@ export default class ModifyCourse extends React.Component{
                     this.setState({
                         isError:false,
                         isSuccess:true,
-                        successInfo:'已经修改了课程'
+                        successInfo:'已经修改了旅程'
                     })
                     return Promise.resolve()
                 }else if(res.status === '2'){
@@ -156,7 +156,7 @@ export default class ModifyCourse extends React.Component{
         const uploadButton = (
         <div>
             <Icon type='plus' />
-            <div className="ant-upload-text">上传课程图像</div>
+            <div className="ant-upload-text">上传旅程图像</div>
         </div>
         )
         return(

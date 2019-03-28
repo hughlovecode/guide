@@ -62,8 +62,8 @@ export default class MyClass extends React.Component{
                     简介: <b>{item.courseInfo}</b>
                     <p/>
                     <p className='course'>
-                        <span >课程号:  <b>{item.courseId}</b>  </span>
-                        <span >课序号:  <b>{item.courseSN}</b>  </span>
+                        <span >旅程号:  <b>{item.courseId}</b>  </span>
+                        <span >序号:  <b>{item.courseSN}</b>  </span>
                     </p>
                     <Button onClick={(e)=>{this.getRouterAddress(e)}} style={{float:'right'}} data-courseid={item.courseId} data-coursesn={item.courseSN}>详情</Button>
                     </Card>

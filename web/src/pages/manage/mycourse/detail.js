@@ -62,7 +62,7 @@ export default class Detail extends React.Component{
 
     }
     homework=()=>{
-        return <span>作业</span>
+        return <span>通知</span>
     }
     goToModifyInfo=()=>{
         let params={
@@ -134,34 +134,34 @@ export default class Detail extends React.Component{
                     <List.Item>
                         <List.Item.Meta
 
-                            title={<span>课程号</span>}
+                            title={<span>旅程号</span>}
                             description={this.state.courseId}
                         />
                     </List.Item>
                     <List.Item>
                         <List.Item.Meta
 
-                            title={<span>课序号</span>}
+                            title={<span>序号</span>}
                             description={this.state.courseSN}
                         />
                     </List.Item>
                     <List.Item>
                         <List.Item.Meta
 
-                            title={<span>教室</span>}
+                            title={<span>出发地</span>}
                             description={this.state.classAddress}
                         />
                     </List.Item>
                     <List.Item >
                         <List.Item.Meta
-                            title={<span>作业<Button style={{marginLeft:'100px'}} onClick={this.goToHomework}>详情</Button></span> }
+                            title={<span>通知<Button style={{marginLeft:'100px'}} onClick={this.goToHomework}>详情</Button></span> }
                             description={this.state.isCourseLoading?'loading':<HomeworkList homeworkList={this.state.homeworkList}/>}
                         />
                     </List.Item>
                     <List.Item className='studentListDiv'>
                         <List.Item.Meta
 
-                            title={<span>学生<Button style={{marginLeft:'100px'}} onClick={this.goToStudents}>详情</Button></span>}
+                            title={<span>游客<Button style={{marginLeft:'100px'}} onClick={this.goToStudents}>详情</Button></span>}
                             description={this.state.isStudentLoading?'loading':<StudentList studentList={this.state.students}/>}
                         />
                     </List.Item>

@@ -24,7 +24,7 @@ export default class Login extends React.Component{
             smsCode:'',
             registerPhone:'',
             isShowSmsCode:false,
-            registerStatus:'学生',
+            registerStatus:'游客',
             loginUserId:'',
             loginPassword:'',
             loginSmsCode:'',
@@ -105,7 +105,7 @@ export default class Login extends React.Component{
                                 this.setState({
                                 isShowLoginTip:true,
                                 tipMessage:'错误',
-                                tipDescription:'学生用户现只允许注册,该系统现只开放给老师使用,请联系您的课程老师进行相关操作',
+                                tipDescription:'游客用户现只允许注册,该系统现只开放给导游使用,请联系您的导游进行相关操作',
                                 tipType:'error'
                             })
                         }else{
@@ -186,7 +186,7 @@ export default class Login extends React.Component{
                                     this.setState({
                                     isShowLoginTip:true,
                                     tipMessage:'错误',
-                                    tipDescription:'学生用户现只允许注册,该系统现只开放给老师使用,请联系您的课程老师进行相关操作',
+                                    tipDescription:'游客现只允许注册,该系统现只开放给导游使用,请联系您的导游进行相关操作',
                                     tipType:'error'
                                 })
                             }else{
@@ -544,13 +544,7 @@ export default class Login extends React.Component{
                                 <Col span='2'/>
                                 <Col span='20' >
                                     <Row>
-                                        <Col span={16}>
-                                        {/*
-                                            <Select defaultValue="学生" style={{ marginBottom: 16,width:'80px' }} onChange={this.getRegisterStatus}>
-                                              <Option value="教师">教师</Option>
-                                              <Option value="学生">学生</Option>
-                                            </Select>
-                                        */}    
+                                        <Col span={16}>   
                                             <div style={{ marginBottom: 16}}>
                                               <Input addonBefore="id号" type="number" value={this.state.registerId} placeholder='请输入您的id号' onChange={e=>this.setRegisterId(e)}/>
                                             </div>

@@ -28,7 +28,7 @@ export default class Statistic extends React.Component {
                     detail:detail,
                 })
                 let students=detail.students;
-                //对于按照课程次数的计数方法
+                //对于按旅程次数的计数方法
                 let len=students[0].signInCount.length;
                 let arrY1=new Array()
                 let arrX1=new Array()
