@@ -17,25 +17,67 @@ router.post('/',function(req,res,next){
             })
         }else{
             if(doc){
-                let list=[];
-                let arr=doc.courseList;
-            arr.map((item)=>{
-                let temp={
-                    courseId:item.courseId,
-                    courseSN:item.courseSN,
-                    courseName:item.courseName,
-                    courseInfo:item.courseInfo
+                try{
+                    let list=[];
+                    let arr=doc.courseList;
+                    if(arr.length<=0){
+                        res.json({
+                            status:'2',
+                            msg:'请注意,您还没有任何相关的行程!'
+                        })
+                    }else{
+                        let getData=()=>{
+                            return new Promise((resolve,reject)=>{
+                                    arr.map((item,index)=>{
+                                    let temp={
+                                        courseId:item.courseId,
+                                        courseSN:item.courseSN
+                                    }
+                                    Course.findOne(temp,function(error,doc2){
+                                        if(error){
+                                            throw error
+                                        }else{
+                                            if(doc2){
+                                                let item2={
+                                                    courseId:doc2.courseId,
+                                                    courseSN:doc2.courseSN,
+                                                    courseName:doc2.courseName,
+                                                    courseInfo:doc2.courseInfo
+                                                }
+                                                list.push(item2)
+                                                if(list.length===arr.length){
+                                                    resolve(list)
+                                                }
+                                            }else{ throw '没找到数据'}
+                                        }
+                                    })
+                                })
+                            })
+                        }
+                        getData().then(list=>{
+                            res.json({
+                                status:'0',
+                                msg:'',
+                                result:{
+                                    count:list.length,
+                                    courselist:list
+                                }
+                            })
+                        }).catch(err=>{
+                            res.json({
+                                status:'1',
+                                msg:'出问题了',
+                            })
+                            throw '出问题了啊啊啊啊啊啊'
+                        })
+                        
+                    }
+                }catch(err){
+                    res.json({
+                        status:'2',
+                        msg:'err:'+err
+                    })
                 }
-                list.push(temp)
-            })
-            res.json({
-                status:'0',
-                msg:'',
-                result:{
-                    count:doc.length,
-                    courselist:list
-                }
-            })
         }else{
             res.json({
                 status:'2',
@@ -82,73 +124,6 @@ router.post('/detail',function(req,res,next){
         }
 
     })    
-});
-//修改课程信息的接口
-router.post('/detail/modify',function(req,res,next){
-    let params={
-        courseId:'305098',
-        courseSN:'002'
-    }
-    Course.findOne(params,function(err,doc){
-        if(err){
-            res.json({
-                status:'1',
-                msg:err.message
-            })
-        }else{
-            if(doc){
-                if(req.body.courseName){
-                    doc.courseName=req.body.courseName
-                }
-                if(req.body.courseInfo){
-                    doc.courseName=req.body.courseInfo
-                }
-                doc.save()
-                res.json({
-                    status:'0',
-                    msg:''
-                })
-
-            }else{
-                res.json({
-                    status:'2',
-                    msg:'找不到你准备修改的课程'
-                })
-            }
-        }
-    })
-});
-//删除课程信息的接口
-router.post('/detail/delete',function(req,res,next){
-    //console.log('here')
-    let params={
-        courseId:'30400201',
-        courseSN:'002'
-    }
-    Course.findOne(params,function(err,doc){
-        if(err){
-            res.json({
-                status:'1',
-                msg:err.message
-            })
-        }else{
-            if(doc){
-                Course.remove(params,function(err,res){
-                    console.log('已经删除了')
-                })
-                res.json({
-                        status:'0',
-                        msg:'已经删除了这门课'
-                    })
-
-            }else{
-                res.json({
-                    status:'2',
-                    msg:'没有找到这门课'
-                })
-            }
-        }
-    })
 });
 //添加课程接口
 router.post('/addCourse',function(req,res,next){
@@ -233,16 +208,24 @@ router.post('/modifyCourse',function(req,res,next){
             })
         }else{
             if(doc){
-                doc.courseName=params.courseName;
-                doc.courseInfo=params.courseInfo;
-                doc.courseImg=params.courseImg;
-                doc.classAddress=params.classAddress;
-                doc.save();
-                res.json({
-                    status:'0',
-                    msg:'',
-                    result:doc.students
-                })
+                try{
+                    doc.courseName=params.courseName;
+                    doc.courseInfo=params.courseInfo;
+                    doc.courseImg=params.courseImg;
+                    doc.classAddress=params.classAddress;
+                    doc.save();
+                    res.json({
+                        status:'0',
+                        msg:'',
+                        result:doc.students
+                    })
+
+                }catch(err){
+                    res.json({
+                        status:'2',
+                        msg:'err:'+err
+                    })
+                }
 
             }else{
                 res.json({

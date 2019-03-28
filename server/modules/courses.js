@@ -30,4 +30,4 @@ var courseSchame=new Schema({
 	]
 });
 
-module.exports=mongoose.model('course',courseSchame)
+module.exports=mongoose.model('guide',courseSchame)

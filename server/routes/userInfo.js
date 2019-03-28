@@ -271,7 +271,7 @@ router.post('/modify',function(req,res,next){
     let params={
         userId:req.body.userId
     }
-    console.log(req.body)
+    //console.log(req.body)
     User.findOne(params,function(err,doc){
         if(err){
             res.json({
@@ -294,48 +294,53 @@ router.post('/modify',function(req,res,next){
                 }
                 doc.save()
                 let courseList=doc.courseList
-                courseList.forEach(item=>{
-                        let tempParams={
-                            courseId:item.courseId,
-                            courseSN:item.courseSN
-                        }
-console.log(tempParams)
-                        Course.findOne(tempParams,function(err,doc2){
-                            if(err){
-                                res.json({
-                                    status:'3',
-                                    msg:err.message
-                                })
-                            }else{
-console.log('doc2:')
-                console.log(doc2)
-                                if(doc2){
-
-                                    let students=doc2.students;
-                                    //console.log(students)
-                                    students.forEach((item2,index)=>{
-                                        if(item2.studentId===req.body.userId){
-                                            students[index].studentName=req.body.userName
-                                            students[index].studentImg=req.body.userImg
-                                        }
-                                    })
-                                    doc2.students=students;
-                                    doc2.save()
-                                   /*
-                                   res.json({
-                                            status:'0',
-                                            msg:'修改成功'
-                                        })
-                                        */
-                                }else{
-                                    res.json({
-                                        status:'4',
-                                        msg:'出问题了,这个学生好像没有加入这门课!'
-                                    })
-                                }
+                try{
+                        courseList.forEach(item=>{
+                            let tempParams={
+                                courseId:item.courseId,
+                                courseSN:item.courseSN
                             }
+                            Course.findOne(tempParams,function(err,doc2){
+                                if(err){
+                                    res.json({
+                                        status:'3',
+                                        msg:err.message
+                                    })
+                                }else{
+                                    if(doc2){
+                                        let students=doc2.students;
+                                        try{
+                                            students.forEach((item2,index)=>{
+                                            if(item2.studentId===req.body.userId){
+                                                    students[index].studentName=req.body.userName
+                                                    students[index].studentImg=req.body.userImg
+                                                }
+                                            })
+                                            doc2.students=students;
+                                            doc2.save()
+                                        }catch(err){
+                                            console.log('出错了')
+                                            res.json({
+                                                status:'1',
+                                                msg:'错误信息:'+err
+                                            })
+                                        }
+                                    }else{
+                                        throw "这个小伙伴还没有加入这次绿城哦"
+                                    }
+                                }
+                            })
+                    })
+                        res.json({
+                            status:'0',
+                            msg:'修改成功了哦~~'
                         })
-                })
+                }catch(err){
+                    res.json({
+                        status:'4',
+                        msg:'错误信息:'+err
+                    })
+                }
 
             }else{
 console.log('5')

@@ -31,6 +31,7 @@ export default class MyClass extends React.Component{
                })
             }else{
                 let temp=res.result.courselist;
+                console.log('test:')
                 console.log(temp)
                 this.setState({
 
@@ -81,7 +82,7 @@ export default class MyClass extends React.Component{
                 <Col span='6' />
                 <Col span='12' className='course-center'>
                     <div className='CourseInfo'>
-                        <span style={{fontSize:'20px',fontWeight:900,paddingLeft:'10px'}}>我的课程</span>
+                        <span style={{fontSize:'20px',fontWeight:900,paddingLeft:'10px'}}>我的行程</span>
                         {this.state.courseTree}
 
                     </div>

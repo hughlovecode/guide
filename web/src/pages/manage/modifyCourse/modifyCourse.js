@@ -87,7 +87,7 @@ export default class ModifyCourse extends React.Component{
                     this.setState({
                         isError:true,
                         isSuccess:false,
-                        errorInfo:'很抱歉,您修改的课程在表中不存在,请不要表中不存在的课程'
+                        errorInfo:'很抱歉,您修改的数据在表中不存在,请不要修改表中不存在的数据'
                     })
                     return Promise.reject()
                 }else{
@@ -166,8 +166,8 @@ export default class ModifyCourse extends React.Component{
                     <section>
                         <Row>
                             <div style={{float:'right',margin:'20px 30px 0px 0px'}}>
-                                <Button style={{marginRight:'20px'}} onClick={this.toHomework}>我的作业</Button>
-                                <Button onClick={this.toStudents}>我的学生</Button>
+                                <Button style={{marginRight:'20px'}} onClick={this.toHomework}>我的通知</Button>
+                                <Button onClick={this.toStudents}>我的游客</Button>
                             </div>
                         </Row>
                         <Row type='flex'  style={{height:'100%'}}>
@@ -176,16 +176,16 @@ export default class ModifyCourse extends React.Component{
                                 <div style={{display:'flex',margin:'60px 0px 0px 0px'}}>
                                     <section style={{flex:'3'}}>
                                         <div style={{ marginBottom: 16 }}>
-                                            <Input addonBefore="课程名"  placeholder={this.state.detail.courseName} onChange={e=>this.getCourseName(e)} />
+                                            <Input addonBefore="旅程名"  placeholder={this.state.detail.courseName} onChange={e=>this.getCourseName(e)} />
                                         </div>
                                         <div style={{ marginBottom: 16 }}>
-                                            <Input addonBefore="课程号" disabled placeholder={this.state.detail.courseId} onChange={e=>this.getCourseId(e)}/>
+                                            <Input addonBefore="旅程号" disabled placeholder={this.state.detail.courseId} onChange={e=>this.getCourseId(e)}/>
                                         </div>
                                         <div style={{ marginBottom: 16 }}>
-                                            <Input addonBefore="课序号" disabled placeholder={this.state.detail.courseSN} onChange={e=>this.getCourseSN(e)}/>
+                                            <Input addonBefore="序号" disabled placeholder={this.state.detail.courseSN} onChange={e=>this.getCourseSN(e)}/>
                                         </div>
                                         <div style={{ marginBottom: 16 }}>
-                                            <Input addonBefore="教室地址"  placeholder={this.state.detail.classAddress} onChange={e=>this.getClassAddress(e)}/>
+                                            <Input addonBefore="集合地址"  placeholder={this.state.detail.classAddress} onChange={e=>this.getClassAddress(e)}/>
                                         </div>
                                     </section>
                                     <section style={{flex:'1',display:'flex',justifyContent:'center',alignItems:'center'}}>

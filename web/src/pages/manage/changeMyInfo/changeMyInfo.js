@@ -57,7 +57,7 @@ export default class ChangeMyInfo extends React.Component{
         })
     }
     modifyInfo=()=>{
-        if((this.state.modifyUserName===undefined||this.state.modifyUserName.length===0)&&(this.state.modifyEmail===undefined||this.state.modifyEmail.length===0)){
+        if((this.state.modifyUserName===undefined||this.state.modifyUserName.length===0)&&(this.state.modifyEmail===undefined||this.state.modifyEmail.length===0)&&(this.state.modifyIntroduce===undefined||this.state.modifyIntroduce.length===0)){
             this.setState({
                 isShowTip:true,
                 tipInfo:'您没有改变任何项目'

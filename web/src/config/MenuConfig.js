@@ -18,19 +18,19 @@ const menuList = [
         key: '/course',
         children: [
             {
-                title: '我的课程',
+                title: '我的行程',
                 key: '/course/myCourse',
             },
             {
-                title: '增加课程',
+                title: '增加行程',
                 key: '/course/addMyCourse',
             },
             {
-                title: '课程统计',
+                title: '行程统计',
                 key: '/course/statisticAll',
             },
             {
-                title: '课程修改',
+                title: '行程修改',
                 key: '/course/modifyManage',
             }
         ]
