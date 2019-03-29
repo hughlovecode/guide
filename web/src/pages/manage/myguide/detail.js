@@ -2,8 +2,8 @@ import React from 'react'
 import http from './../../../axios/index'
 import './detail.styl'
 import { List, Avatar,Icon,Button } from 'antd';
-import StudentList from './studentList'
-import HomeworkList from './homeworkList'
+import VisitorList from './visitorList'
+import NoticeList from './noticeList'
 export default class Detail extends React.Component{
 
     constructor(params){
@@ -69,16 +69,16 @@ export default class Detail extends React.Component{
             courseId:this.state.courseId,
             courseSN:this.state.courseSN
         }
-        this.props.history.push({pathname: '/course/modifyCourse', state: {params: params}})
+        this.props.history.push({pathname: '/guide/modifyGuide', state: {params: params}})
     }
     goToStatistic=()=>{
         let params={
             courseId:this.state.courseId,
             courseSN:this.state.courseSN
         }
-        this.props.history.push({pathname: '/course/statistic', state: {params: params}})
+        this.props.history.push({pathname: '/guide/statistic', state: {params: params}})
     }
-    goToHomework=()=>{
+    goToNotice=()=>{
         let params={
             courseId:this.state.courseId,
             courseSN:this.state.courseSN,
@@ -88,16 +88,16 @@ export default class Detail extends React.Component{
             courseImg:this.state.courseImg
         }
         console.log(params)
-        this.props.history.push({pathname: '/course/myHomework', state: {params: params}})
+        this.props.history.push({pathname: '/guide/myNotice', state: {params: params}})
 
     }
-    goToStudents=()=>{
+    goToVisitor=()=>{
         let params={
             courseId:this.state.courseId,
             courseSN:this.state.courseSN,
         }
         console.log(params)
-        this.props.history.push({pathname: '/course/myStudents', state: {params: params}})
+        this.props.history.push({pathname: '/guide/myVisitor', state: {params: params}})
 
     }
 
@@ -154,15 +154,15 @@ export default class Detail extends React.Component{
                     </List.Item>
                     <List.Item >
                         <List.Item.Meta
-                            title={<span>通知<Button style={{marginLeft:'100px'}} onClick={this.goToHomework}>详情</Button></span> }
-                            description={this.state.isCourseLoading?'loading':<HomeworkList homeworkList={this.state.homeworkList}/>}
+                            title={<span>通知<Button style={{marginLeft:'100px'}} onClick={this.goToNotice}>详情</Button></span> }
+                            description={this.state.isCourseLoading?'loading':<NoticeList noticeList={this.state.homeworkList}/>}
                         />
                     </List.Item>
                     <List.Item className='studentListDiv'>
                         <List.Item.Meta
 
-                            title={<span>游客<Button style={{marginLeft:'100px'}} onClick={this.goToStudents}>详情</Button></span>}
-                            description={this.state.isStudentLoading?'loading':<StudentList studentList={this.state.students}/>}
+                            title={<span>游客<Button style={{marginLeft:'100px'}} onClick={this.goToVisitor}>详情</Button></span>}
+                            description={this.state.isStudentLoading?'loading':<VisitorList visitorList={this.state.students}/>}
                         />
                     </List.Item>
                 </List>

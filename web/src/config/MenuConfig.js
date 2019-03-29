@@ -15,23 +15,23 @@ const menuList = [
     },
     {
         title: '行程管理',
-        key: '/course',
+        key: '/guide',
         children: [
             {
                 title: '我的行程',
-                key: '/course/myCourse',
+                key: '/guide/myGuide',
             },
             {
                 title: '增加行程',
-                key: '/course/addMyCourse',
+                key: '/guide/addMyGuide',
             },
             {
                 title: '行程统计',
-                key: '/course/statisticAll',
+                key: '/guide/statisticAll',
             },
             {
                 title: '行程修改',
-                key: '/course/modifyManage',
+                key: '/guide/modifyGuide',
             }
         ]
     }

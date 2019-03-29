@@ -2,7 +2,7 @@ import React from 'react'
 import {Row,Col,List,Button,Avatar} from 'antd'
 import http from './../../../axios/index'
 
-export default class modifyManage extends React.Component{
+export default class VisitorManage extends React.Component{
 	constructor(){
 		super()
 		var that=this
@@ -53,12 +53,12 @@ export default class modifyManage extends React.Component{
 			}
 		}).catch(err=>{console.log(err)})
 	}
-	toModify=(e)=>{
+	toStudents=(e)=>{
         let params={
             courseId:e.target.dataset.courseid,
             courseSN:e.target.dataset.coursesn
         }
-        this.props.history.push({pathname: '/course/modifyCourse', state: {params: params}})
+        this.props.history.push({pathname: '/course/myVisitor', state: {params: params}})
     }
 	render(){
 		return(
@@ -76,7 +76,7 @@ export default class modifyManage extends React.Component{
 						          title={item.courseName}
 						          description={item.courseInfo}
 						        />
-						        <Button data-courseid={item.courseId} data-coursesn={item.courseSN} onClick={e=>this.toModify(e)}>修改</Button>
+						        <Button data-courseid={item.courseId} data-coursesn={item.courseSN} onClick={e=>this.toStudents(e)}>游客管理</Button>
 						      </List.Item>
 						    )}
 						/>

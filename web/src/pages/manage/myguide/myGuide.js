@@ -1,11 +1,11 @@
 import React from 'react'
 import { Row,Col,Card,Button,Modal } from 'antd';
 import http from './../../../axios/index'
-import './myCourse.styl'
+import './myGuide.styl'
 
 
 
-export default class MyClass extends React.Component{
+export default class MyGuide extends React.Component{
     componentWillMount(){
         this.getData();
         this.setState({
@@ -50,7 +50,7 @@ export default class MyClass extends React.Component{
             courseId:courseId,
             courseSN:courseSN
         }
-        this.props.history.push({pathname: '/course/detail', state: {params: params}})
+        this.props.history.push({pathname: '/guide/detail', state: {params: params}})
 
 
 

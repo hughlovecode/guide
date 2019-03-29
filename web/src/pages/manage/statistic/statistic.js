@@ -29,7 +29,12 @@ export default class Statistic extends React.Component {
                 })
                 let students=detail.students;
                 //对于按旅程次数的计数方法
-                let len=students[0].signInCount.length;
+                let len;
+                if(students.length===0){
+                    len=0;
+                }else{
+                    len=students[0].signInCount.length;
+                }
                 let arrY1=new Array()
                 let arrX1=new Array()
                 for(let i=0;i<len;i++){

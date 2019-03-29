@@ -3,7 +3,7 @@ import { Row,Col,Button,List,Avatar,Input,Modal} from 'antd'
 import Util from './../../../util/util'
 import http from './../../../axios/index'
 const { TextArea } = Input
-export default class MyHomework extends React.Component{
+export default class MyNotice extends React.Component{
 	constructor(props){
         super(props)
         let t1=this.props.location.state.params.HContent.split('@#$%')

@@ -6,7 +6,7 @@ Bmob.initialize("bcca23c72b60e95d2e9bc1dd0916533a", "db4b514fef75e21afaade6481a9
 const { TextArea } = Input
 //上传书本头像
 
-export default class AddMyCourse extends React.Component{
+export default class AddMyGuide extends React.Component{
 	componentWillMount(){
 		this.setState({
 			isError:false,

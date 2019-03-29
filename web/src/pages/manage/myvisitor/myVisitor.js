@@ -5,7 +5,7 @@ import Bmob from "hydrogen-js-sdk"
 Bmob.initialize("bcca23c72b60e95d2e9bc1dd0916533a", "db4b514fef75e21afaade6481a94c3eb")
 
 
-export default class MyStudents extends React.Component{
+export default class MyVisitor extends React.Component{
 	constructor(params){
 		super(params)
 		

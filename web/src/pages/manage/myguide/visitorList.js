@@ -2,60 +2,61 @@ import React from 'react'
 import {
     List, message, Avatar, Spin,
 } from 'antd';
-import reqwest from 'reqwest';
-import './studentList.styl'
+import './visitorList.styl'
 import InfiniteScroll from 'react-infinite-scroller';
-export default class HomeworkList extends React.Component {
+export default class VisitorList extends React.Component {
     constructor(props){
         super(props)
-        let t1=this.props.homeworkList.HContent.split('@#$%')
-        let t2=this.props.homeworkList.HTime.split('@#$%')
-        let t3=this.props.homeworkList.HTitle.split('@#$%')
+        let students=this.props.visitorList
         this.state={
-            list:this.getList(t1,t2,t3),
-            isShowList:false
+            list:this.getStudentList(students)
         }
-        //console.log(this.state.list)
-
+        console.log(this.state.list)
     }
-    getList=(t1,t2,t3)=>{
-        let tempArr=[]
-        t2.forEach((item,index)=>{
-            let tempObj;
-            tempObj={
-                HContent:t1[index],
-                HTime:t2[index],
-                HTitle:t3[index],
-                id:index
+    getStudentList=(students)=>{
+        let newArr=[]
+        students.forEach((item,index)=>{
+            let newItem={
+                studentName:item.studentName,
+                studentId:item.studentId,
+                studentSN:item.studentSN,
+                studentImg:item.studentImg,
+                count:item.signInCount.length,
+                signInCount:this.getSignInCount(item.signInCount)
             }
-            tempArr.push(tempObj)
+            newArr.push(newItem)
         })
-        return tempArr
-
+        return newArr
+    }
+    getSignInCount=(arr)=>{
+        let signInWeeks=[];
+        arr.forEach((item)=>{
+            if(item.isSign==='true'){
+                signInWeeks.push(item.tag)
+            }
+        })
+        return signInWeeks
     }
     state = {
         data: [],
         loading: false,
         hasMore: true,
     }
-    componentWillMount(){
-        //alert(this.props.homeworkList.HContent)
-    }
 
     componentDidMount() {
 
-        this.setState({
-            data:this.state.list
-        })
-    }
+            this.setState({
+                data: this.state.list,
+            });
 
+    }
 
     handleInfiniteOnLoad = () => {
         let data = this.state.data;
         this.setState({
             loading: true,
         });
-        if (data.length > 5) {
+        if (data.length > 14) {
             message.warning('Infinite List loaded all');
             this.setState({
                 hasMore: false,
@@ -63,7 +64,13 @@ export default class HomeworkList extends React.Component {
             });
             return;
         }
-
+        this.fetchData((res) => {
+            data = data.concat(res.results);
+            this.setState({
+                data,
+                loading: false,
+            });
+        });
     }
 
     render() {
@@ -79,12 +86,13 @@ export default class HomeworkList extends React.Component {
                     <List
                         dataSource={this.state.data}
                         renderItem={item => (
-                            <List.Item key={item.id}>
+                            <List.Item >
                                 <List.Item.Meta
-                                    title={<a href="https://ant.design">{item.HTitle}</a>}
-                                    description={item.HContent}
+                                    avatar={<Avatar src={item.studentImg} />}
+                                    title={<a href="https://ant.design">{item.studentName}</a>}
+                                    description={'这游客在全部的'+item.count+'次签到中,一共签到了'+item.signInCount.length+'次'}
                                 />
-                                <div>{item.HTime}</div>
+                                <div>{item.studentId}</div>
                             </List.Item>
                         )}
                     >

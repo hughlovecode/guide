@@ -5,7 +5,7 @@ import Bmob from "hydrogen-js-sdk"
 Bmob.initialize("bcca23c72b60e95d2e9bc1dd0916533a", "db4b514fef75e21afaade6481a94c3eb")
 
 const { TextArea } = Input
-export default class ModifyCourse extends React.Component{
+export default class ModifyGuide extends React.Component{
     constructor(params){
         super(params)
 
@@ -131,7 +131,7 @@ export default class ModifyCourse extends React.Component{
             courseInfo:e.target.value
         })
     }
-    toHomework=()=>{
+    toNotice=()=>{
         let params={
             courseId:this.state.detail.courseId,
             courseSN:this.state.detail.courseSN,
@@ -141,15 +141,15 @@ export default class ModifyCourse extends React.Component{
             courseImg:this.state.detail.courseImg
         }
         console.log(params)
-        this.props.history.push({pathname: '/course/myHomework', state: {params: params}})
+        this.props.history.push({pathname: '/guide/myNotice', state: {params: params}})
 
     }
-    toStudents=()=>{
+    toVisitor=()=>{
         let params={
             courseId:this.state.detail.courseId,
             courseSN:this.state.detail.courseSN
         }
-        this.props.history.push({pathname: '/course/myStudents', state: {params: params}})
+        this.props.history.push({pathname: '/guide/myVisitor', state: {params: params}})
     }
     render(){
         let afterNoData=(<div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>no Data</div>)
@@ -166,8 +166,8 @@ export default class ModifyCourse extends React.Component{
                     <section>
                         <Row>
                             <div style={{float:'right',margin:'20px 30px 0px 0px'}}>
-                                <Button style={{marginRight:'20px'}} onClick={this.toHomework}>我的通知</Button>
-                                <Button onClick={this.toStudents}>我的游客</Button>
+                                <Button style={{marginRight:'20px'}} onClick={this.toNotice}>我的通知</Button>
+                                <Button onClick={this.toVisitor}>我的游客</Button>
                             </div>
                         </Row>
                         <Row type='flex'  style={{height:'100%'}}>

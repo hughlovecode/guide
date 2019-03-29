@@ -7,16 +7,16 @@ import Home from './pages/manage/home/home'
 import MyInfo from './pages/manage/myInfo/myInfo'
 //import changeMyInfo from './pages/manage/changeMyInfo/changeMyInfo'
 import changeMyInfo from './pages/manage/changeMyInfo/changeMyInfo'
-import MyCourse from './pages/manage/mycourse/myCourse'
-import Detail from './pages/manage/mycourse/detail'
-import modifyCourse from './pages/manage/modifyCourse/modifyCourse'
+import MyGuide from './pages/manage/myguide/myGuide'
+import Detail from './pages/manage/myguide/detail'
+import modifyGuide from './pages/manage/modifyGuide/modifyGuide'
 import statistic from './pages/manage/statistic/statistic'
 import statisticAll from './pages/manage/statisticAll/statisticAll'
-import AddMyCourse from './pages/manage/addMyCourse/addMyCourse'
-import myStudents from './pages/manage/mystudents/myStudents'
-import myHomework from './pages/manage/myHomework/myHomework'
-import studentManage from './pages/manage/mystudents/studentManage'
-import modifyManage from './pages/manage/modifyCourse/modifyManage'
+import AddMyGuide from './pages/manage/addMyGuide/addMyGuide'
+import myVisitor from './pages/manage/myvisitor/myVisitor'
+import myNotice from './pages/manage/myNotice/myNotice'
+import visitorManage from './pages/manage/myvisitor/visitorManage'
+import modifyManage from './pages/manage/modifyGuide/modifyManage'
 class App extends Component {
     constructor(){
         super()
@@ -42,35 +42,35 @@ class App extends Component {
                                 <Route path='/Info/changeMyInfo' component={()=><Home>
                                     <Route path='/Info/changeMyInfo' component={changeMyInfo}/>
                                 </Home>}></Route>
-                                <Route path='/course/mycourse' component={()=><Home>
-                                    <Route path='/course/mycourse' component={MyCourse}/>
+                                <Route path='/guide/myguide' component={()=><Home>
+                                    <Route path='/guide/myguide' component={MyGuide}/>
                                 </Home>}></Route>
-                                <Route path='/course/detail' component={()=><Home>
-                                    <Route path='/course/detail' component={Detail}/>
+                                <Route path='/guide/detail' component={()=><Home>
+                                    <Route path='/guide/detail' component={Detail}/>
                                 </Home>}></Route>
-                                <Route path='/course/addMyCourse' component={()=><Home>
-                                    <Route path='/course/addMyCourse' component={AddMyCourse}/>
+                                <Route path='/guide/addMyGuide' component={()=><Home>
+                                    <Route path='/guide/addMyGuide' component={AddMyGuide}/>
                                 </Home>}></Route>
-                                <Route path='/course/modifyCourse' component={()=><Home>
-                                    <Route path='/course/modifyCourse' component={modifyCourse}/>
+                                <Route path='/guide/modifyGuide' component={()=><Home>
+                                    <Route path='/guide/modifyGuide' component={modifyGuide}/>
                                 </Home>}></Route>
-                                <Route path='/course/statistic' component={()=><Home>
-                                    <Route path='/course/statistic' component={statistic}/>
+                                <Route path='/guide/statistic' component={()=><Home>
+                                    <Route path='/guide/statistic' component={statistic}/>
                                 </Home>}></Route>
-                                <Route path='/course/statisticAll' component={()=><Home>
-                                    <Route path='/course/statisticAll' component={statisticAll}/>
+                                <Route path='/guide/statisticAll' component={()=><Home>
+                                    <Route path='/guide/statisticAll' component={statisticAll}/>
                                 </Home>}></Route>
-                                <Route path='/course/myStudents' component={()=><Home>
-                                    <Route path='/course/myStudents' component={myStudents}/>
+                                <Route path='/guide/myVisitor' component={()=><Home>
+                                    <Route path='/guide/myVisitor' component={myVisitor}/>
                                 </Home>}></Route>
-                                <Route path='/course/myHomework' component={()=><Home>
-                                    <Route path='/course/myHomework' component={myHomework}/>
+                                <Route path='/guide/myNotice' component={()=><Home>
+                                    <Route path='/guide/myNotice' component={myNotice}/>
                                 </Home>}></Route>
-                                <Route path='/course/modifyManage' component={()=><Home>
-                                    <Route path='/course/modifyManage' component={modifyManage}/>
+                                <Route path='/guide/modifyManage' component={()=><Home>
+                                    <Route path='/guide/modifyManage' component={modifyManage}/>
                                 </Home>}></Route>
-                                <Route path='/studentManage' component={()=><Home>
-                                    <Route path='/studentManage' component={studentManage}/>
+                                <Route path='guide//visitorManage' component={()=><Home>
+                                    <Route path='guide/visitorManage' component={visitorManage}/>
                                 </Home>}></Route>
                                 <Redirect path="/" to={{pathname: '/login'}} />
                             </Switch>

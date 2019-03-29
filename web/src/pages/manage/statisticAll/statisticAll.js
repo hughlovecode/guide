@@ -58,7 +58,7 @@ export default class statisticAll extends React.Component{
             courseId:e.target.dataset.courseid,
             courseSN:e.target.dataset.coursesn
         }
-        this.props.history.push({pathname: '/course/statistic', state: {params: params}})
+        this.props.history.push({pathname: '/guide/statistic', state: {params: params}})
     }
 	render(){
 		return(
