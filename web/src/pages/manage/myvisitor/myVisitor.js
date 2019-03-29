@@ -19,7 +19,7 @@ export default class MyVisitor extends React.Component{
 				email:'',
 				userImg:''
 			},
-			addStudentId:''
+			addVisitorId:''
 		})
 		http.post('/course/detail',this.props.location.state.params).then(res=>{
             if(res.status !== '0'){
@@ -170,7 +170,7 @@ export default class MyVisitor extends React.Component{
 			isVisible:false
 		})
 	}
-	addStudent=()=>{
+	addVisitor=()=>{
 		this.setState({
 			isVisible2:true
 		})
@@ -239,14 +239,14 @@ export default class MyVisitor extends React.Component{
 			})
 		}
 	}
-	getAddStudentId=e=>{
+	getAddVisitorId=e=>{
 		this.setState({
-			addStudentId:e.target.value
+			addVisitorId:e.target.value
 		})
 	}
 	
-	uploadStudentInfo=()=>{
-		if(this.state.addStudentId===''){
+	uploadVisitorInfo=()=>{
+		if(this.state.addVisitorId===''){
 			this.setState({
 				isVisible:true,
 				isVisible2:false,
@@ -255,13 +255,13 @@ export default class MyVisitor extends React.Component{
 			})
 		}else{
 			let params={
-				userId:this.state.addStudentId,
+				userId:this.state.addVisitorId,
 				courseId:this.state.courseId,
 				courseSN:this.state.courseSN,
 				courseInfo:this.state.courseInfo,
 				courseName:this.state.courseName,
 			}
-			http.post('/userInfo/addStudent',params).then(res=>{
+			http.post('/userInfo/addVisitor',params).then(res=>{
 				if(res.status !== '0'){
 					throw res.msg
 				}else{
@@ -274,7 +274,7 @@ export default class MyVisitor extends React.Component{
 				}
 			}).then(res=>{
 				let params2={
-					studentId:this.state.addStudentId,
+					studentId:this.state.addVisitorId,
 					courseId:this.state.courseId,
 					courseSN:this.state.courseSN,
 					studentName:this.state.tempStudentName,
@@ -313,7 +313,7 @@ export default class MyVisitor extends React.Component{
 		return(
 			<div>
 				<Row>
-					<Button style={{float:'right',margin:'20px 130px'}} onClick={this.addStudent}>添加游客</Button>
+					<Button style={{float:'right',margin:'20px 130px'}} onClick={this.addVisitor}>添加游客</Button>
 				</Row>
 				<Row >
 					<Col span={3}></Col>
@@ -351,14 +351,14 @@ export default class MyVisitor extends React.Component{
                     onCancel={this.iGotIt}
                     footer={[
                     	    <Button onClick={this.iGotIt} key='1'>取消</Button>,
-                    		<Button onClick={this.uploadStudentInfo} key='0'>确认</Button>
+                    		<Button onClick={this.uploadVisitorInfo} key='0'>确认</Button>
                     	]}
                 >
                 <Row>
                 	<Col span={4}></Col>
                 	<Col span={16}>
                 		<div style={{ marginBottom: 16 }}>
-						   <Input addonBefore="id:" onChange={e=>this.getAddStudentId(e)} value={this.state.addStudentId} placegolder='请输入游客id'/>
+						   <Input addonBefore="id:" onChange={e=>this.getAddVisitorId(e)} value={this.state.addVisitorId} placegolder='请输入游客id'/>
 						</div>
                 	</Col>
                 	<Col span={4}></Col>

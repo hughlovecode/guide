@@ -499,64 +499,125 @@ router.post('/addCourse',function(req,res,next){
     })
 })
 //添加学生
-router.post('/addStudent',function(req,res,next){
+router.post('/addVisitor',function(req,res,next){
     let params={
         userId:req.body.userId
     }
     let newItem={
-                    courseId:req.body.courseId,
-                    courseSN:req.body.courseSN,
-                    courseName:req.body.courseName,
-                    courseInfo:req.body.courseInfo
-                }
-                console.log(newItem)
-    User.findOne(params,function(err,doc){
-        if(err){
-            res.json({
-                status:'1',
-                msg:err.message
-            })
-        }else{
-            if(doc){
-                let courseList=doc.courseList;
-                let tag=false;
-                for(let i=0;i<courseList.length;i++){
-                    if(courseList[i].courseId===newItem.courseId&&courseList[i].courseSN===newItem.courseSN){
-                        tag=true;
-                        break;
-                    }
-                }
-                if(tag){
-                    res.json({
-                        status:'2',
-                        msg:'这个同学已经拥有这门课了!'
-                    })
-                }else{
-                    doc.courseList.push(newItem)
-                    doc.save(function(err,result){
-                        if(err){
-                            res.json({
-                                status:'5',
-                                msg:'信息保存失败'
-                            })
-                        }else{
-                            res.json({
-                                status:'0',
-                                msg:'',
-                                result:result
-                            })
+        courseId:req.body.courseId,
+        courseSN:req.body.courseSN,
+    }
+    console.log(newItem)
+    let p1=()=>{
+        return new Promise((resolve,reject)=>{
+
+            User.findOne(params,function(err,doc){
+            if(err){
+                throw err
+            }else{
+                if(doc){
+                    let courseList=doc.courseList;
+                    let tag=false;
+                    courseList.forEach(item=>{
+                        if(item.courseId===newItem.courseId&&item.courseSN===newItem.courseSN){
+                            tag=true
                         }
                     })
+                    if(tag){
+                        reject('这个同学已经拥有这门课了!')
+                    }else{
+                        doc.courseList.push(newItem)
+                        doc.save(function(err,result){
+                            if(err){
+                                throw '信息保存失败'
+                            }else{
+                                if(doc){
+                                    resolve('成功')
+                                }
+                                
+                            }
+                        })
 
+                    }
+                }else{
+                    throw '数据表中没有这个学生,请先注册!'
                 }
-            }else{
-                res.json({
-                        status:'3',
-                        msg:'数据表中没有这个学生,请先注册!'
-                    })
             }
-        }
+        })
+
+        })
+        console.log('p1')
+    }
+    let p2=()=>{
+        return new Promise((resolve,reject)=>{
+            Course.findOne(newItem,function(err,doc){
+                if(err){
+                    throw '课程查询出错'
+                }else{
+                    if(doc){
+                        let item={
+                            signInCount:[],
+                            studentId:req.body.userId,
+                        }
+                        doc.students.push(item);
+                        doc.save(function(err,res){
+                            if(err){
+                                throw '课程信息修改失败'
+                            }else{
+                                res.json({
+                                    status:'0',
+                                    msg:'',
+                                    res:res
+                                })
+                            }
+                        })
+                    }else{
+                        throw '没有这门课'
+                    }
+                }
+            }).catach(err=>{
+                res.json({
+                    status:'3',
+                    msg:'err:'+err
+                })
+            })
+        })
+        console.log('p2')
+    }
+    p1().then(data=>{return p2()},err=>{
+        res.json({
+            status:'4',
+            msg:'err:'+err
+        })
     })
 })
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
