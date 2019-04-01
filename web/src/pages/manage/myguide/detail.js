@@ -22,7 +22,7 @@ export default class Detail extends React.Component{
             teacherId:'',
             isCourseLoading:true,
             isStudentLoading:true,//这上下两个是react异步传值所需要的
-            homeworkList:{}
+            noticeList:[]
 
         }
         http.post('/course/detail',this.props.location.state.params).then((res)=>{
@@ -33,11 +33,6 @@ export default class Detail extends React.Component{
                 console.log('resss:')
                 console.log(res)
                 let detail=res.result.courseDetail;
-                let tempObject={
-                    HContent:detail.HContent,
-                    HTime:detail.Htime,
-                    HTitle:detail.HTitle
-                }
                 this.setState({
                     courseName:detail.courseName,
                     courseId:detail.courseId,
@@ -50,7 +45,7 @@ export default class Detail extends React.Component{
                     students:detail.students,
                     teacherId:detail.teacherId,
                     courseImg:detail.courseImg,
-                    homeworkList:tempObject
+                    noticeList:detail.notice
                 })
 
             }
@@ -84,10 +79,7 @@ export default class Detail extends React.Component{
         let params={
             courseId:this.state.courseId,
             courseSN:this.state.courseSN,
-            HTitle:this.state.homeworkList.HTitle,
-            HContent:this.state.homeworkList.HContent,
-            Htime:this.state.homeworkList.HTime,
-            courseImg:this.state.courseImg
+            courseImg:this.state.courseImg,
         }
         console.log(params)
         this.props.history.push({pathname: '/guide/myNotice', state: {params: params}})
@@ -157,7 +149,7 @@ export default class Detail extends React.Component{
                     <List.Item >
                         <List.Item.Meta
                             title={<span>通知<Button style={{marginLeft:'100px'}} onClick={this.goToNotice}>详情</Button></span> }
-                            description={this.state.isCourseLoading?'loading':<NoticeList noticeList={this.state.homeworkList}/>}
+                            description={this.state.isCourseLoading?'loading':<NoticeList noticeList={this.state.noticeList}/>}
                         />
                     </List.Item>
                     <List.Item className='studentListDiv'>

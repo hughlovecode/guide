@@ -15,6 +15,13 @@ var courseSchame=new Schema({
 	"HTitle":String,
 	"courseInfo":String,
 	"courseImg":String,
+	"notice":[
+		{
+			"title":String,
+			"content":String,
+			"time":String
+		}
+	],
 	"students":[
 		{
 			"studentId":String,

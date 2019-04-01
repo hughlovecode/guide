@@ -6,44 +6,42 @@ const { TextArea } = Input
 export default class MyNotice extends React.Component{
 	constructor(props){
         super(props)
-        let t1=this.props.location.state.params.HContent.split('@#$%')
-        let t2=this.props.location.state.params.Htime.split('@#$%')
-        let t3=this.props.location.state.params.HTitle.split('@#$%')
         this.state={
-            list:this.getList(t1,t2,t3),
             isShowList:false,
             courseImg:this.props.location.state.params.courseImg,
-            newHomeworkTitle:'',
-            newHomeworkContent:'',
-            sysTime:Util.formateDate(new Date().getTime())
+            newNoticeTitle:'',
+            newNoticeContent:'',
+            sysTime:Util.formateDate(new Date().getTime()),
+            noticeList:[]
         }
-        console.log(this.state.courseImg)
-        console.log(this.state.list)
 
     }
-    getList=(t1,t2,t3)=>{
-        let tempArr=[]
-        t2.forEach((item,index)=>{
-            let tempObj;
-            tempObj={
-                HContent:t1[index],
-                HTime:t2[index],
-                HTitle:t3[index],
-                id:index
+    componentDidMount(){
+        let params={
+            courseId:this.props.location.state.params.courseId,
+            courseSN:this.props.location.state.params.courseSN
+        }
+        http.post('/course/detail',params).then(res=>{
+            if(res.status!=='0'){
+                this.setState({
+                    isShowTip:true,
+                    tipInfo:'错误:'+res.msg
+                })
+            }else{
+                this.setState({
+                    noticeList:res.result.courseDetail.notice
+                })
             }
-            tempArr.push(tempObj)
         })
-        return tempArr
-
     }
-    setHomeworkTitle=e=>{
+    setNoticeTitle=e=>{
     	this.setState({
-    		newHomeworkTitle:e.target.value
+    		newNoticeTitle:e.target.value
     	})
     }
-    setHomeworkContent=e=>{
+    setNoticeContent=e=>{
     	this.setState({
-    		newHomeworkContent:e.target.value
+    		newNoticeContent:e.target.value
     	})
     }
     handleCancel=()=>{
@@ -58,33 +56,37 @@ export default class MyNotice extends React.Component{
     }
     clickAdd=()=>{
     	var that=this
-    	if(this.state.newHomeworkContent===''||this.state.newHomeworkTitle===''){
+    	if(this.state.newNoticeContent===''||this.state.newNoticeTitle===''){
     		this.setState({
     			isShowAddModal:false,
     			isShowTip:true,
     			tipInfo:'请填写完整哦!'
     		})
     	}else{
+            let newItem={
+                title:this.state.newNoticeTitle,
+                time:this.state.sysTime,
+                content:this.state.newNoticeContent
+            }
     		let params={
     			courseId:this.props.location.state.params.courseId,
     			courseSN:this.props.location.state.params.courseSN,
-    			HTime:this.state.sysTime,
-    			HTitle:this.state.newHomeworkTitle,
-    			HContent:this.state.newHomeworkContent
-    		}
-    		http.post('/course/setHomework',params).then(res=>{
+    			title:this.state.newNoticeTitle,
+                time:this.state.sysTime,
+                content:this.state.newNoticeContent
+            }
+    		console.log(params)
+            console.log('params:')
+    		http.post('/course/addNotice',params).then(res=>{
     			if(res.status !== '0'){
-    				throw res.msg
+                    that.setState({
+                        isShowAddModal:false,
+                        isShowTip:true,
+                        tipInfo:'添加失败!'+res.msg
+                    })
     			}else{
-    				let newItem={
-    					HTime:that.state.sysTime,
-		    			HTitle:that.state.newHomeworkTitle,
-		    			HContent:that.state.newHomeworkContent
-    				}
-    				let newlist=that.state.list
-    				newlist.push(newItem)
     				that.setState({
-    					list:newlist,
+    					noticeList:res.res,
     					isShowAddModal:false,
     					isShowTip:true,
     					tipInfo:'添加成功!'
@@ -94,7 +96,7 @@ export default class MyNotice extends React.Component{
     		})
     	}
     }
-    addStudent=()=>{
+    addNotice=()=>{
     	this.setState({
     		isShowAddModal:true
     	})
@@ -103,23 +105,24 @@ export default class MyNotice extends React.Component{
 		return(
 				<div>
 					<Row>
-						<Button style={{float:'right',margin:'20px 130px'}} onClick={this.addStudent}>添加通知</Button>
+						<Button style={{float:'right',margin:'20px 130px'}} onClick={this.addNotice}>添加通知</Button>
 					</Row>
 					<Row>
 						<Col span={3}></Col>
 						<Col span={18} style={{margin:'30px 0px'}}>
 							<List 
 								itemLayout="horizontal"
-								dataSource={this.state.list}
+								dataSource={this.state.noticeList}
 								renderItem={item => (
 							      <List.Item>
 							        <List.Item.Meta
 							          avatar={<Avatar src={this.state.courseImg} />}
-							          title={item.HTitle}
-							          description={item.HContent}
+							          title={item.title}
+							          description={item.content}
 							        />
-							        <span>{item.HTime}</span>
+							        <span>{item.time}</span>
 							      </List.Item>
+                              
 							    )}
 							/>
 						</Col>
@@ -140,10 +143,10 @@ export default class MyNotice extends React.Component{
                 		<Col span={3}/>
                 		<Col span={18}>
                 			<div style={{ marginBottom: 16 }}>
-						      <Input addonBefore="标题:" onChange={e=>this.setHomeworkTitle(e)} value={this.state.newHomeworkTitle} placeholder='请输入通知标题'/>
+						      <Input addonBefore="标题:" onChange={e=>this.setNoticeTitle(e)} value={this.state.newNoticeTitle} placeholder='请输入通知标题'/>
 						    </div>
 						    <div style={{ marginBottom: 16 }}>
-						      <TextArea rows={4} placeholder='请输入您的通知详情' value={this.state.newHomeworkContent} onChange={e=>this.setHomeworkContent(e)}/>
+						      <TextArea rows={4} placeholder='请输入您的通知详情' value={this.state.newNoticeContent} onChange={e=>this.setNoticeContent(e)}/>
 						    </div>
                 		</Col>
                 		<Col span={3}/>	

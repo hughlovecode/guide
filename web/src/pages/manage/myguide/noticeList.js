@@ -8,38 +8,17 @@ import InfiniteScroll from 'react-infinite-scroller';
 export default class NoticeList extends React.Component {
     constructor(props){
         super(props)
-        let t1=this.props.noticeList.HContent.split('@#$%')
-        let t2=this.props.noticeList.HTime.split('@#$%')
-        let t3=this.props.noticeList.HTitle.split('@#$%')
         this.state={
-            list:this.getList(t1,t2,t3),
+            list:this.props.noticeList,
             isShowList:false
         }
         //console.log(this.state.list)
-
-    }
-    getList=(t1,t2,t3)=>{
-        let tempArr=[]
-        t2.forEach((item,index)=>{
-            let tempObj;
-            tempObj={
-                HContent:t1[index],
-                HTime:t2[index],
-                HTitle:t3[index],
-                id:index
-            }
-            tempArr.push(tempObj)
-        })
-        return tempArr
 
     }
     state = {
         data: [],
         loading: false,
         hasMore: true,
-    }
-    componentWillMount(){
-        //alert(this.props.homeworkList.HContent)
     }
 
     componentDidMount() {
@@ -81,10 +60,10 @@ export default class NoticeList extends React.Component {
                         renderItem={item => (
                             <List.Item key={item.id}>
                                 <List.Item.Meta
-                                    title={<a href="https://ant.design">{item.HTitle}</a>}
-                                    description={item.HContent}
+                                    title={<a href="https://ant.design">{item.title}</a>}
+                                    description={item.content}
                                 />
-                                <div>{item.HTime}</div>
+                                <div>{item.time}</div>
                             </List.Item>
                         )}
                     >

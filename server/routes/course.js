@@ -119,39 +119,43 @@ router.post('/detail',function(req,res,next){
             let getStudentList=(students)=>{
                 return new Promise((resolve,reject)=>{
                     console.log('getList-1')
-                    students.forEach((item,index)=>{
-                    let params={
-                        userId:item.studentId
-                    }
-                    User.findOne(params,function(err,doc){
-                        if(err){
-                            res.json({
-                                status:'3',
-                                msg:'查询出错2'
-                            })
-                            throw '查询出错2'
-                        }else{
-                            if(doc){
-                                let temp={
-                                    studentId:doc.userId,
-                                    signInCount:item.signInCount,
-                                    studentName:doc.userName,
-                                    studentImg:doc.userImg
-                                }
-                                newStudents.push(temp)
-                                if(newStudents.length===students.length){
-                                    resolve(newStudents)
-                                }
-                            }else{
-                                res.json({
-                                    status:'4',
-                                    msg:'没有这个学生'
-                                })
-                                throw "没有这个学生"
+                    if(students.length===0){
+                        resolve()
+                    }else{
+                            students.forEach((item,index)=>{
+                            let params={
+                                userId:item.studentId
                             }
-                        }
-                    })
-                })
+                            User.findOne(params,function(err,doc){
+                                if(err){
+                                    res.json({
+                                        status:'3',
+                                        msg:'查询出错2'
+                                    })
+                                    throw '查询出错2'
+                                }else{
+                                    if(doc){
+                                        let temp={
+                                            studentId:doc.userId,
+                                            signInCount:item.signInCount,
+                                            studentName:doc.userName,
+                                            studentImg:doc.userImg
+                                        }
+                                        newStudents.push(temp)
+                                        if(newStudents.length===students.length){
+                                            resolve(newStudents)
+                                        }
+                                    }else{
+                                        res.json({
+                                            status:'4',
+                                            msg:'没有这个学生'
+                                        })
+                                        throw "没有这个学生"
+                                    }
+                                }
+                            })
+                        })
+                    }
 
                 }).catch(err=>{
                     console.log(err)
@@ -578,14 +582,18 @@ router.post('/TSignIn',function(req,res,next){
     })
 });
 //布置作业
-router.post('/setHomework',function(req,res,next){
+router.post('/addNotice',function(req,res,next){
     let params={
         courseId:req.body.courseId,
         courseSN:req.body.courseSN
     }
-    let HTime = req.body.HTime
-    let HTitle = req.body.HTitle
-    let HContent = req.body.HContent
+    let item = {
+        title:req.body.title,
+        content:req.body.content,
+        time:req.body.time
+    };
+    console.log('item:')
+    console.log(item)
     Course.findOne(params,function(err,doc){
         if(err){
             res.json({
@@ -595,13 +603,12 @@ router.post('/setHomework',function(req,res,next){
         }else{
             if(doc){
                 //作业修改
-                doc.Htime=doc.Htime+'@#$%'+HTime
-                doc.HContent=doc.HContent+'@#$%'+HContent
-                doc.HTitle=doc.HTime+'@#$%'+HTitle
+                doc.notice.push(item);
                 doc.save()
                 res.json({
                     status:'0',
-                    msg:'success'
+                    msg:'success',
+                    res:doc.notice
                 })
 
             }else{
