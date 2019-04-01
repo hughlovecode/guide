@@ -76,7 +76,7 @@ export default class modifyManage extends React.Component{
 						          title={item.courseName}
 						          description={item.courseInfo}
 						        />
-						        <Button data-courseid={item.courseId} data-coursesn={item.courseSN} onClick={e=>this.toModify(e)}>修/改</Button>
+						        <Button data-courseid={item.courseId} data-coursesn={item.courseSN} onClick={e=>this.toModify(e)}>修改</Button>
 						      </List.Item>
 						    )}
 						/>

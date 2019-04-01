@@ -21,6 +21,8 @@ export default class MyVisitor extends React.Component{
 			},
 			addVisitorId:''
 		})
+		console.log('this.props')
+		console.log(this.props)
 		http.post('/course/detail',this.props.location.state.params).then(res=>{
             if(res.status !== '0'){
                 this.setState({
@@ -262,43 +264,23 @@ export default class MyVisitor extends React.Component{
 				courseName:this.state.courseName,
 			}
 			http.post('/userInfo/addVisitor',params).then(res=>{
+				console.log('ress:')
+				console.log(res)
 				if(res.status !== '0'){
-					throw res.msg
+					this.setState({
+						isVisible2:false,
+						isVisible:true,
+						modalInfo:res.msg,
+						modalTag:'错误'
+
+					})
 				}else{
 					this.setState({
-						tempStudentName:res.result.userName,
-						tempstudentImg:res.result.userImg
-					})
-					return Promise.resolve()
-					//throw 'test'
-				}
-			}).then(res=>{
-				let params2={
-					studentId:this.state.addVisitorId,
-					courseId:this.state.courseId,
-					courseSN:this.state.courseSN,
-					studentName:this.state.tempStudentName,
-					studentImg:this.state.tempstudentImg
-				}
-				http.post('/course/addStudent',params2).then(res=>{
-					if(res.status !=='0'){
-						throw res.msg
-					}else{
-						return Promise.resolve()
-					}
-				})
-			}).then(res=>{
-				this.setState({
 					isVisible2:false
-				})
-				this.updateData(params)
-			}).catch(err=>{
-				this.setState({
-					isVisible:true,
-					isVisible2:false,
-					modalTag:'错误',
-					modalInfo:err
-				})
+					})
+					this.updateData(params)
+					
+				}
 			})
 		}
 	}

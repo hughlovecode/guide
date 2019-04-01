@@ -30,6 +30,8 @@ export default class Detail extends React.Component{
                 alert('抱歉,出问题了!')
                 console.log(res)
             }else{
+                console.log('resss:')
+                console.log(res)
                 let detail=res.result.courseDetail;
                 let tempObject={
                     HContent:detail.HContent,

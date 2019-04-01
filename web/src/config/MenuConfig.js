@@ -31,7 +31,7 @@ const menuList = [
             },
             {
                 title: '行程修改',
-                key: '/guide/modifyGuide',
+                key: '/guide/modifyManage',
             }
         ]
     }

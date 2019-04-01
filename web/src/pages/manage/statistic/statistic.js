@@ -43,7 +43,7 @@ export default class Statistic extends React.Component {
                 }
                 for(let i=0;i<len;i++){
                 	students.forEach(item=>{
-                		if(item.signInCount[i].isSign==='true'){
+                		if(item.signInCount[i]!==undefined&&item.signInCount[i].isSign!==undefined&&item.signInCount[i].isSign==='true'){
                 			arrY1[i]++
                 		}
                 	})
