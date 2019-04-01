@@ -18,8 +18,8 @@ export default class MyNotice extends React.Component{
     }
     componentDidMount(){
         let params={
-            courseId:this.props.location.state.params.courseId,
-            courseSN:this.props.location.state.params.courseSN
+            guideId:this.props.location.state.params.guideId,
+            guideSN:this.props.location.state.params.guideSN
         }
         http.post('/guide/detail',params).then(res=>{
             if(res.status!=='0'){
@@ -69,8 +69,8 @@ export default class MyNotice extends React.Component{
                 content:this.state.newNoticeContent
             }
     		let params={
-    			courseId:this.props.location.state.params.courseId,
-    			courseSN:this.props.location.state.params.courseSN,
+    			guideId:this.props.location.state.params.guideId,
+    			guideSN:this.props.location.state.params.guideSN,
     			title:this.state.newNoticeTitle,
                 time:this.state.sysTime,
                 content:this.state.newNoticeContent

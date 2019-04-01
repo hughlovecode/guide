@@ -1,8 +1,8 @@
 var mongoose=require('mongoose');
 var Schema=mongoose.Schema;
 var guideSchame=new Schema({
-    "courseId":String ,
-    "courseSN":String,
+    "guideId":String ,
+    "guideSN":String,
 	"courseName":String,
 	"teacherId":String,
 	"teacherName":String,

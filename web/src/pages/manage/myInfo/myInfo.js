@@ -10,7 +10,7 @@ export default class MyInfo extends React.Component{
         this.getData();
         this.setState({
             status:'',//必须写上status,否则下面this.state.status会报错,其他无所谓
-            courseTree:''
+            guideTree:''
         })
     }
     getData=()=>{
@@ -28,7 +28,7 @@ export default class MyInfo extends React.Component{
                     status:temp.status,
                     userName:temp.userName,
                     email:temp.email,
-                    courseList:temp.courseList,
+                    guideList:temp.guideList,
                     company:temp.company,
                     job:temp.job,
                     introduce:temp.introduce,

@@ -11,12 +11,10 @@ var userSchame=new Schema({
 	"company":String,
 	"job":String,
 	"introduce":String,
-	"courseList":[
+	"guideList":[
 	{
-		"courseName":String,
-		"courseInfo":String,
-		"courseId":String,
-		"courseSN":String
+		"guideId":String,
+		"guideSN":String
 	}		
 	],
 

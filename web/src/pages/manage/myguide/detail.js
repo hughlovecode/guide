@@ -11,8 +11,8 @@ export default class Detail extends React.Component{
         this.state={
             teacherImg:localStorage.getItem('userImg'),
             courseName:'',
-            courseId:'',
-            courseSN:'',
+            guideId:'',
+            guideSN:'',
             classAddress:'',
             classCount:'',
             courseInfo:'',
@@ -26,17 +26,18 @@ export default class Detail extends React.Component{
 
         }
         http.post('/guide/detail',this.props.location.state.params).then((res)=>{
+            console.log(this.props.location.state.params)
             if(res.status!=='0'){
                 alert('抱歉,出问题了!')
                 console.log(res)
             }else{
-                console.log('resss:')
+                console.log('ress:')
                 console.log(res)
                 let detail=res.result.courseDetail;
                 this.setState({
                     courseName:detail.courseName,
-                    courseId:detail.courseId,
-                    courseSN:detail.courseSN,
+                    guideId:detail.guideId,
+                    guideSN:detail.guideSN,
                     classAddress:detail.classAddress,
                     classCount:detail.classCount,
                     courseInfo:detail.courseInfo,
@@ -63,22 +64,22 @@ export default class Detail extends React.Component{
     }
     goToModifyInfo=()=>{
         let params={
-            courseId:this.state.courseId,
-            courseSN:this.state.courseSN
+            guideId:this.state.guideId,
+            guideSN:this.state.guideSN
         }
         this.props.history.push({pathname: '/guide/modifyGuide', state: {params: params}})
     }
     goToStatistic=()=>{
         let params={
-            courseId:this.state.courseId,
-            courseSN:this.state.courseSN
+            guideId:this.state.guideId,
+            guideSN:this.state.guideSN
         }
         this.props.history.push({pathname: '/guide/statistic', state: {params: params}})
     }
     goToNotice=()=>{
         let params={
-            courseId:this.state.courseId,
-            courseSN:this.state.courseSN,
+            guideId:this.state.guideId,
+            guideSN:this.state.guideSN,
             courseImg:this.state.courseImg,
         }
         console.log(params)
@@ -87,8 +88,8 @@ export default class Detail extends React.Component{
     }
     goToVisitor=()=>{
         let params={
-            courseId:this.state.courseId,
-            courseSN:this.state.courseSN,
+            guideId:this.state.guideId,
+            guideSN:this.state.guideSN,
         }
         console.log(params)
         this.props.history.push({pathname: '/guide/myVisitor', state: {params: params}})
@@ -129,14 +130,14 @@ export default class Detail extends React.Component{
                         <List.Item.Meta
 
                             title={<span>旅程号</span>}
-                            description={this.state.courseId}
+                            description={this.state.guideId}
                         />
                     </List.Item>
                     <List.Item>
                         <List.Item.Meta
 
                             title={<span>序号</span>}
-                            description={this.state.courseSN}
+                            description={this.state.guideSN}
                         />
                     </List.Item>
                     <List.Item>

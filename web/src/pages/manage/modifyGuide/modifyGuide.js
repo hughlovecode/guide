@@ -31,8 +31,8 @@ export default class ModifyGuide extends React.Component{
                     isGetData:true,
                     detail:detail,
                     imageUrl:detail.courseImg,
-                    courseId:detail.courseId,
-                    courseSN:detail.courseSN,
+                    guideId:detail.guideId,
+                    guideSN:detail.guideSN,
                     courseName:detail.courseName,
                     classAddress:detail.classAddress,
                     courseInfo:detail.courseInfo,
@@ -64,10 +64,10 @@ export default class ModifyGuide extends React.Component{
                 return Promise.reject()
     }
     setParams=()=>{
-        if(this.state.courseName&&this.state.courseId&&this.state.courseSN&&this.state.classAddress&&this.state.courseInfo&&this.state.imageUrl){
+        if(this.state.courseName&&this.state.guideId&&this.state.guideSN&&this.state.classAddress&&this.state.courseInfo&&this.state.imageUrl){
             let params={
-                courseId:this.state.courseId,
-                courseSN:this.state.courseSN,
+                guideId:this.state.guideId,
+                guideSN:this.state.guideSN,
                 courseName:this.state.courseName,
                 classAddress:this.state.classAddress,
                 courseInfo:this.state.courseInfo,
@@ -111,14 +111,14 @@ export default class ModifyGuide extends React.Component{
             courseName:e.target.value
         })
     }
-    getCourseId=(e)=>{
+    getguideId=(e)=>{
         this.setState({
-            courseId:e.target.value
+            guideId:e.target.value
         })
     }
-    getCourseSN=(e)=>{
+    getguideSN=(e)=>{
         this.setState({
-            courseSN:e.target.value
+            guideSN:e.target.value
         })
     }
     getClassAddress=(e)=>{
@@ -133,8 +133,8 @@ export default class ModifyGuide extends React.Component{
     }
     toNotice=()=>{
         let params={
-            courseId:this.state.detail.courseId,
-            courseSN:this.state.detail.courseSN,
+            guideId:this.state.detail.guideId,
+            guideSN:this.state.detail.guideSN,
             HTitle:this.state.detail.HTitle,
             HContent:this.state.detail.HContent,
             Htime:this.state.detail.Htime,
@@ -146,8 +146,8 @@ export default class ModifyGuide extends React.Component{
     }
     toVisitor=()=>{
         let params={
-            courseId:this.state.detail.courseId,
-            courseSN:this.state.detail.courseSN
+            guideId:this.state.detail.guideId,
+            guideSN:this.state.detail.guideSN
         }
         this.props.history.push({pathname: '/guide/myVisitor', state: {params: params}})
     }
@@ -179,10 +179,10 @@ export default class ModifyGuide extends React.Component{
                                             <Input addonBefore="旅程名"  placeholder={this.state.detail.courseName} onChange={e=>this.getCourseName(e)} />
                                         </div>
                                         <div style={{ marginBottom: 16 }}>
-                                            <Input addonBefore="旅程号" disabled placeholder={this.state.detail.courseId} onChange={e=>this.getCourseId(e)}/>
+                                            <Input addonBefore="旅程号" disabled placeholder={this.state.detail.guideId} onChange={e=>this.getguideId(e)}/>
                                         </div>
                                         <div style={{ marginBottom: 16 }}>
-                                            <Input addonBefore="序号" disabled placeholder={this.state.detail.courseSN} onChange={e=>this.getCourseSN(e)}/>
+                                            <Input addonBefore="序号" disabled placeholder={this.state.detail.guideSN} onChange={e=>this.getguideSN(e)}/>
                                         </div>
                                         <div style={{ marginBottom: 16 }}>
                                             <Input addonBefore="集合地址"  placeholder={this.state.detail.classAddress} onChange={e=>this.getClassAddress(e)}/>

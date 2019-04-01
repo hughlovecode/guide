@@ -7,12 +7,12 @@ export default class statisticAll extends React.Component{
 		super()
 		var that=this
 		this.state={
-			courseList:[
+			guideList:[
 				{
 				courseName:'',
 				courseInfo:'',
-				courseId:'',
-				courseSN:'',
+				guideId:'',
+				guideSN:'',
 				courseImg:''
 			}
 			],
@@ -26,25 +26,25 @@ export default class statisticAll extends React.Component{
 			if(res.status==='0'){
 				console.log(res)
 				this.setState({
-					courseList:res.result.info.courseList
+					guideList:res.result.info.guideList
 				})
 				return Promise.resolve()
 			}else{
 				throw 'info接口出问题'
 			}
 		}).then(res=>{
-			for(let i=0;i<that.state.courseList.length;i++){
+			for(let i=0;i<that.state.guideList.length;i++){
 				let params={
-					courseId:that.state.courseList[i].courseId,
-					courseSN:that.state.courseList[i].courseSN,
+					guideId:that.state.guideList[i].guideId,
+					guideSN:that.state.guideList[i].guideSN,
 				}
 				http.post('/guide/detail',params).then(res=>{
 					if(res.status==='0'){
-						//that.state.courseList[i].courseImg=res.result.courseDetail.courseImg
-						let courseList=that.state.courseList;
-						courseList[i].courseImg=res.result.courseDetail.courseImg
+						//that.state.guideList[i].courseImg=res.result.courseDetail.courseImg
+						let guideList=that.state.guideList;
+						guideList[i].courseImg=res.result.courseDetail.courseImg
 						that.setState({
-							courseList:courseList
+							guideList:guideList
 						})
 					}else{
 						throw 'detail接口出问题'
@@ -55,8 +55,8 @@ export default class statisticAll extends React.Component{
 	}
 	toStatistic=(e)=>{
         let params={
-            courseId:e.target.dataset.courseid,
-            courseSN:e.target.dataset.coursesn
+            guideId:e.target.dataset.guideid,
+            guideSN:e.target.dataset.guidesn
         }
         this.props.history.push({pathname: '/guide/statistic', state: {params: params}})
     }
@@ -68,7 +68,7 @@ export default class statisticAll extends React.Component{
 						<List 
 						style={{marginTop:'30px'}}
 							itemLayout="horizontal"
-							dataSource={this.state.courseList}
+							dataSource={this.state.guideList}
 							renderItem={item => (
 						      <List.Item>
 						        <List.Item.Meta
@@ -76,7 +76,7 @@ export default class statisticAll extends React.Component{
 						          title={item.courseName}
 						          description={item.courseInfo}
 						        />
-						        <Button data-courseid={item.courseId} data-coursesn={item.courseSN} onClick={e=>this.toStatistic(e)}>查看</Button>
+						        <Button data-guideid={item.guideId} data-guidesn={item.guideSN} onClick={e=>this.toStatistic(e)}>查看</Button>
 						      </List.Item>
 						    )}
 						/>

@@ -19,7 +19,7 @@ router.post('/',function(req,res,next){
             if(doc){
                 try{
                     let list=[];
-                    let arr=doc.courseList;
+                    let arr=doc.guideList;
                     if(arr.length<=0){
                         res.json({
                             status:'2',
@@ -30,8 +30,8 @@ router.post('/',function(req,res,next){
                             return new Promise((resolve,reject)=>{
                                     arr.map((item,index)=>{
                                     let temp={
-                                        courseId:item.courseId,
-                                        courseSN:item.courseSN
+                                        guideId:item.guideId,
+                                        guideSN:item.guideSN
                                     }
                                     Guide.findOne(temp,function(error,doc2){
                                         if(error){
@@ -39,8 +39,8 @@ router.post('/',function(req,res,next){
                                         }else{
                                             if(doc2){
                                                 let item2={
-                                                    courseId:doc2.courseId,
-                                                    courseSN:doc2.courseSN,
+                                                    guideId:doc2.guideId,
+                                                    guideSN:doc2.guideSN,
                                                     courseName:doc2.courseName,
                                                     courseInfo:doc2.courseInfo
                                                 }
@@ -60,7 +60,7 @@ router.post('/',function(req,res,next){
                                 msg:'',
                                 result:{
                                     count:list.length,
-                                    courselist:list
+                                    guidelist:list
                                 }
                             })
                         }).catch(err=>{
@@ -89,12 +89,14 @@ router.post('/',function(req,res,next){
     })    
 });
 //详情接口
-router.post('/detail',function(req,res,next){
+router.post('/detail',function(req,res,next){ 
     //res.send('hello,')
     let params={
-        courseId:req.body.courseId,
-        courseSN:req.body.courseSN
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN
     }
+    console.log('/guide')
+    console.log(params)
     Guide.findOne(params,function(err,doc){
         if(err){
             res.json({
@@ -186,8 +188,8 @@ router.post('/detail',function(req,res,next){
 //添加课程接口
 router.post('/addGuide',function(req,res,next){
     let params={
-        courseId:req.body.courseId,
-        courseSN:req.body.courseSN,
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN,
         courseName: req.body.courseName,
         teacherId: req.body.teacherId,
         teacherName: req.body.teacherName,
@@ -203,8 +205,8 @@ router.post('/addGuide',function(req,res,next){
         students:[]
     }
     let index={
-        courseId:req.body.courseId,
-        courseSN:req.body.courseSN,
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN,
     }
     console.log(index)
     Guide.findOne(index,function(err,doc){
@@ -244,8 +246,8 @@ router.post('/addGuide',function(req,res,next){
 //修改课程接口
 router.post('/modifyGuide',function(req,res,next){
     let params={
-        courseId:req.body.courseId,
-        courseSN:req.body.courseSN,
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN,
         courseName: req.body.courseName,
         teacherId: req.body.teacherId,
         teacherName: req.body.teacherName,
@@ -254,8 +256,8 @@ router.post('/modifyGuide',function(req,res,next){
         classAddress: req.body.classAddress,
     }
     let index={
-        courseId:req.body.courseId,
-        courseSN:req.body.courseSN,
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN,
     }
     console.log(index)
     Guide.findOne(index,function(err,doc){
@@ -299,8 +301,8 @@ router.post('/modifyGuide',function(req,res,next){
 //添加学生接口
 router.get('/addVisitor',function(req,res,next){
     let index={
-        courseId:req.body.courseId,
-        courseSN:req.body.courseSN,
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN,
     }
     let newStudent={
                     studentId:req.body.studentId,
@@ -346,8 +348,8 @@ router.get('/addVisitor',function(req,res,next){
 //删除学生接口
 router.post('/deleteVisitor',function(req,res,next){
     let index={
-        courseId:req.body.courseId,
-        courseSN:req.body.courseSN,
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN,
     }
     //let deleteItem=req.body.studentId;
     let deleteItem=req.body.studentId;
@@ -391,63 +393,12 @@ router.post('/deleteVisitor',function(req,res,next){
     })
 });
 
-//修改学生信息
-router.post('/modifyVisitor',function(req,res,next){
-    let index={
-        courseId:'304509',
-        courseSN:'001'
-    }
-    let modifyItem={
-        studentName:req.body.studentName,
-        studentImg:req.body.studentImg
-    }
-    //let deleteItem=req.body.studentId;
-    let deleteItem=10003;
-    Guide.findOne(index,function(err,doc){
-        if(err){
-            res.json({
-                status:'1',
-                msg:err.message
-            })
-        }else{
-            if(doc.students.length>0){
-                let list=doc.students;
-                let itemIndex
-                list.map((item,index)=>{
-                    if(item.studentId===deleteItem){
-                        itemIndex=index
-                    }
-                });
-                list[index]=modifyItem
-                doc.save(function(err,result){
-                    if(err){
-                        res.json({
-                            status:'2',
-                            msg:'出错了,正在尽力抢修'
-                        })
-                    }else{
-                        res.json({
-                            status:'0',
-                            msg:'成功了'
-                        })
-                    }
-                })
 
-            }else{
-                res.json({
-                    status:'2',
-                    msg:'对不起哦,没有数据呢!'
-                })
-            }
-        }
-    })
-
-});
 //开始签到,修改课程状态
 router.post('/startSignIn',function(req,res,next){
     let params={
-        courseId:req.body.courseId,
-        courseSN:req.body.courseSN
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN
     }
     let classCount=req.body.classCount;
     let courseSSID=req.body.courseSSID;
@@ -516,8 +467,8 @@ router.post('/startSignIn',function(req,res,next){
 //结束签到
 router.post('/finishSignIn',function(req,res,next){
     let params={
-        courseId:req.body.courseId,
-        courseSN:req.body.courseSN
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN
     }
     Guide.findOne(params,function(err,doc){
         if(err){
@@ -547,8 +498,8 @@ router.post('/finishSignIn',function(req,res,next){
 //老师代签接口
 router.post('/TSignIn',function(req,res,next){
     let params={
-        courseId:req.body.courseId,
-        courseSN:req.body.courseSN
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN
     }
     let info = req.body.info
     Guide.findOne(params,function(err,doc){
@@ -584,8 +535,8 @@ router.post('/TSignIn',function(req,res,next){
 //布置作业
 router.post('/addNotice',function(req,res,next){
     let params={
-        courseId:req.body.courseId,
-        courseSN:req.body.courseSN
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN
     }
     let item = {
         title:req.body.title,
@@ -623,8 +574,8 @@ router.post('/addNotice',function(req,res,next){
 //添加学生
 router.post('/addVisitor',function(req,res,next){
     let params={
-        courseId:req.body.courseId,
-        courseSN:req.body.courseSN
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN
     }
     let signInCount=new Array()
     let newItem={

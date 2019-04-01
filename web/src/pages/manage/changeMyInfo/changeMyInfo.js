@@ -34,7 +34,7 @@ export default class ChangeMyInfo extends React.Component{
                     company:temp.company,
                     job:temp.job,
                     introduce:temp.introduce,
-                    courseList:temp.courseList
+                    guideList:temp.guideList
                 })
                 //console.log(this.state.status)
 

@@ -67,7 +67,7 @@ router.post('/login',function(req,res,next){
                     userName:doc.userName,
                     userImg:doc.userImg,
                     status:doc.status,
-                    courseList:doc.courseList
+                    guideList:doc.guideList
                 }
 
                 res.json({
@@ -113,7 +113,7 @@ router.post('/loginByPhone',function(req,res,next){
                     userName:doc.userName,
                     userImg:doc.userImg,
                     status:doc.status,
-                    courseList:doc.courseList
+                    guideList:doc.guideList
                 }
 
                 res.json({
@@ -143,7 +143,7 @@ router.post('/register',function(req,res,next){
     let params2={
         userPhone:req.body.userPhone
     }
-    let courseList=new Array()
+    let guideList=new Array()
     let params3={
         status:req.body.status,
         userId:req.body.userId,
@@ -152,7 +152,7 @@ router.post('/register',function(req,res,next){
         email:req.body.email,
         userImg:req.body.userImg,
         userPhone:req.body.userPhone,
-        courseList:courseList
+        guideList:guideList
     }
     User.findOne(params1,function(err,doc){
         if(err){
@@ -227,13 +227,11 @@ router.post('/info',function(req,res,next){
             if(doc){
                 //尽量传递少的数据
                 let list=[];
-                let arr=doc.courseList;
+                let arr=doc.guideList;
                 arr.map((item)=>{
                     let temp={
-                        courseId:item.courseId,
-                        courseSN:item.courseSN,
-                        courseName:item.courseName,
-                        courseInfo:item.courseInfo
+                        guideId:item.guideId,
+                        guideSN:item.guideSN
                     }
                     list.push(temp)
                 })
@@ -244,12 +242,12 @@ router.post('/info',function(req,res,next){
                     userName:doc.userName,
                     email:doc.email,
                     userPhone:doc.userPhone,
-                    courseList:list,
-            company:doc.company,
-            job:doc.job,
-            introduce:doc.introduce
+                    guideList:list,
+                    company:doc.company,
+                    job:doc.job,
+                    introduce:doc.introduce
                 }
-        console.log(temp)
+                console.log(temp)
                 res.json({
                     status:'0',
                     msg:'',
@@ -292,58 +290,29 @@ router.post('/modify',function(req,res,next){
                 if(req.body.userImg){
                     doc.userImg=req.body.userImg
                 }
-                doc.save()
-                let courseList=doc.courseList
-                try{
-                        courseList.forEach(item=>{
-                            let tempParams={
-                                courseId:item.courseId,
-                                courseSN:item.courseSN
-                            }
-                            Guide.findOne(tempParams,function(err,doc2){
-                                if(err){
-                                    res.json({
-                                        status:'3',
-                                        msg:err.message
-                                    })
-                                }else{
-                                    if(doc2){
-                                        let students=doc2.students;
-                                        try{
-                                            students.forEach((item2,index)=>{
-                                            if(item2.studentId===req.body.userId){
-                                                    students[index].studentName=req.body.userName
-                                                    students[index].studentImg=req.body.userImg
-                                                }
-                                            })
-                                            doc2.students=students;
-                                            doc2.save()
-                                        }catch(err){
-                                            console.log('出错了')
-                                            res.json({
-                                                status:'1',
-                                                msg:'错误信息:'+err
-                                            })
-                                        }
-                                    }else{
-                                        throw "这个小伙伴还没有加入这次绿城哦"
-                                    }
-                                }
-                            })
-                    })
+                doc.save(function(err,result){
+                    if(err){
                         res.json({
-                            status:'0',
-                            msg:'修改成功了哦~~'
+                            status:'2',
+                            msg:'错误'
                         })
-                }catch(err){
-                    res.json({
-                        status:'4',
-                        msg:'错误信息:'+err
-                    })
-                }
+                    }else{
+                        if(doc){
+                            res.json({
+                                status:'0',
+                                msg:'成功了哦~'
+                            })
+                        }else{
+                            res.json({
+                                status:'3',
+                                msg:'失败了'
+                            })
+                        }
+                    }
+                })
+                
 
             }else{
-console.log('5')
                 res.json({
                     status:'2',
                     msg:'在数据库中找不到该项'
@@ -359,8 +328,8 @@ router.post('/deleteCourse',function(req,res,next){
         userId:req.body.studentId
 
     }
-    let courseId=req.body.courseId
-    let courseSN=req.body.courseSN
+    let guideId=req.body.guideId
+    let guideSN=req.body.guideSN
     User.findOne(params,function(err,doc){
         if(err){
             res.json({
@@ -369,10 +338,10 @@ router.post('/deleteCourse',function(req,res,next){
             })
         }else{
             if(doc){
-                let list=doc.courseList;
+                let list=doc.guideList;
                 let itemIndex
                 list.map((item,index)=>{
-                    if(item.courseId===courseId&&item.courseSN===courseSN){
+                    if(item.guideId===guideId&&item.guideSN===guideSN){
                         itemIndex=index
                     }
                 });
@@ -417,43 +386,28 @@ router.post('/modifyUserImg',function(req,res,next){
         }else{
             console.log('/userInfo/modifyUserImg');
             if(doc){
-                if(req.body.userImg){
-                    doc.userImg=req.body.userImg;
-                    //改course里面的头像
-                    let courseList=doc.courseList;
-                    courseList.forEach(item=>{
-                        let params={
-                            courseId:item.courseId,
-                            courseSN:item.courseSN
-                        }
-                        Guide.findOne(params,function(err2,doc2){
-                            if(err2){
-                                console.log('修改coursenebula学生头像出错')
-                            }else{
-                                console.log('正在修改课程内部学生头像')
-                                if(doc2){
-                                    let students=doc2.students;
-                                    for(let i=0;i<students.length;i++){
-                                        if(students[i].studentId === userId){
-                                            students[i].studentImg = newUserImg;
-                                            break;
-                                        }
-                                    }
-                                    doc2.students=students;
-                                    doc2.save()
-
-                                }else{
-                                    console.log('内部头像修改出错')
-                                }
-                            }
+                doc.userImg=req.body.userImg;
+                doc.save(function(err,result){
+                    if(err){
+                        res.json({
+                            status:'1',
+                            msg:'错误'
                         })
-                    })
-                }
-                res.json({
-                    status:'0',
-                    msg:''
+                    }else{
+                        if(doc){
+                            res.json({
+                                status:'0',
+                                msg:'成功了~'
+                            })
+                        }else{
+                            res.json({
+                                status:'1',
+                                msg:'出错了'
+                            })
+                        }
+                    }
                 })
-                doc.save()
+                
             }else{
                 res.json({
                     status:'2',
@@ -478,15 +432,13 @@ router.post('/addCourse',function(req,res,next){
         }else{
             if(doc){
                 let newItem={
-                    courseId:req.body.courseId,
-                    courseSN:req.body.courseSN,
-                    courseName:req.body.courseName,
-                    courseInfo:req.body.courseInfo
+                    guideId:req.body.guideId,
+                    guideSN:req.body.guideSN
                 }
-                doc.courseList.push(newItem)
+                doc.guideList.push(newItem)
                 res.json({
                     status:'0',
-                    msg:'courseList更新成功'
+                    msg:'guideList更新成功'
                 })
                 doc.save()
             }else{
@@ -504,8 +456,8 @@ router.post('/addVisitor',function(req,res,next){
         userId:req.body.userId
     }
     let newItem={
-        courseId:req.body.courseId,
-        courseSN:req.body.courseSN,
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN,
     }
     console.log(newItem)
     let p1=()=>{
@@ -516,17 +468,17 @@ router.post('/addVisitor',function(req,res,next){
                 throw err
             }else{
                 if(doc){
-                    let courseList=doc.courseList;
+                    let guideList=doc.guideList;
                     let tag=false;
-                    courseList.forEach(item=>{
-                        if(item.courseId===newItem.courseId&&item.courseSN===newItem.courseSN){
+                    guideList.forEach(item=>{
+                        if(item.guideId===newItem.guideId&&item.guideSN===newItem.guideSN){
                             tag=true
                         }
                     })
                     if(tag){
                         reject('这个同学已经拥有这门课了!')
                     }else{
-                        doc.courseList.push(newItem)
+                        doc.guideList.push(newItem)
                         doc.save(function(err,result){
                             if(err){
                                 throw '信息保存失败'

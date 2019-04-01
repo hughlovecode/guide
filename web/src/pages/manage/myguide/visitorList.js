@@ -7,15 +7,15 @@ import InfiniteScroll from 'react-infinite-scroller';
 export default class VisitorList extends React.Component {
     constructor(props){
         super(props)
-        let students=this.props.visitorList
+        let visitors=this.props.visitorList
         this.state={
-            list:this.getStudentList(students)
+            list:this.getStudentList(visitors)
         }
-        console.log(this.state.list)
     }
-    getStudentList=(students)=>{
+    getStudentList=(visitors)=>{
+        console.log(visitors)
         let newArr=[]
-        students.forEach((item,index)=>{
+        visitors.forEach((item,index)=>{
             let newItem={
                 studentName:item.studentName,
                 studentId:item.studentId,

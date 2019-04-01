@@ -49,8 +49,8 @@ export default class MyVisitor extends React.Component{
                 	courseInfo:res.result.courseDetail.courseInfo,
                 	courseName:res.result.courseDetail.courseName,
                     students:students,
-                    courseId:res.result.courseDetail.courseId,
-                    courseSN:res.result.courseDetail.courseSN
+                    guideId:res.result.courseDetail.guideId,
+                    guideSN:res.result.courseDetail.guideSN
                 })
                 
             }
@@ -93,8 +93,8 @@ export default class MyVisitor extends React.Component{
 	delete=e=>{
 		let studentId=e.target.dataset.studentid;
 		let params={
-			courseId:this.state.courseId,
-			courseSN:this.state.courseSN,
+			guideId:this.state.guideId,
+			guideSN:this.state.guideSN,
 			studentId:studentId
 		}
 		
@@ -151,8 +151,8 @@ export default class MyVisitor extends React.Component{
                 })
                 this.setState({
                     students:students,
-                    courseId:res.result.courseDetail.courseId,
-                    courseSN:res.result.courseDetail.courseSN,
+                    guideId:res.result.courseDetail.guideId,
+                    guideSN:res.result.courseDetail.guideSN,
                     isVisible:true,
                     modalTag:'成功',
                     modalInfo:'恭喜你,更新成功'
@@ -222,8 +222,8 @@ export default class MyVisitor extends React.Component{
 					throw res.msg
 				}else{
 					let params2={
-						courseId:this.state.courseId,
-						courseSN:this.state.courseSN,
+						guideId:this.state.guideId,
+						guideSN:this.state.guideSN,
 					}
 					this.setState({
 						modifyModal:false
@@ -258,8 +258,8 @@ export default class MyVisitor extends React.Component{
 		}else{
 			let params={
 				userId:this.state.addVisitorId,
-				courseId:this.state.courseId,
-				courseSN:this.state.courseSN,
+				guideId:this.state.guideId,
+				guideSN:this.state.guideSN,
 				courseInfo:this.state.courseInfo,
 				courseName:this.state.courseName,
 			}
