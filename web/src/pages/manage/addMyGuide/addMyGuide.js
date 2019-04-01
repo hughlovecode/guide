@@ -14,11 +14,11 @@ export default class AddMyGuide extends React.Component{
 			successInfo:'录入成功',
 			errorInfo:'出错了',
 			imageUrl:'',
-			courseName:'',
+			guideName:'',
 			guideId:'',
 			guideSN:'',
-			classAddress:'',
-			courseInfo:''
+			guideAddress:'',
+			guideInfo:''
 		})
 	}
 	//上传书本头像
@@ -32,16 +32,16 @@ export default class AddMyGuide extends React.Component{
                 return Promise.reject()
 	}
 	setParams=()=>{
-		if(this.state.courseName&&this.state.guideId&&this.state.guideSN&&this.state.classAddress&&this.state.courseInfo&&this.state.imageUrl){
+		if(this.state.guideName&&this.state.guideId&&this.state.guideSN&&this.state.guideAddress&&this.state.guideInfo&&this.state.imageUrl){
 			let params={
 				guideId:this.state.guideId,
 				guideSN:this.state.guideSN,
-				courseName:this.state.courseName,
-				classAddress:this.state.classAddress,
-				courseInfo:this.state.courseInfo,
-				courseImg:this.state.imageUrl,
-				teacherId:localStorage.getItem('userId'),
-				teacherName:localStorage.getItem('userName')
+				guideName:this.state.guideName,
+				guideAddress:this.state.guideAddress,
+				guideInfo:this.state.guideInfo,
+				guideImg:this.state.imageUrl,
+				guiderId:localStorage.getItem('userId'),
+				guiderName:localStorage.getItem('userName')
 			}
 			http.post('/guide/addGuide',params).then(res=>{
 				if(res.status === '0'){
@@ -66,23 +66,6 @@ export default class AddMyGuide extends React.Component{
 					})
 					return Promise.reject()
 				}
-			}).then(res=>{
-				let params2={
-					userId:localStorage.getItem('userId'),
-					guideId:this.state.guideId,
-					guideSN:this.state.guideSN,
-					courseName:this.state.courseName,
-					courseInfo:this.state.courseInfo
-				}
-				http.post('/userInfo/addCourse',params2).then(res=>{
-					if(res.status !== '0'){
-						this.setState({
-						isError:true,
-						isSuccess:false,
-						errorInfo:'很抱歉,用户出错了'
-					})
-					}
-				})
 			})
 		}else{
 			this.setState({
@@ -92,9 +75,9 @@ export default class AddMyGuide extends React.Component{
 			})
 		}
 	}
-	getCourseName=(e)=>{
+	getguideName=(e)=>{
 		this.setState({
-			courseName:e.target.value
+			guideName:e.target.value
 		})
 	}
 	getguideId=(e)=>{
@@ -107,14 +90,14 @@ export default class AddMyGuide extends React.Component{
 			guideSN:e.target.value
 		})
 	}
-	getClassAddress=(e)=>{
+	getguideAddress=(e)=>{
 		this.setState({
-			classAddress:e.target.value
+			guideAddress:e.target.value
 		})
 	}
-	getCourseInfo=(e)=>{
+	getguideInfo=(e)=>{
 		this.setState({
-			courseInfo:e.target.value
+			guideInfo:e.target.value
 		})
 	}
     render(){
@@ -132,7 +115,7 @@ export default class AddMyGuide extends React.Component{
             		<div style={{display:'flex'}}>
             			<section style={{flex:'3'}}>
             				<div style={{ marginBottom: 16 }}>
-      							<Input addonBefore="旅程名"  placeholder="请输入旅程名" onChange={e=>this.getCourseName(e)}/>
+      							<Input addonBefore="旅程名"  placeholder="请输入旅程名" onChange={e=>this.getguideName(e)}/>
     						</div>
     						<div style={{ marginBottom: 16 }}>
       							<Input addonBefore="旅程号"  placeholder="请输入旅程号" onChange={e=>this.getguideId(e)}/>
@@ -141,7 +124,7 @@ export default class AddMyGuide extends React.Component{
       							<Input addonBefore="序号"  placeholder="请输入序号" onChange={e=>this.getguideSN(e)}/>
     						</div>
     						<div style={{ marginBottom: 16 }}>
-      							<Input addonBefore="出发点"  placeholder="请输入出发点" onChange={e=>this.getClassAddress(e)}/>
+      							<Input addonBefore="出发点"  placeholder="请输入出发点" onChange={e=>this.getguideAddress(e)}/>
     						</div>
             			</section>
     					<section style={{flex:'1',display:'flex',justifyContent:'center',alignItems:'center'}}>
@@ -159,7 +142,7 @@ export default class AddMyGuide extends React.Component{
             			
             		</div>
     				<div style={{ marginBottom: 16 }}>
-      					<TextArea rows={4} placeholder='请输入一些旅程基本信息' onChange={e=>this.getCourseInfo(e)}/>
+      					<TextArea rows={4} placeholder='请输入一些旅程基本信息' onChange={e=>this.getguideInfo(e)}/>
     				</div>
     				<div style={{float:'right'}}>
     					<Button  onClick={this.setParams}>确定</Button>

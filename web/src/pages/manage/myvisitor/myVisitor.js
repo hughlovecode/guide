@@ -13,16 +13,14 @@ export default class MyVisitor extends React.Component{
 	componentWillMount(){
 		this.setState({
 			isVisible:false,
-			studentInfo:{
-				studentId:'',
-				studentName:'',
+			touristInfo:{
+				userId:'',
+				touristName:'',
 				email:'',
 				userImg:''
 			},
 			addVisitorId:''
 		})
-		console.log('this.props')
-		console.log(this.props)
 		http.post('/guide/detail',this.props.location.state.params).then(res=>{
             if(res.status !== '0'){
                 this.setState({
@@ -31,8 +29,10 @@ export default class MyVisitor extends React.Component{
                     modalTag:'错误'
                 })
             }else{
-                let students=res.result.courseDetail.students;
-                students.forEach(item=>{
+                let tourists=res.result.guideDetail.tourists;
+                console.log('tourists:')
+                console.log(tourists)
+                tourists.forEach(item=>{
                 	let signInCount=item.signInCount;
                 	let count=0;
                 	let signTag=0;
@@ -46,11 +46,11 @@ export default class MyVisitor extends React.Component{
                 	item.signTag=signTag
                 })
                 this.setState({
-                	courseInfo:res.result.courseDetail.courseInfo,
-                	courseName:res.result.courseDetail.courseName,
-                    students:students,
-                    guideId:res.result.courseDetail.guideId,
-                    guideSN:res.result.courseDetail.guideSN
+                	guideInfo:res.result.guideDetail.guideInfo,
+                	guideName:res.result.guideDetail.guideName,
+                    tourists:tourists,
+                    guideId:res.result.guideDetail.guideId,
+                    guideSN:res.result.guideDetail.guideSN
                 })
                 
             }
@@ -58,9 +58,9 @@ export default class MyVisitor extends React.Component{
 	}
 	detail=e=>{
 		console.log(e.target.dataset)
-		let studentId=e.target.dataset.studentid;
+		let touristId=e.target.dataset.touristid;
 		let params={
-			userId:studentId
+			userId:touristId
 		}
 		http.post('/userInfo/info',params).then(res=>{
 			if(res.status !== '0'){
@@ -71,9 +71,11 @@ export default class MyVisitor extends React.Component{
 					modalTag:'错误'
 				})
 			}else{
-				let studentInfo=res.result.info;
+				let touristInfo=res.result.info;
+				console.log('touristInfo')
+				console.log(touristInfo)
 				this.setState({
-					studentInfo:studentInfo,
+					touristInfo:touristInfo, 
 					modifyModal:true
 				})
 			}
@@ -85,17 +87,17 @@ export default class MyVisitor extends React.Component{
 			isVisible2:false
 		})
 	}
-	changeStudentInfo=()=>{
+	changeTouristInfo=()=>{
 		this.setState({
 			confirmLoading:true
 		})
 	}
 	delete=e=>{
-		let studentId=e.target.dataset.studentid;
+		let touristId=e.target.dataset.touristId;
 		let params={
 			guideId:this.state.guideId,
 			guideSN:this.state.guideSN,
-			studentId:studentId
+			touristId:touristId
 		}
 		
 		http.post('/guide/deleteVisitor',params).then(res=>{
@@ -106,7 +108,7 @@ export default class MyVisitor extends React.Component{
 				return Promise.resolve()
 			}
 		}).then(res=>{
-			http.post('/userInfo/deleteCourse',params).then(res=>{
+			http.post('/userInfo/deleteGuide',params).then(res=>{
 				if(res.status !== '0'){
 					throw 'throw on onFulfilled_1'
 				}else{
@@ -135,8 +137,8 @@ export default class MyVisitor extends React.Component{
                 })
                 
             }else{
-                let students=res.result.courseDetail.students;
-                students.forEach(item=>{
+                let tourists=res.result.guideDetail.tourists;
+                tourists.forEach(item=>{
                 	let signInCount=item.signInCount;
                 	let count=0;
                 	let signTag=0;
@@ -150,9 +152,9 @@ export default class MyVisitor extends React.Component{
                 	item.signTag=signTag
                 })
                 this.setState({
-                    students:students,
-                    guideId:res.result.courseDetail.guideId,
-                    guideSN:res.result.courseDetail.guideSN,
+                    tourists:tourists,
+                    guideId:res.result.guideDetail.guideId,
+                    guideSN:res.result.guideDetail.guideSN,
                     isVisible:true,
                     modalTag:'成功',
                     modalInfo:'恭喜你,更新成功'
@@ -186,19 +188,19 @@ export default class MyVisitor extends React.Component{
                 })
                 return Promise.reject()
 	}
-	getStudentName=e=>{
-		let studentInfo=this.state.studentInfo;
-		studentInfo.userName=e.target.value
+	getTouristName=e=>{
+		let touristInfo=this.state.touristInfo;
+		touristInfo.userName=e.target.value
 		this.setState({
-			studentInfo:studentInfo
+			touristInfo:touristInfo
 		})
 	}
 	
 	getEmail=e=>{
-		let studentInfo=this.state.studentInfo;
-		studentInfo.email=e.target.value
+		let touristInfo=this.state.touristInfo;
+		touristInfo.email=e.target.value
 		this.setState({
-			studentInfo:studentInfo
+			touristInfo:touristInfo
 		})
 	}
 	clickCancelModify=()=>{
@@ -206,8 +208,8 @@ export default class MyVisitor extends React.Component{
 			modifyModal:false,
 		})
 	}
-	modifyStudentInfo=()=>{
-		if(this.state.studentInfo.userId===''||this.state.studentInfo.userName===''||this.state.studentInfo.email===''||this.state.studentInfo.userImg===''){
+	modifyTouristInfo=()=>{
+		if(this.state.touristInfo.userId===''||this.state.touristInfo.userName===''||this.state.touristInfo.email===''||this.state.touristInfo.userImg===''){
 			console.log(this.state)
 			this.setState({
 				isVisible:true,
@@ -216,7 +218,7 @@ export default class MyVisitor extends React.Component{
 				modalInfo:'请将信息补充完整',
 			})
 		}else{
-			let params=this.state.studentInfo;
+			let params=this.state.touristInfo;
 			http.post('/userInfo/modify',params).then(res=>{
 				if(res.status !=='0'){
 					throw res.msg
@@ -260,8 +262,8 @@ export default class MyVisitor extends React.Component{
 				userId:this.state.addVisitorId,
 				guideId:this.state.guideId,
 				guideSN:this.state.guideSN,
-				courseInfo:this.state.courseInfo,
-				courseName:this.state.courseName,
+				guideInfo:this.state.guideInfo,
+				guideName:this.state.guideName,
 			}
 			http.post('/userInfo/addVisitor',params).then(res=>{
 				console.log('ress:')
@@ -285,7 +287,9 @@ export default class MyVisitor extends React.Component{
 		}
 	}
 	render(){
-		let students=this.state.students
+		let tourists=this.state.tourists
+		console.log(tourists)
+		console.log('tourists')
 		const uploadButton = (
 	      <div>
 	        <Icon type='plus' />
@@ -302,16 +306,16 @@ export default class MyVisitor extends React.Component{
 					<Col span={18} style={{margin:'30px 0px'}}>
 						<List 
 							itemLayout="horizontal"
-							dataSource={students}
+							dataSource={tourists}
 							renderItem={item => (
 						      <List.Item>
 						        <List.Item.Meta
-						          avatar={<Avatar src={item.studentImg} />}
-						          title={item.studentName}
+						          avatar={<Avatar src={item.guideImg} />}
+						          title={item.guideName}
 						          description={"该游客一共签到了"+item.signTag+"次,总共"+item.count+"次!"}
 						        />
-						        <Button data-studentid={item.studentId} onClick={e=>this.delete(e)} style={{marginRight:'20px'}}>删除</Button>
-						        <Button data-studentid={item.studentId} onClick={e=>this.detail(e)}>详情</Button>
+						        <Button data-touristId={item.touristId} onClick={e=>this.delete(e)} style={{marginRight:'20px'}}>删除</Button>
+						        <Button data-touristId={item.touristId} onClick={e=>this.detail(e)}>详情</Button>
 						      </List.Item>
 						    )}
 						/>
@@ -352,23 +356,23 @@ export default class MyVisitor extends React.Component{
                     onCancel={this.clickCancelModify}
                     footer={[
                     		<Button onClick={this.clickCancelModify} key='1'>知道了</Button>,
-                    		<Button onClick={this.modifyStudentInfo} key='0'>修改</Button>
+                    		<Button onClick={this.modifyTouristInfo} key='0'>修改</Button>
                     	]}
                 >
                 <section>
                 	<Row>
                 		<Col span={18}>
                 			<div style={{ marginBottom: 16 }}>
-						      <Input addonBefore="id:" disabled onChange={e=>this.getStudentId(e)} value={this.state.studentInfo.userId}/>
+						      <Input addonBefore="id:" disabled onChange={e=>this.gettouristId(e)} value={this.state.touristInfo.userId}/>
 						    </div>
 						    <div style={{ marginBottom: 16 }}>
-						      <Input addonBefore="电话:" disabled value={this.state.studentInfo.userPhone}/>
+						      <Input addonBefore="电话:" disabled value={this.state.touristInfo.userPhone}/>
 						    </div>
                 			<div style={{ marginBottom: 16 }}>
-						      <Input addonBefore="姓名:"   onChange={e=>this.getStudentName(e)} value={this.state.studentInfo.userName}/>
+						      <Input addonBefore="姓名:"   onChange={e=>this.getTouristName(e)} value={this.state.touristInfo.userName}/>
 						    </div>
 						    <div style={{ marginBottom: 16 }}>
-						      <Input addonBefore="邮箱:"  onChange={e=>this.getEmail(e)} value={this.state.studentInfo.email}/>
+						      <Input addonBefore="邮箱:"  onChange={e=>this.getEmail(e)} value={this.state.touristInfo.email}/>
 						    </div>
                 		</Col>	
                 		<Col span={6} style={{padding:'15px'}}>
@@ -379,7 +383,7 @@ export default class MyVisitor extends React.Component{
         						showUploadList={false}
         						beforeUpload={this.beforeUpload}
       							>
-        						<img src={this.state.studentInfo.userImg} alt="avatar" style={{width:'100%',maxHeight:'80px'}}/> 
+        						<img src={this.state.touristInfo.userImg} alt="avatar" style={{width:'100%',maxHeight:'80px'}}/> 
       						</Upload>
                 		</Col>	
                 	</Row>

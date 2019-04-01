@@ -9,11 +9,11 @@ export default class statisticAll extends React.Component{
 		this.state={
 			guideList:[
 				{
-				courseName:'',
-				courseInfo:'',
+				guideName:'',
+				guideInfo:'',
 				guideId:'',
 				guideSN:'',
-				courseImg:''
+				guideImg:''
 			}
 			],
 			userImg:window.localStorage.getItem('userImg')
@@ -24,9 +24,10 @@ export default class statisticAll extends React.Component{
 		}
 		http.post('/userInfo/info',params).then(res=>{
 			if(res.status==='0'){
+				console.log('少时诵诗书:')
 				console.log(res)
 				this.setState({
-					guideList:res.result.info.guideList
+					guideList:res.info.guideList
 				})
 				return Promise.resolve()
 			}else{
@@ -40,9 +41,9 @@ export default class statisticAll extends React.Component{
 				}
 				http.post('/guide/detail',params).then(res=>{
 					if(res.status==='0'){
-						//that.state.guideList[i].courseImg=res.result.courseDetail.courseImg
+						//that.state.guideList[i].guideImg=res.result.courseDetail.guideImg
 						let guideList=that.state.guideList;
-						guideList[i].courseImg=res.result.courseDetail.courseImg
+						guideList[i].guideImg=res.result.guideDetail.guideImg
 						that.setState({
 							guideList:guideList
 						})
@@ -72,9 +73,9 @@ export default class statisticAll extends React.Component{
 							renderItem={item => (
 						      <List.Item>
 						        <List.Item.Meta
-						          avatar={<Avatar src={item.courseImg} />}
-						          title={item.courseName}
-						          description={item.courseInfo}
+						          avatar={<Avatar src={item.guideImg} />}
+						          title={item.guideName}
+						          description={item.guideInfo}
 						        />
 						        <Button data-guideid={item.guideId} data-guidesn={item.guideSN} onClick={e=>this.toStatistic(e)}>查看</Button>
 						      </List.Item>

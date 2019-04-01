@@ -26,16 +26,16 @@ export default class ModifyGuide extends React.Component{
                     modalInfo:'服务器出错,查不到对应数据'
                 })
             }else{
-                let detail=res.result.courseDetail;
+                let detail=res.result.guideDetail;
                 this.setState({
                     isGetData:true,
                     detail:detail,
-                    imageUrl:detail.courseImg,
+                    imageUrl:detail.guideImg,
                     guideId:detail.guideId,
                     guideSN:detail.guideSN,
-                    courseName:detail.courseName,
-                    classAddress:detail.classAddress,
-                    courseInfo:detail.courseInfo,
+                    guideName:detail.guideName,
+                    guideAddress:detail.guideAddress,
+                    guideInfo:detail.guideInfo,
                 })
                 
             }
@@ -64,16 +64,16 @@ export default class ModifyGuide extends React.Component{
                 return Promise.reject()
     }
     setParams=()=>{
-        if(this.state.courseName&&this.state.guideId&&this.state.guideSN&&this.state.classAddress&&this.state.courseInfo&&this.state.imageUrl){
+        if(this.state.guideName&&this.state.guideId&&this.state.guideSN&&this.state.guideAddress&&this.state.guideInfo&&this.state.imageUrl){
             let params={
                 guideId:this.state.guideId,
                 guideSN:this.state.guideSN,
-                courseName:this.state.courseName,
-                classAddress:this.state.classAddress,
-                courseInfo:this.state.courseInfo,
-                courseImg:this.state.imageUrl,
-                teacherId:localStorage.getItem('userId'),
-                teacherName:localStorage.getItem('userName')
+                guideName:this.state.guideName,
+                guideAddress:this.state.guideAddress,
+                guideInfo:this.state.guideInfo,
+                guideImg:this.state.imageUrl,
+                guiderId:localStorage.getItem('userId'),
+                guiderName:localStorage.getItem('userName')
             }
             http.post('/guide/modifyGuide',params).then(res=>{
                 if(res.status === '0'){
@@ -106,9 +106,9 @@ export default class ModifyGuide extends React.Component{
             })
         }
     }
-    getCourseName=(e)=>{
+    getguideName=(e)=>{
         this.setState({
-            courseName:e.target.value
+            guideName:e.target.value
         })
     }
     getguideId=(e)=>{
@@ -121,14 +121,14 @@ export default class ModifyGuide extends React.Component{
             guideSN:e.target.value
         })
     }
-    getClassAddress=(e)=>{
+    getguideAddress=(e)=>{
         this.setState({
-            classAddress:e.target.value
+            guideAddress:e.target.value
         })
     }
-    getCourseInfo=(e)=>{
+    getguideInfo=(e)=>{
         this.setState({
-            courseInfo:e.target.value
+            guideInfo:e.target.value
         })
     }
     toNotice=()=>{
@@ -138,7 +138,7 @@ export default class ModifyGuide extends React.Component{
             HTitle:this.state.detail.HTitle,
             HContent:this.state.detail.HContent,
             Htime:this.state.detail.Htime,
-            courseImg:this.state.detail.courseImg
+            guideImg:this.state.detail.guideImg
         }
         console.log(params)
         this.props.history.push({pathname: '/guide/myNotice', state: {params: params}})
@@ -176,7 +176,7 @@ export default class ModifyGuide extends React.Component{
                                 <div style={{display:'flex',margin:'60px 0px 0px 0px'}}>
                                     <section style={{flex:'3'}}>
                                         <div style={{ marginBottom: 16 }}>
-                                            <Input addonBefore="旅程名"  placeholder={this.state.detail.courseName} onChange={e=>this.getCourseName(e)} />
+                                            <Input addonBefore="旅程名"  placeholder={this.state.detail.guideName} onChange={e=>this.getguideName(e)} />
                                         </div>
                                         <div style={{ marginBottom: 16 }}>
                                             <Input addonBefore="旅程号" disabled placeholder={this.state.detail.guideId} onChange={e=>this.getguideId(e)}/>
@@ -185,7 +185,7 @@ export default class ModifyGuide extends React.Component{
                                             <Input addonBefore="序号" disabled placeholder={this.state.detail.guideSN} onChange={e=>this.getguideSN(e)}/>
                                         </div>
                                         <div style={{ marginBottom: 16 }}>
-                                            <Input addonBefore="集合地址"  placeholder={this.state.detail.classAddress} onChange={e=>this.getClassAddress(e)}/>
+                                            <Input addonBefore="集合地址"  placeholder={this.state.detail.guideAddress} onChange={e=>this.getguideAddress(e)}/>
                                         </div>
                                     </section>
                                     <section style={{flex:'1',display:'flex',justifyContent:'center',alignItems:'center'}}>
@@ -203,7 +203,7 @@ export default class ModifyGuide extends React.Component{
                                     
                                 </div>
                                 <div style={{ marginBottom: 16 }}>
-                                    <TextArea rows={4} placeholder={this.state.detail.courseInfo} onChange={e=>this.getCourseInfo(e)}/>
+                                    <TextArea rows={4} placeholder={this.state.detail.guideInfo} onChange={e=>this.getguideInfo(e)}/>
                                 </div>
                                 <div style={{float:'right'}}>
                                     <Button  onClick={this.setParams}>确定</Button>

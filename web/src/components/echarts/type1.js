@@ -21,7 +21,7 @@ export default class type1 extends React.Component {
     var myChart = echarts.init(document.getElementById('main'));
     // 绘制图表
     myChart.setOption({
-        title: { text: this.props.data.detail.courseName+'签到情况' },
+        title: { text: this.props.data.detail.guideName+'签到情况' },
         tooltip : {
           trigger: 'axis'
       },

@@ -223,9 +223,9 @@ router.post('/info',function(req,res,next){
                 msg:err.message
             })
         }else{
-            console.log('/info')
             if(doc){
                 //尽量传递少的数据
+                /*
                 let list=[];
                 let arr=doc.guideList;
                 arr.map((item)=>{
@@ -247,7 +247,6 @@ router.post('/info',function(req,res,next){
                     job:doc.job,
                     introduce:doc.introduce
                 }
-                console.log(temp)
                 res.json({
                     status:'0',
                     msg:'',
@@ -255,6 +254,68 @@ router.post('/info',function(req,res,next){
                         count:doc.length,
                         info:temp
                     }
+                })
+                */
+                let arr=doc.guideList;
+                let temp={
+                    userId:doc.userId,
+                    userImg:doc.userImg,
+                    status:doc.status,
+                    userName:doc.userName,
+                    email:doc.email,
+                    userPhone:doc.userPhone,
+                    company:doc.company,
+                    job:doc.job,
+                    introduce:doc.introduce
+                }
+                let guideList=[];
+                let p1=(arr)=>{
+                    return new Promise((resolve,reject)=>{
+                        arr.forEach((item,index)=>{
+                            let params={
+                                guideId:item.guideId,
+                                guideSN:item.guideSN
+                            }
+                            Guide.findOne(params,function(err,doc){
+                                if(err){
+                                    res.json({
+                                        status:'2',
+                                        msg:'查找信息失败'
+                                    })
+                                    reject()
+                                }else{
+                                    if(doc){
+                                        let s={
+                                            guideId:doc.guideId,
+                                            guideSN:doc.guideSN,
+                                            guideInfo:doc.guideInfo,
+                                            guideName:doc.guideName,
+                                            guideImg:doc.guideImg
+                                        }
+                                        guideList.push(s)
+                                        if(guideList.length===arr.length){
+                                            resolve()
+                                        }
+                                    }else{
+                                        res.json({
+                                            status:'2',
+                                            msg:'空值'
+                                        })
+                                        reject()
+                                    }
+                                }
+                            })
+                        })
+                    })
+                }
+                p1(arr).then(result=>{
+                    temp.guideList=guideList;
+                    console.log(temp.guideList)
+                    res.json({
+                        status:'0',
+                        msg:'',
+                        info:temp
+                    })
                 })
             }else{
                 res.json({
@@ -323,9 +384,9 @@ router.post('/modify',function(req,res,next){
   })
 })
 //删课
-router.post('/deleteCourse',function(req,res,next){
+router.post('/deleteGuide',function(req,res,next){
     let params={
-        userId:req.body.studentId
+        userId:req.body.touristId
 
     }
     let guideId=req.body.guideId
@@ -418,7 +479,7 @@ router.post('/modifyUserImg',function(req,res,next){
     })
 })
 //添加课程
-router.post('/addCourse',function(req,res,next){
+router.post('/addGuide',function(req,res,next){
     let params={
         userId:req.body.userId
     }
@@ -509,9 +570,9 @@ router.post('/addVisitor',function(req,res,next){
                     if(doc){
                         let item={
                             signInCount:[],
-                            studentId:req.body.userId,
+                            touristId:req.body.userId,
                         }
-                        doc.students.push(item);
+                        doc.tourists.push(item);
                         doc.save(function(err,doc){
                             if(err){
                                 throw '课程信息修改失败'

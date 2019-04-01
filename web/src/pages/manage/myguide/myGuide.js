@@ -58,10 +58,10 @@ export default class MyGuide extends React.Component{
     getguideTree=(data)=>{
         if(data.length>0){
             return data.map((item,index)=>{
-                return <Row gutter={16} key={index}><Card title={item.courseName} bordered={false}  style={{width:'calc(100% - 50px)'}}>
-                    简介: <b>{item.courseInfo}</b>
+                return <Row gutter={16} key={index}><Card title={item.guideName} bordered={false}  style={{width:'calc(100% - 50px)'}}>
+                    简介: <b>{item.guideInfo}</b>
                     <p/>
-                    <p className='course'>
+                    <p className='guide'>
                         <span >旅程号:  <b>{item.guideId}</b>  </span>
                         <span >序号:  <b>{item.guideSN}</b>  </span>
                     </p>
@@ -77,11 +77,11 @@ export default class MyGuide extends React.Component{
 
     render(){
         return(
-            <Row className='course-all'>
+            <Row className='guide-all'>
 
                 <Col span='6' />
-                <Col span='12' className='course-center'>
-                    <div className='CourseInfo'>
+                <Col span='12' className='guide-center'>
+                    <div className='guideInfo'>
                         <span style={{fontSize:'20px',fontWeight:900,paddingLeft:'10px'}}>我的行程</span>
                         {this.state.guideTree}
 

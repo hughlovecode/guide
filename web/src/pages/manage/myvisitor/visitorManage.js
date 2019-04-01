@@ -9,11 +9,11 @@ export default class VisitorManage extends React.Component{
 		this.state={
 			guideList:[
 				{
-				courseName:'',
-				courseInfo:'',
+				guideName:'',
+				guideInfo:'',
 				guideId:'',
 				guideSN:'',
-				courseImg:''
+				guideImg:''
 			}
 			],
 			userImg:window.localStorage.getItem('userImg')
@@ -40,9 +40,9 @@ export default class VisitorManage extends React.Component{
 				}
 				http.post('/guide/detail',params).then(res=>{
 					if(res.status==='0'){
-						//that.state.guideList[i].courseImg=res.result.courseDetail.courseImg
+						//that.state.guideList[i].guideImg=res.result.courseDetail.guideImg
 						let guideList=that.state.guideList;
-						guideList[i].courseImg=res.result.courseDetail.courseImg
+						guideList[i].guideImg=res.result.guideDetail.guideImg
 						that.setState({
 							guideList:guideList
 						})
@@ -53,7 +53,7 @@ export default class VisitorManage extends React.Component{
 			}
 		}).catch(err=>{console.log(err)})
 	}
-	toStudents=(e)=>{
+	toTourists=(e)=>{
         let params={
             guideId:e.target.dataset.guideId,
             guideSN:e.target.dataset.guideSN
@@ -72,11 +72,11 @@ export default class VisitorManage extends React.Component{
 							renderItem={item => (
 						      <List.Item>
 						        <List.Item.Meta
-						          avatar={<Avatar src={item.courseImg} />}
-						          title={item.courseName}
-						          description={item.courseInfo}
+						          avatar={<Avatar src={item.guideImg} />}
+						          title={item.guideName}
+						          description={item.guideInfo}
 						        />
-						        <Button data-guideId={item.guideId} data-guideSN={item.guideSN} onClick={e=>this.toStudents(e)}>游客管理</Button>
+						        <Button data-guideId={item.guideId} data-guideSN={item.guideSN} onClick={e=>this.toTourists(e)}>游客管理</Button>
 						      </List.Item>
 						    )}
 						/>

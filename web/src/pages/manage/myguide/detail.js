@@ -10,18 +10,18 @@ export default class Detail extends React.Component{
         super(params);
         this.state={
             teacherImg:localStorage.getItem('userImg'),
-            courseName:'',
+            guideName:'',
             guideId:'',
             guideSN:'',
-            classAddress:'',
-            classCount:'',
-            courseInfo:'',
-            courseState:'',
-            teacherName:'',
-            students:'',
-            teacherId:'',
-            isCourseLoading:true,
-            isStudentLoading:true,//这上下两个是react异步传值所需要的
+            guideAddress:'',
+            guideCount:'',
+            guideInfo:'',
+            guideState:'',
+            guiderName:'',
+            tourists:'',
+            guiderId:'',
+            isGuideLoading:true,
+            isTouristLoading:true,//这上下两个是react异步传值所需要的
             noticeList:[]
 
         }
@@ -33,27 +33,27 @@ export default class Detail extends React.Component{
             }else{
                 console.log('ress:')
                 console.log(res)
-                let detail=res.result.courseDetail;
+                let detail=res.result.guideDetail;
                 this.setState({
-                    courseName:detail.courseName,
+                    guideName:detail.guideName,
                     guideId:detail.guideId,
                     guideSN:detail.guideSN,
-                    classAddress:detail.classAddress,
-                    classCount:detail.classCount,
-                    courseInfo:detail.courseInfo,
-                    courseState:detail.courseState,
-                    teacherName:detail.teacherName,
-                    students:detail.students,
-                    teacherId:detail.teacherId,
-                    courseImg:detail.courseImg,
+                    guideAddress:detail.guideAddress,
+                    guideCount:detail.guideCount,
+                    guideInfo:detail.guideInfo,
+                    guideState:detail.guideState,
+                    guiderName:detail.guiderName,
+                    tourists:detail.tourists,
+                    guiderId:detail.guiderId,
+                    guideImg:detail.guideImg,
                     noticeList:detail.notice
                 })
 
             }
         }).then(()=>{
             this.setState({
-                isCourseLoading:false,
-                isStudentLoading:false
+                isGuideLoading:false,
+                isTouristLoading:false
             })
         })
 
@@ -80,7 +80,7 @@ export default class Detail extends React.Component{
         let params={
             guideId:this.state.guideId,
             guideSN:this.state.guideSN,
-            courseImg:this.state.courseImg,
+            guideImg:this.state.guideImg,
         }
         console.log(params)
         this.props.history.push({pathname: '/guide/myNotice', state: {params: params}})
@@ -104,7 +104,7 @@ export default class Detail extends React.Component{
 
         return(
             <div className='detail-all'>
-                <span style={{fontSize:'20px',fontWeight:'900'}}><Icon type="double-right" style={{margin:'20px 5px 0px 20px'}}/>{this.state.courseName}</span>
+                <span style={{fontSize:'20px',fontWeight:'900'}}><Icon type="double-right" style={{margin:'20px 5px 0px 20px'}}/>{this.state.guideName}</span>
                 <Button style={{float:'right',margin:'20px 30px 0px 20px'}} onClick={this.goToModifyInfo}>修改信息</Button>
                 <Button style={{float:'right',margin:'20px 10px 0px 20px'}} onClick={this.goToStatistic}>签到统计</Button>
             <div className='detail-container'>
@@ -115,15 +115,15 @@ export default class Detail extends React.Component{
                         <List.Item.Meta
                             avatar={<Avatar
                                 src={this.state.teacherImg}/>}
-                            title={<span>{this.state.teacherName}</span>}
-                            description={this.state.teacherId}
+                            title={<span>{this.state.guiderName}</span>}
+                            description={this.state.guiderId}
                         />
                     </List.Item>
                     <List.Item>
                         <List.Item.Meta
 
                             title={<span>简介</span>}
-                            description={this.state.courseInfo}
+                            description={this.state.guideInfo}
                         />
                     </List.Item>
                     <List.Item>
@@ -144,20 +144,20 @@ export default class Detail extends React.Component{
                         <List.Item.Meta
 
                             title={<span>出发地</span>}
-                            description={this.state.classAddress}
+                            description={this.state.guideAddress}
                         />
                     </List.Item>
                     <List.Item >
                         <List.Item.Meta
                             title={<span>通知<Button style={{marginLeft:'100px'}} onClick={this.goToNotice}>详情</Button></span> }
-                            description={this.state.isCourseLoading?'loading':<NoticeList noticeList={this.state.noticeList}/>}
+                            description={this.state.isGuideLoading?'loading':<NoticeList noticeList={this.state.noticeList}/>}
                         />
                     </List.Item>
-                    <List.Item className='studentListDiv'>
+                    <List.Item className='guideListDiv'>
                         <List.Item.Meta
 
                             title={<span>游客<Button style={{marginLeft:'100px'}} onClick={this.goToVisitor}>详情</Button></span>}
-                            description={this.state.isStudentLoading?'loading':<VisitorList visitorList={this.state.students}/>}
+                            description={this.state.isTouristLoading?'loading':<VisitorList visitorList={this.state.tourists}/>}
                         />
                     </List.Item>
                 </List>

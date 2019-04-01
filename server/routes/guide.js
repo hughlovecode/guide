@@ -41,8 +41,8 @@ router.post('/',function(req,res,next){
                                                 let item2={
                                                     guideId:doc2.guideId,
                                                     guideSN:doc2.guideSN,
-                                                    courseName:doc2.courseName,
-                                                    courseInfo:doc2.courseInfo
+                                                    guideName:doc2.guideName,
+                                                    guideInfo:doc2.guideInfo
                                                 }
                                                 list.push(item2)
                                                 if(list.length===arr.length){
@@ -115,18 +115,18 @@ router.post('/detail',function(req,res,next){
                     courseDetail:doc
                 }
             })*/
-            let students=doc.students;
-            console.log(students.length)
-            let newStudents=[];
-            let getStudentList=(students)=>{
+            let tourists=doc.tourists;
+            console.log(tourists.length)
+            let newtourists=[];
+            let getGuideList=(tourists)=>{
                 return new Promise((resolve,reject)=>{
                     console.log('getList-1')
-                    if(students.length===0){
+                    if(tourists.length===0){
                         resolve()
                     }else{
-                            students.forEach((item,index)=>{
+                            tourists.forEach((item,index)=>{
                             let params={
-                                userId:item.studentId
+                                userId:item.touristId
                             }
                             User.findOne(params,function(err,doc){
                                 if(err){
@@ -138,14 +138,15 @@ router.post('/detail',function(req,res,next){
                                 }else{
                                     if(doc){
                                         let temp={
-                                            studentId:doc.userId,
+                                            touristId:doc.userId,
                                             signInCount:item.signInCount,
-                                            studentName:doc.userName,
-                                            studentImg:doc.userImg
+                                            guideName:doc.userName,
+                                            guideImg:doc.userImg
                                         }
-                                        newStudents.push(temp)
-                                        if(newStudents.length===students.length){
-                                            resolve(newStudents)
+                                        newtourists.push(temp)
+                                        tourists[index]=temp
+                                        if(newtourists.length===tourists.length){
+                                            resolve(newtourists)
                                         }
                                     }else{
                                         res.json({
@@ -163,15 +164,14 @@ router.post('/detail',function(req,res,next){
                     console.log(err)
                 })
             }
-            getStudentList(students).then(result=>{
-                    doc.students=newStudents;
-                    console.log(doc)
+            getGuideList(tourists).then(result=>{
+                console.log(doc)
                     res.json({
                         status:'0',
                         msg:'',
                         result:{
                             count:doc.length,
-                            courseDetail:doc
+                            guideDetail:doc
                         }
                     })
                 })
@@ -190,19 +190,19 @@ router.post('/addGuide',function(req,res,next){
     let params={
         guideId:req.body.guideId,
         guideSN:req.body.guideSN,
-        courseName: req.body.courseName,
-        teacherId: req.body.teacherId,
-        teacherName: req.body.teacherName,
-        courseInfo:req.body.courseInfo,
-        courseImg: req.body.courseImg,
-        courseSSID: "",
-        classCount: "0",
+        guideName: req.body.guideName,
+        guiderId: req.body.guiderId,
+        guiderName: req.body.guiderName,
+        guideInfo:req.body.guideInfo,
+        guideImg: req.body.guideImg,
+        guideSSID: "",
+        guideCount: "0",
         HContent: "",
         Htime: "",
-        classAddress: req.body.classAddress,
+        guideAddress: req.body.guideAddress,
         status: "1",
         HTitle: "",
-        students:[]
+        tourists:[]
     }
     let index={
         guideId:req.body.guideId,
@@ -224,8 +224,8 @@ router.post('/addGuide',function(req,res,next){
                 })
 
             }else{
-                var newcourse=new Guide(params)
-                newcourse.save(function(err,result){
+                var newguide=new Guide(params)
+                newguide.save(function(err,result){
                     if(err){
                         res.json({
                             status:'3',
@@ -248,12 +248,12 @@ router.post('/modifyGuide',function(req,res,next){
     let params={
         guideId:req.body.guideId,
         guideSN:req.body.guideSN,
-        courseName: req.body.courseName,
-        teacherId: req.body.teacherId,
-        teacherName: req.body.teacherName,
-        courseInfo:req.body.courseInfo,
-        courseImg: req.body.courseImg,
-        classAddress: req.body.classAddress,
+        guideName: req.body.guideName,
+        guiderId: req.body.guiderId,
+        guiderName: req.body.guiderName,
+        guideInfo:req.body.guideInfo,
+        guideImg: req.body.guideImg,
+        guideAddress: req.body.guideAddress,
     }
     let index={
         guideId:req.body.guideId,
@@ -269,15 +269,15 @@ router.post('/modifyGuide',function(req,res,next){
         }else{
             if(doc){
                 try{
-                    doc.courseName=params.courseName;
-                    doc.courseInfo=params.courseInfo;
-                    doc.courseImg=params.courseImg;
-                    doc.classAddress=params.classAddress;
+                    doc.guideName=params.guideName;
+                    doc.guideInfo=params.guideInfo;
+                    doc.guideImg=params.guideImg;
+                    doc.guideAddress=params.guideAddress;
                     doc.save();
                     res.json({
                         status:'0',
                         msg:'',
-                        result:doc.students
+                        result:doc.tourists
                     })
 
                 }catch(err){
@@ -304,10 +304,8 @@ router.get('/addVisitor',function(req,res,next){
         guideId:req.body.guideId,
         guideSN:req.body.guideSN,
     }
-    let newStudent={
-                    studentId:req.body.studentId,
-                    studentName:req.body.studentName,
-                    studentImg:'',
+    let newGuide={
+                    touristId:req.body.touristId,
                     signInCount:[]
                 }
     Guide.findOne(index,function(err,doc){
@@ -318,8 +316,8 @@ router.get('/addVisitor',function(req,res,next){
             })
         }else{
             if(doc){
-                let item=newStudent;
-                doc.students.push(item)
+                let item=newGuide;
+                doc.tourists.push(item)
                 doc.save(function(err,result){
                     if(err){
                         res.json({
@@ -351,8 +349,8 @@ router.post('/deleteVisitor',function(req,res,next){
         guideId:req.body.guideId,
         guideSN:req.body.guideSN,
     }
-    //let deleteItem=req.body.studentId;
-    let deleteItem=req.body.studentId;
+    //let deleteItem=req.body.touristId;
+    let deleteItem=req.body.touristId;
     Guide.findOne(index,function(err,doc){
         if(err){
             res.json({
@@ -360,11 +358,11 @@ router.post('/deleteVisitor',function(req,res,next){
                 msg:err.message
             })
         }else{
-            if(doc.students.length>0){
-                let list=doc.students;
+            if(doc.tourists.length>0){
+                let list=doc.tourists;
                 let itemIndex
                 list.map((item,index)=>{
-                    if(item.studentId===deleteItem){
+                    if(item.touristId===deleteItem){
                         itemIndex=index
                     }
                 });
@@ -400,8 +398,8 @@ router.post('/startSignIn',function(req,res,next){
         guideId:req.body.guideId,
         guideSN:req.body.guideSN
     }
-    let classCount=req.body.classCount;
-    let courseSSID=req.body.courseSSID;
+    let guideCount=req.body.guideCount;
+    let guideSSID=req.body.guideSSID;
     Guide.findOne(params,function(err,doc){
         if(err){
             res.json({
@@ -412,22 +410,22 @@ router.post('/startSignIn',function(req,res,next){
             if(doc){
                 //0表示正在签到
                 doc.status='0';
-                doc.classCount = classCount;
-                doc.courseSSID = courseSSID;
-                let students=doc.students
-                for(let i=0;i<students.length;i++){
-                    let signArray=students[i].signInCount;
+                doc.guideCount = guideCount;
+                doc.guideSSID = guideSSID;
+                let tourists=doc.tourists
+                for(let i=0;i<tourists.length;i++){
+                    let signArray=tourists[i].signInCount;
                     console.log(signArray)
                     let tag=false
                     let newItem={
-                        tag:classCount,
+                        tag:guideCount,
                         isSign:'false'
                     }
                     if(signArray.length==0){
                         signArray.push(newItem)
                     }else{
                         for(let j=0;j<signArray.length;j++){
-                            if(signArray[j].tag===classCount){
+                            if(signArray[j].tag===guideCount){
                                 tag=true
                             }
                         }
@@ -511,8 +509,8 @@ router.post('/TSignIn',function(req,res,next){
         }else{
             if(doc){
                 //学生状态修改
-                doc.students.forEach(item=>{
-                    if(item.studentId === info.studentId){
+                doc.tourists.forEach(item=>{
+                    if(item.touristId === info.touristId){
                         item.signInCount = info.signInCount
                        // console.log(item)
                     }
@@ -580,9 +578,7 @@ router.post('/addVisitor',function(req,res,next){
     let signInCount=new Array()
     let newItem={
         signInCount:signInCount,
-        studentId:req.body.studentId,
-        studentName:req.body.studentName,
-        studentImg:req.body.studentImg
+        touristId:req.body.touristId
     }
     Guide.findOne(params,function(err,doc){
         if(err){
@@ -592,7 +588,7 @@ router.post('/addVisitor',function(req,res,next){
             })
         }else{
             if(doc){
-                doc.students.push(newItem);
+                doc.tourists.push(newItem);
 
                 doc.save(function(err,result){
                     if(err){

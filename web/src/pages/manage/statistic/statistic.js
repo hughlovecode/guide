@@ -22,18 +22,18 @@ export default class Statistic extends React.Component {
                     modalInfo:'服务器出错,查不到对应数据'
                 })
             }else{
-                let detail=res.result.courseDetail;
+                let detail=res.result.guideDetail;
                 console.log(detail)
                 this.setState({
                     detail:detail,
                 })
-                let students=detail.students;
+                let tourists=detail.tourists;
                 //对于按旅程次数的计数方法
                 let len;
-                if(students.length===0){
+                if(tourists.length===0){
                     len=0;
                 }else{
-                    len=students[0].signInCount.length;
+                    len=tourists[0].signInCount.length;
                 }
                 let arrY1=new Array()
                 let arrX1=new Array()
@@ -42,7 +42,7 @@ export default class Statistic extends React.Component {
                 	arrX1[i]='第'+(i+1)+'次'
                 }
                 for(let i=0;i<len;i++){
-                	students.forEach(item=>{
+                	tourists.forEach(item=>{
                 		if(item.signInCount[i]!==undefined&&item.signInCount[i].isSign!==undefined&&item.signInCount[i].isSign==='true'){
                 			arrY1[i]++
                 		}
@@ -53,17 +53,17 @@ export default class Statistic extends React.Component {
                 	arrY1:arrY1,
                 })
                 //对于按照人头计数的统计
-                let len2=students.length;
+                let len2=tourists.length;
                 let arrX2=new Array()
                 let arrY2=new Array()
                 for(let i=0;i<len2;i++){
-                	arrX2[i]=students[i].studentName
+                	arrX2[i]=tourists[i].touristName
                 }
                 for(let i=0;i<len2;i++){
                 	arrY2[i]=0
                 }
                 for(let i=0;i<len2;i++){
-                	students[i].signInCount.forEach(item=>{
+                	tourists[i].signInCount.forEach(item=>{
                 		if(item.isSign==='true'){
                 			arrY2[i]++
                 		}

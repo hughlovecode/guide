@@ -47,7 +47,7 @@ export default class NoticeList extends React.Component {
 
     render() {
         return (
-            <div className="demo-infinite-container list-studentList">
+            <div className="demo-infinite-container list-guideList">
                 <InfiniteScroll
                     initialLoad={false}
                     pageStart={0}

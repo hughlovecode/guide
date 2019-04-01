@@ -9,18 +9,18 @@ export default class VisitorList extends React.Component {
         super(props)
         let visitors=this.props.visitorList
         this.state={
-            list:this.getStudentList(visitors)
+            list:this.getVisitorList(visitors)
         }
     }
-    getStudentList=(visitors)=>{
+    getVisitorList=(visitors)=>{
         console.log(visitors)
         let newArr=[]
         visitors.forEach((item,index)=>{
             let newItem={
-                studentName:item.studentName,
-                studentId:item.studentId,
-                studentSN:item.studentSN,
-                studentImg:item.studentImg,
+                touristName:item.touristName,
+                touristId:item.touristId,
+                guideSN:item.guideSN,
+                guideImg:item.guideImg,
                 count:item.signInCount.length,
                 signInCount:this.getSignInCount(item.signInCount)
             }
@@ -75,7 +75,7 @@ export default class VisitorList extends React.Component {
 
     render() {
         return (
-            <div className="demo-infinite-container list-studentList">
+            <div className="demo-infinite-container list-guideList">
                 <InfiniteScroll
                     initialLoad={false}
                     pageStart={0}
@@ -88,11 +88,11 @@ export default class VisitorList extends React.Component {
                         renderItem={item => (
                             <List.Item >
                                 <List.Item.Meta
-                                    avatar={<Avatar src={item.studentImg} />}
-                                    title={<a href="https://ant.design">{item.studentName}</a>}
+                                    avatar={<Avatar src={item.guideImg} />}
+                                    title={<a href="https://ant.design">{item.touristName}</a>}
                                     description={'这游客在全部的'+item.count+'次签到中,一共签到了'+item.signInCount.length+'次'}
                                 />
-                                <div>{item.studentId}</div>
+                                <div>{item.touristId}</div>
                             </List.Item>
                         )}
                     >

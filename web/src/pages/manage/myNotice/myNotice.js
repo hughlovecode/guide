@@ -8,7 +8,7 @@ export default class MyNotice extends React.Component{
         super(props)
         this.state={
             isShowList:false,
-            courseImg:this.props.location.state.params.courseImg,
+            guideImg:this.props.location.state.params.guideImg,
             newNoticeTitle:'',
             newNoticeContent:'',
             sysTime:Util.formateDate(new Date().getTime()),
@@ -29,7 +29,7 @@ export default class MyNotice extends React.Component{
                 })
             }else{
                 this.setState({
-                    noticeList:res.result.courseDetail.notice
+                    noticeList:res.result.guideDetail.notice
                 })
             }
         })
@@ -116,7 +116,7 @@ export default class MyNotice extends React.Component{
 								renderItem={item => (
 							      <List.Item>
 							        <List.Item.Meta
-							          avatar={<Avatar src={this.state.courseImg} />}
+							          avatar={<Avatar src={this.state.guideImg} />}
 							          title={item.title}
 							          description={item.content}
 							        />

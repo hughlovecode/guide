@@ -3,18 +3,15 @@ var Schema=mongoose.Schema;
 var guideSchame=new Schema({
     "guideId":String ,
     "guideSN":String,
-	"courseName":String,
-	"teacherId":String,
-	"teacherName":String,
-	"courseSSID":String,
-	"classCount":String,
-	"HContent":String,
-	"Htime":String,
-	"classAddress":String,
+	"guideName":String,
+	"guiderId":String,
+	"guiderName":String,
+	"guideSSID":String,
+	"guideCount":String,
+	"guideAddress":String,
 	"status":String,
-	"HTitle":String,
-	"courseInfo":String,
-	"courseImg":String,
+	"guideInfo":String,
+	"guideImg":String,
 	"notice":[
 		{
 			"title":String,
@@ -22,11 +19,9 @@ var guideSchame=new Schema({
 			"time":String
 		}
 	],
-	"students":[
+	"tourists":[
 		{
-			"studentId":String,
-			"studentName":String,
-			"studentImg":String,
+			"touristId":String,
 			"signInCount":[
 				{
 					"tag":String,
