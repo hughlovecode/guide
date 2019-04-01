@@ -1,6 +1,6 @@
 var express=require('express');
 var router = express.Router();
-var Course=require('./../modules/courses');
+var Guide=require('./../modules/guides');
 var User=require('./../modules/users');
 //列表接口
 router.post('/',function(req,res,next){
@@ -33,7 +33,7 @@ router.post('/',function(req,res,next){
                                         courseId:item.courseId,
                                         courseSN:item.courseSN
                                     }
-                                    Course.findOne(temp,function(error,doc2){
+                                    Guide.findOne(temp,function(error,doc2){
                                         if(error){
                                             throw error
                                         }else{
@@ -95,7 +95,7 @@ router.post('/detail',function(req,res,next){
         courseId:req.body.courseId,
         courseSN:req.body.courseSN
     }
-    Course.findOne(params,function(err,doc){
+    Guide.findOne(params,function(err,doc){
         if(err){
             res.json({
                 status:'1',
@@ -207,7 +207,7 @@ router.post('/addCourse',function(req,res,next){
         courseSN:req.body.courseSN,
     }
     console.log(index)
-    Course.findOne(index,function(err,doc){
+    Guide.findOne(index,function(err,doc){
         if(err){
             res.json({
                 status:'1',
@@ -258,7 +258,7 @@ router.post('/modifyCourse',function(req,res,next){
         courseSN:req.body.courseSN,
     }
     console.log(index)
-    Course.findOne(index,function(err,doc){
+    Guide.findOne(index,function(err,doc){
         if(err){
             res.json({
                 status:'1',
@@ -308,7 +308,7 @@ router.get('/addStudent',function(req,res,next){
                     studentImg:'',
                     signInCount:[]
                 }
-    Course.findOne(index,function(err,doc){
+    Guide.findOne(index,function(err,doc){
         if(err){
             res.json({
                 status:'1',
@@ -351,7 +351,7 @@ router.post('/deleteStudent',function(req,res,next){
     }
     //let deleteItem=req.body.studentId;
     let deleteItem=req.body.studentId;
-    Course.findOne(index,function(err,doc){
+    Guide.findOne(index,function(err,doc){
         if(err){
             res.json({
                 status:'1',
@@ -403,7 +403,7 @@ router.post('/modifyStudent',function(req,res,next){
     }
     //let deleteItem=req.body.studentId;
     let deleteItem=10003;
-    Course.findOne(index,function(err,doc){
+    Guide.findOne(index,function(err,doc){
         if(err){
             res.json({
                 status:'1',
@@ -451,7 +451,7 @@ router.post('/startSignIn',function(req,res,next){
     }
     let classCount=req.body.classCount;
     let courseSSID=req.body.courseSSID;
-    Course.findOne(params,function(err,doc){
+    Guide.findOne(params,function(err,doc){
         if(err){
             res.json({
                 status:'1',
@@ -519,7 +519,7 @@ router.post('/finishSignIn',function(req,res,next){
         courseId:req.body.courseId,
         courseSN:req.body.courseSN
     }
-    Course.findOne(params,function(err,doc){
+    Guide.findOne(params,function(err,doc){
         if(err){
             res.json({
                 status:'1',
@@ -551,7 +551,7 @@ router.post('/TSignIn',function(req,res,next){
         courseSN:req.body.courseSN
     }
     let info = req.body.info
-    Course.findOne(params,function(err,doc){
+    Guide.findOne(params,function(err,doc){
         if(err){
             res.json({
                 status:'1',
@@ -594,7 +594,7 @@ router.post('/addNotice',function(req,res,next){
     };
     console.log('item:')
     console.log(item)
-    Course.findOne(params,function(err,doc){
+    Guide.findOne(params,function(err,doc){
         if(err){
             res.json({
                 status:'1',
@@ -633,7 +633,7 @@ router.post('/addStudent',function(req,res,next){
         studentName:req.body.studentName,
         studentImg:req.body.studentImg
     }
-    Course.findOne(params,function(err,doc){
+    Guide.findOne(params,function(err,doc){
         if(err){
             res.json({
                 status:'1',

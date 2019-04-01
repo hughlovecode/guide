@@ -2,7 +2,7 @@ var express=require('express');
 var router = express.Router();
 var mongoose=require('mongoose');
 var User=require('./../modules/users');
-var Course=require('./../modules/courses');
+var Guide=require('./../modules/guides');
 //连接mongodb test
 mongoose.connect('mongodb://59.110.162.130:27017/guide');
 mongoose.connection.on('connected',function(){
@@ -300,7 +300,7 @@ router.post('/modify',function(req,res,next){
                                 courseId:item.courseId,
                                 courseSN:item.courseSN
                             }
-                            Course.findOne(tempParams,function(err,doc2){
+                            Guide.findOne(tempParams,function(err,doc2){
                                 if(err){
                                     res.json({
                                         status:'3',
@@ -426,7 +426,7 @@ router.post('/modifyUserImg',function(req,res,next){
                             courseId:item.courseId,
                             courseSN:item.courseSN
                         }
-                        Course.findOne(params,function(err2,doc2){
+                        Guide.findOne(params,function(err2,doc2){
                             if(err2){
                                 console.log('修改coursenebula学生头像出错')
                             }else{
@@ -550,7 +550,7 @@ router.post('/addVisitor',function(req,res,next){
     }
     let p2=()=>{
         return new Promise((resolve,reject)=>{
-            Course.findOne(newItem,function(err,doc){
+            Guide.findOne(newItem,function(err,doc){
                 if(err){
                     throw '课程查询出错'
                 }else{

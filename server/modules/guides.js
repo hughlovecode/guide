@@ -1,6 +1,6 @@
 var mongoose=require('mongoose');
 var Schema=mongoose.Schema;
-var courseSchame=new Schema({
+var guideSchame=new Schema({
     "courseId":String ,
     "courseSN":String,
 	"courseName":String,
@@ -37,4 +37,4 @@ var courseSchame=new Schema({
 	]
 });
 
-module.exports=mongoose.model('guide',courseSchame)
+module.exports=mongoose.model('guide',guideSchame)
