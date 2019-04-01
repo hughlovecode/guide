@@ -560,14 +560,14 @@ router.post('/addVisitor',function(req,res,next){
                             studentId:req.body.userId,
                         }
                         doc.students.push(item);
-                        doc.save(function(err,res){
+                        doc.save(function(err,doc){
                             if(err){
                                 throw '课程信息修改失败'
                             }else{
                                 res.json({
                                     status:'0',
                                     msg:'',
-                                    res:res
+                                    res:doc
                                 })
                             }
                         })
@@ -575,13 +575,13 @@ router.post('/addVisitor',function(req,res,next){
                         throw '没有这门课'
                     }
                 }
-            }).catach(err=>{
+            })
+        }).catch(err=>{
                 res.json({
                     status:'3',
                     msg:'err:'+err
                 })
             })
-        })
         console.log('p2')
     }
     p1().then(data=>{return p2()},err=>{

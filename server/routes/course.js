@@ -95,18 +95,16 @@ router.post('/detail',function(req,res,next){
         courseId:req.body.courseId,
         courseSN:req.body.courseSN
     }
-    
     Course.findOne(params,function(err,doc){
-        //console.log(doc.length)
         if(err){
             res.json({
                 status:'1',
                 msg:err.message
             })
         }else{
-            
             if(doc){
                 //console.log(doc)
+                /*
                 res.json({
                 status:'0',
                 msg:'',
@@ -114,11 +112,67 @@ router.post('/detail',function(req,res,next){
                     count:doc.length,
                     courseDetail:doc
                 }
-            })
+            })*/
+            let students=doc.students;
+            console.log(students.length)
+            let newStudents=[];
+            let getStudentList=(students)=>{
+                return new Promise((resolve,reject)=>{
+                    console.log('getList-1')
+                    students.forEach((item,index)=>{
+                    let params={
+                        userId:item.studentId
+                    }
+                    User.findOne(params,function(err,doc){
+                        if(err){
+                            res.json({
+                                status:'3',
+                                msg:'查询出错2'
+                            })
+                            throw '查询出错2'
+                        }else{
+                            if(doc){
+                                let temp={
+                                    studentId:doc.userId,
+                                    signInCount:item.signInCount,
+                                    studentName:doc.userName,
+                                    studentImg:doc.userImg
+                                }
+                                newStudents.push(temp)
+                                if(newStudents.length===students.length){
+                                    resolve(newStudents)
+                                }
+                            }else{
+                                res.json({
+                                    status:'4',
+                                    msg:'没有这个学生'
+                                })
+                                throw "没有这个学生"
+                            }
+                        }
+                    })
+                })
+
+                }).catch(err=>{
+                    console.log(err)
+                })
+            }
+            getStudentList(students).then(result=>{
+                    doc.students=newStudents;
+                    console.log(doc)
+                    res.json({
+                        status:'0',
+                        msg:'',
+                        result:{
+                            count:doc.length,
+                            courseDetail:doc
+                        }
+                    })
+                })
             }else{
                 res.json({
                     status:'2',
-                    msg:''
+                    msg:'查询出错'
                 })
             }
         }
