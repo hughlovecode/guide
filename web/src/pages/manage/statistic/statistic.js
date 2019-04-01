@@ -15,7 +15,7 @@ export default class Statistic extends React.Component {
 		})
 	}
 	componentDidMount(){
-		http.post('/course/detail',this.props.location.state.params).then(res=>{
+		http.post('/guide/detail',this.props.location.state.params).then(res=>{
             if(res.status !== '0'){
                 this.setState({
                     isVisible:true,

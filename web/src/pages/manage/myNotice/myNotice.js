@@ -21,7 +21,7 @@ export default class MyNotice extends React.Component{
             courseId:this.props.location.state.params.courseId,
             courseSN:this.props.location.state.params.courseSN
         }
-        http.post('/course/detail',params).then(res=>{
+        http.post('/guide/detail',params).then(res=>{
             if(res.status!=='0'){
                 this.setState({
                     isShowTip:true,
@@ -77,7 +77,7 @@ export default class MyNotice extends React.Component{
             }
     		console.log(params)
             console.log('params:')
-    		http.post('/course/addNotice',params).then(res=>{
+    		http.post('/guide/addNotice',params).then(res=>{
     			if(res.status !== '0'){
                     that.setState({
                         isShowAddModal:false,

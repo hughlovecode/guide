@@ -23,7 +23,7 @@ export default class MyVisitor extends React.Component{
 		})
 		console.log('this.props')
 		console.log(this.props)
-		http.post('/course/detail',this.props.location.state.params).then(res=>{
+		http.post('/guide/detail',this.props.location.state.params).then(res=>{
             if(res.status !== '0'){
                 this.setState({
                     isVisible:true,
@@ -98,7 +98,7 @@ export default class MyVisitor extends React.Component{
 			studentId:studentId
 		}
 		
-		http.post('/course/deleteStudent',params).then(res=>{
+		http.post('/guide/deleteVisitor',params).then(res=>{
 			if(res.status !== '0'){
 				throw 'throw on onFulfilled_1'
 			}else{
@@ -126,7 +126,7 @@ export default class MyVisitor extends React.Component{
 		})
 	}
 	updateData=(params)=>{
-		http.post('/course/detail',params).then(res=>{
+		http.post('/guide/detail',params).then(res=>{
             if(res.status !== '0'){
                 this.setState({
                     isVisible:true,

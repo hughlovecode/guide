@@ -22,7 +22,7 @@ export default class MyGuide extends React.Component{
     }
     getData=()=>{
         let userId=localStorage.getItem('userId')
-        http.post('/course',{userId:userId}).then((res)=>{
+        http.post('/guide',{userId:userId}).then((res)=>{
             if(res.status!=='0'){
                // alert('好像出了点以外刷新看看')
                this.setState({

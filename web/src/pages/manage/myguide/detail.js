@@ -25,7 +25,7 @@ export default class Detail extends React.Component{
             noticeList:[]
 
         }
-        http.post('/course/detail',this.props.location.state.params).then((res)=>{
+        http.post('/guide/detail',this.props.location.state.params).then((res)=>{
             if(res.status!=='0'){
                 alert('抱歉,出问题了!')
                 console.log(res)

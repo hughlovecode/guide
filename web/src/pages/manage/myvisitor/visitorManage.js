@@ -38,7 +38,7 @@ export default class VisitorManage extends React.Component{
 					courseId:that.state.courseList[i].courseId,
 					courseSN:that.state.courseList[i].courseSN,
 				}
-				http.post('/course/detail',params).then(res=>{
+				http.post('/guide/detail',params).then(res=>{
 					if(res.status==='0'){
 						//that.state.courseList[i].courseImg=res.result.courseDetail.courseImg
 						let courseList=that.state.courseList;
@@ -58,7 +58,7 @@ export default class VisitorManage extends React.Component{
             courseId:e.target.dataset.courseid,
             courseSN:e.target.dataset.coursesn
         }
-        this.props.history.push({pathname: '/course/myVisitor', state: {params: params}})
+        this.props.history.push({pathname: '/guide/myVisitor', state: {params: params}})
     }
 	render(){
 		return(

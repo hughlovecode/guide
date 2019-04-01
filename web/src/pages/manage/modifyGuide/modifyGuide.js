@@ -19,7 +19,7 @@ export default class ModifyGuide extends React.Component{
        
     }
     componentDidMount(){
-        http.post('/course/detail',this.props.location.state.params).then(res=>{
+        http.post('/guide/detail',this.props.location.state.params).then(res=>{
             if(res.status !== '0'){
                 this.setState({
                     isVisible:true,
@@ -75,7 +75,7 @@ export default class ModifyGuide extends React.Component{
                 teacherId:localStorage.getItem('userId'),
                 teacherName:localStorage.getItem('userName')
             }
-            http.post('/course/modifyCourse',params).then(res=>{
+            http.post('/guide/modifyGuide',params).then(res=>{
                 if(res.status === '0'){
                     this.setState({
                         isError:false,
