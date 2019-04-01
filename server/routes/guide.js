@@ -197,16 +197,16 @@ router.post('/addGuide',function(req,res,next){
         guideImg: req.body.guideImg,
         guideSSID: "",
         guideCount: "0",
-        HContent: "",
-        Htime: "",
         guideAddress: req.body.guideAddress,
         status: "1",
-        HTitle: "",
         tourists:[]
     }
     let index={
         guideId:req.body.guideId,
         guideSN:req.body.guideSN,
+    }
+    let paramsUser={
+        userId:req.body.guiderId
     }
     console.log(index)
     Guide.findOne(index,function(err,doc){
@@ -226,16 +226,55 @@ router.post('/addGuide',function(req,res,next){
             }else{
                 var newguide=new Guide(params)
                 newguide.save(function(err,result){
+                    
                     if(err){
                         res.json({
                             status:'3',
                             msg:'录入过程中出错'
                         })
                     }else{
-                        res.json({
-                            status:'0',
-                            msg:'成功'
-                        })
+                        console.log(paramsUser)
+                        if(doc){
+                            console.log('p02')
+                            User.findOne(paramsUser,function(err,doc){
+                                if(err){
+                                    res.json({
+                                        status:'2',
+                                        msg:'错误!!!'
+                                    })
+                                }else{
+                                    if(doc){
+                                        console.log(index)
+                                        console.log('index')
+                                        doc.guideList.push(index)
+                                        doc.save(function(err,result){
+                                            if(err){
+                                                res.json({
+                                                    status:'4',
+                                                    msg:err
+                                                })
+                                            }else{
+                                                res.json({
+                                                    status:'0',
+                                                    msg:''
+                                                })
+                                            }
+                                        })
+                                    }else{
+                                        res.json({
+                                            status:'3',
+                                            msg:'错误'
+                                        })
+                                    }
+                                }
+                            })
+
+                        }else{
+                            res.json({
+                                status:'2',
+                                msg:''
+                            })
+                        }
                     }
                 })
 
@@ -569,51 +608,7 @@ router.post('/addNotice',function(req,res,next){
         }
     })
 });
-//添加学生
-router.post('/addVisitor',function(req,res,next){
-    let params={
-        guideId:req.body.guideId,
-        guideSN:req.body.guideSN
-    }
-    let signInCount=new Array()
-    let newItem={
-        signInCount:signInCount,
-        touristId:req.body.touristId
-    }
-    Guide.findOne(params,function(err,doc){
-        if(err){
-            res.json({
-                status:'1',
-                msg:err.message
-            })
-        }else{
-            if(doc){
-                doc.tourists.push(newItem);
 
-                doc.save(function(err,result){
-                    if(err){
-                        res.json({
-                            status:'3',
-                            msg:err.message
-                        })
-                    }else{
-                        res.json({
-                            status:'0',
-                            msg:'success'
-                        })
-                    }
-                })
-                
-
-            }else{
-                res.json({
-                    status:'2',
-                    msg:'找不到你准备修改的课程'
-                })
-            }
-        }
-    })
-});
 
 
 
