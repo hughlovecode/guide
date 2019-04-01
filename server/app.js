@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 //1.定义入口路由
 var userInfo=require('./routes/userInfo');
-var course=require('./routes/course')
+var guide=require('./routes/guide')
 var app = express();
 
 // view engine setup
@@ -25,7 +25,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 //2.使用路由 
 app.use('/userInfo',userInfo);
-app.use('/course',course);
+app.use('/guide',guide);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

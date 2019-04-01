@@ -184,7 +184,7 @@ router.post('/detail',function(req,res,next){
     })    
 });
 //添加课程接口
-router.post('/addCourse',function(req,res,next){
+router.post('/addGuide',function(req,res,next){
     let params={
         courseId:req.body.courseId,
         courseSN:req.body.courseSN,
@@ -222,7 +222,7 @@ router.post('/addCourse',function(req,res,next){
                 })
 
             }else{
-                var newcourse=new Course(params)
+                var newcourse=new Guide(params)
                 newcourse.save(function(err,result){
                     if(err){
                         res.json({
@@ -242,7 +242,7 @@ router.post('/addCourse',function(req,res,next){
     })
 });
 //修改课程接口
-router.post('/modifyCourse',function(req,res,next){
+router.post('/modifyGuide',function(req,res,next){
     let params={
         courseId:req.body.courseId,
         courseSN:req.body.courseSN,
@@ -297,7 +297,7 @@ router.post('/modifyCourse',function(req,res,next){
     })
 });
 //添加学生接口
-router.get('/addStudent',function(req,res,next){
+router.get('/addVisitor',function(req,res,next){
     let index={
         courseId:req.body.courseId,
         courseSN:req.body.courseSN,
@@ -344,7 +344,7 @@ router.get('/addStudent',function(req,res,next){
 });
 
 //删除学生接口
-router.post('/deleteStudent',function(req,res,next){
+router.post('/deleteVisitor',function(req,res,next){
     let index={
         courseId:req.body.courseId,
         courseSN:req.body.courseSN,
@@ -392,7 +392,7 @@ router.post('/deleteStudent',function(req,res,next){
 });
 
 //修改学生信息
-router.post('/modifyStudent',function(req,res,next){
+router.post('/modifyVisitor',function(req,res,next){
     let index={
         courseId:'304509',
         courseSN:'001'
@@ -621,7 +621,7 @@ router.post('/addNotice',function(req,res,next){
     })
 });
 //添加学生
-router.post('/addStudent',function(req,res,next){
+router.post('/addVisitor',function(req,res,next){
     let params={
         courseId:req.body.courseId,
         courseSN:req.body.courseSN
