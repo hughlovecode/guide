@@ -26,7 +26,7 @@ export default class VisitorManage extends React.Component{
 			if(res.status==='0'){
 				console.log(res)
 				this.setState({
-					guideList:res.result.info.guideList
+					guideList:res.info.guideList
 				})
 				return Promise.resolve()
 			}else{

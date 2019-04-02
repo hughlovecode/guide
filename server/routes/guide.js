@@ -208,24 +208,70 @@ router.post('/addGuide',function(req,res,next){
     let paramsUser={
         userId:req.body.guiderId
     }
-    console.log(index)
-    Guide.findOne(index,function(err,doc){
-        if(err){
+    console.log(paramsUser)
+    const p1=(index)=>{
+        return new Promise((resolve,reject)=>{
+            Guide.findOne(index,function(err,doc){
+            if(err){
             res.json({
                 status:'1',
                 msg:err.message
-            })
-        }else{
-            if(doc){
-                res.json({
-                    status:'2',
-                    msg:'',
-                    result:'同课程号和课序号的课程已经存在在课表中了,请更换后添加'
-                })
+                    })
+                reject(err.message)
+                }else{
+                    if(doc){
+                        console.log(index)
+                        console.log(doc)
+                        res.json({
+                            status:'2',
+                            msg:'',
+                            result:'同课程号和课序号的课程已经存在在课表中了,请更换后添加'
+                        })
+                        reject('同课程号和课序号的课程已经存在在课表中了,请更换后添加')
 
-            }else{
-                var newguide=new Guide(params)
-                newguide.save(function(err,result){
+                    }else{
+                        var newguide=new Guide(params)
+                        newguide.save()
+                        resolve()
+                        console.log('111')
+
+                    }
+                }
+            })
+        })
+    }
+    const p2=paramsUser=>{
+        return new Promise((resolve,reject)=>{
+            User.findOne(paramsUser,function(err,doc){
+                if(err){
+                    res.json({
+                        status:'2',
+                        msg:'加入失败'
+                    })
+                    reject()
+                }else{
+                    if(doc){
+                        doc.guideList.push(index)
+                        doc.save()
+                        res.json({
+                            status:'0',
+                            msg:''
+                        })
+                        console.log('222')
+                    }else{
+                        res.json({
+                            status:'3',
+                            msg:'没有这个用户'
+                        })
+                    }
+                }
+            })
+        })
+    }
+    p1(index).then(()=>{return p2(paramsUser)})
+
+    /*
+        function(err,result){
                     
                     if(err){
                         res.json({
@@ -276,11 +322,8 @@ router.post('/addGuide',function(req,res,next){
                             })
                         }
                     }
-                })
-
-            }
-        }
-    })
+                }
+    */
 });
 //修改课程接口
 router.post('/modifyGuide',function(req,res,next){

@@ -19,7 +19,7 @@ export default class MyInfo extends React.Component{
             if(res.status!=='0'){
                 alert('好像出了点以外刷新看看')
             }else{
-                let temp=res.result.info;
+                let temp=res.info;
                 console.log('temp:')
                 console.log(temp)
                 this.setState({

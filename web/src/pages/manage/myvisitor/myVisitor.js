@@ -71,7 +71,7 @@ export default class MyVisitor extends React.Component{
 					modalTag:'错误'
 				})
 			}else{
-				let touristInfo=res.result.info;
+				let touristInfo=res.info;
 				console.log('touristInfo')
 				console.log(touristInfo)
 				this.setState({

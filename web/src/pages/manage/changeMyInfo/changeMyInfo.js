@@ -22,7 +22,7 @@ export default class ChangeMyInfo extends React.Component{
                     tipInfo:'出了点意外,试试刷新'
                 })
             }else{
-                let temp=res.result.info;
+                let temp=res.info;
                 //console.log(temp)
                 this.setState({
                     userId:temp.userId,
