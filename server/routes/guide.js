@@ -2,6 +2,7 @@ var express=require('express');
 var router = express.Router();
 var Guide=require('./../modules/guides');
 var User=require('./../modules/users');
+
 //列表接口
 router.post('/',function(req,res,next){
     //res.send('hello,')
@@ -270,60 +271,6 @@ router.post('/addGuide',function(req,res,next){
     }
     p1(index).then(()=>{return p2(paramsUser)})
 
-    /*
-        function(err,result){
-                    
-                    if(err){
-                        res.json({
-                            status:'3',
-                            msg:'录入过程中出错'
-                        })
-                    }else{
-                        console.log(paramsUser)
-                        if(doc){
-                            console.log('p02')
-                            User.findOne(paramsUser,function(err,doc){
-                                if(err){
-                                    res.json({
-                                        status:'2',
-                                        msg:'错误!!!'
-                                    })
-                                }else{
-                                    if(doc){
-                                        console.log(index)
-                                        console.log('index')
-                                        doc.guideList.push(index)
-                                        doc.save(function(err,result){
-                                            if(err){
-                                                res.json({
-                                                    status:'4',
-                                                    msg:err
-                                                })
-                                            }else{
-                                                res.json({
-                                                    status:'0',
-                                                    msg:''
-                                                })
-                                            }
-                                        })
-                                    }else{
-                                        res.json({
-                                            status:'3',
-                                            msg:'错误'
-                                        })
-                                    }
-                                }
-                            })
-
-                        }else{
-                            res.json({
-                                status:'2',
-                                msg:''
-                            })
-                        }
-                    }
-                }
-    */
 });
 //修改课程接口
 router.post('/modifyGuide',function(req,res,next){
@@ -651,6 +598,7 @@ router.post('/addNotice',function(req,res,next){
         }
     })
 });
+
 
 
 

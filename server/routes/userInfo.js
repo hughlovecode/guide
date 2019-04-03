@@ -3,6 +3,8 @@ var router = express.Router();
 var mongoose=require('mongoose');
 var User=require('./../modules/users');
 var Guide=require('./../modules/guides');
+var request=require('request')
+var wx=require('./config.js')
 //连接mongodb test
 mongoose.connect('mongodb://59.110.162.130:27017/guide');
 mongoose.connection.on('connected',function(){
@@ -604,6 +606,30 @@ router.post('/addVisitor',function(req,res,next){
         })
     })
 })
+//微信验证接口
+router.post('/wxLogin',function(req,res,next){
+    const params={
+        code:req.body.code,
+        appid:wx.wx.appid,
+        appsercret:wx.wx.appsercret
+    }
+    console.log(params)
+    let url='https://api.weixin.qq.com/sns/jscode2session?appid='+params.appid+'&secret='+params.appsercret+'&js_code='+params.code+'&grant_type=authorization_code';
+    console.log(url)
+    request(url,function(err,response,body){
+        if(err){
+            res.json({
+                status:'2',
+                msg:'err:'+err
+            })
+        }else{
+            res.json({
+                status:'0',
+                res:body
+            })
+        }
+    })
+});
 
 module.exports = router;
 
