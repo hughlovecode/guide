@@ -8,7 +8,7 @@ var wx=require('./config.js')
 var server=require('./config.js')
 //连接mongodb test
 console.log(server.server.url)
-mongoose.connect(server.server.url);
+mongoose.connect(server.server.url,{useNewUrlParser:true});
 mongoose.connection.on('connected',function(){
     console.log('mongodb connected success')
 });
