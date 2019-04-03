@@ -1,4 +1,5 @@
 //app.js
+import http from './utils/http.js'
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -11,6 +12,7 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       if(res.code){
+        /*
         wx.request({
           url: 'http://localhost:3000/userInfo/wxLogin',
           data:{
@@ -26,6 +28,12 @@ App({
           fail(err){
             console.log(err)
           }
+        })
+        */
+        http.post('/userInfo/wxLogin',{code:res.code}).then(res=>{
+          console.log(res.data)
+        }).catch(err=>{
+          console.log(err)
         })
 
       }else{

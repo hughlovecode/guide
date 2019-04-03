@@ -598,7 +598,7 @@ router.post('/wxLogin',function(req,res,next){
     }
     console.log(params)
     let url='https://api.weixin.qq.com/sns/jscode2session?appid='+params.appid+'&secret='+params.appsercret+'&js_code='+params.code+'&grant_type=authorization_code';
-    console.log(url)
+    
     request(url,function(err,response,body){
         if(err){
             res.json({
@@ -606,10 +606,39 @@ router.post('/wxLogin',function(req,res,next){
                 msg:'err:'+err
             })
         }else{
-            res.json({
-                status:'0',
-                res:body
-            })
+            let b=JSON.parse(body)
+            console.log(b.openid)
+            if(b.openid){
+                let params={
+                    openid:b.openid
+                }
+                User.findOne(params,function(err,doc){
+                    if(err){
+                        res.json({
+                            status:'2',
+                            msg:'登录出错'
+                        })
+                    }else{
+                        if(doc){
+                            res.json({
+                                status:'0',
+                                msg:'',
+                                res:doc
+                            })
+                        }else{
+                            res.json({
+                                status:'3',
+                                msg:'您还没有将您的账号与微信关联,请先关联账户'
+                            })
+                        }
+                    }
+                })
+            }else{
+                res.json({
+                    status:'2',
+                    msg:'err:openid无返回,请稍候再试'
+                })
+            }
         }
     })
 });
