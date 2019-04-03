@@ -6,7 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-//1.定义入口路由
+//定义入口路由
 var userInfo=require('./routes/userInfo');
 var guide=require('./routes/guide')
 var app = express();
