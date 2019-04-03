@@ -106,16 +106,6 @@ router.post('/detail',function(req,res,next){
             })
         }else{
             if(doc){
-                //console.log(doc)
-                /*
-                res.json({
-                status:'0',
-                msg:'',
-                result:{
-                    count:doc.length,
-                    courseDetail:doc
-                }
-            })*/
             let tourists=doc.tourists;
             console.log(tourists.length)
             let newtourists=[];
@@ -186,7 +176,7 @@ router.post('/detail',function(req,res,next){
 
     })    
 });
-//添加课程接口
+//添加旅程接口
 router.post('/addGuide',function(req,res,next){
     let params={
         guideId:req.body.guideId,
@@ -272,7 +262,7 @@ router.post('/addGuide',function(req,res,next){
     p1(index).then(()=>{return p2(paramsUser)})
 
 });
-//修改课程接口
+//修改旅程接口
 router.post('/modifyGuide',function(req,res,next){
     let params={
         guideId:req.body.guideId,
@@ -327,7 +317,7 @@ router.post('/modifyGuide',function(req,res,next){
         }
     })
 });
-//添加学生接口
+//添加游客接口
 router.get('/addVisitor',function(req,res,next){
     let index={
         guideId:req.body.guideId,
@@ -372,7 +362,7 @@ router.get('/addVisitor',function(req,res,next){
     })
 });
 
-//删除学生接口
+//删除游客接口
 router.post('/deleteVisitor',function(req,res,next){
     let index={
         guideId:req.body.guideId,
@@ -421,7 +411,7 @@ router.post('/deleteVisitor',function(req,res,next){
 });
 
 
-//开始签到,修改课程状态
+//开始签到,修改状态
 router.post('/startSignIn',function(req,res,next){
     let params={
         guideId:req.body.guideId,
@@ -559,7 +549,7 @@ router.post('/TSignIn',function(req,res,next){
         }
     })
 });
-//布置作业
+//发布通知
 router.post('/addNotice',function(req,res,next){
     let params={
         guideId:req.body.guideId,

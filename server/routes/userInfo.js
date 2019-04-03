@@ -226,38 +226,7 @@ router.post('/info',function(req,res,next){
             })
         }else{
             if(doc){
-                //尽量传递少的数据
-                /*
-                let list=[];
-                let arr=doc.guideList;
-                arr.map((item)=>{
-                    let temp={
-                        guideId:item.guideId,
-                        guideSN:item.guideSN
-                    }
-                    list.push(temp)
-                })
-                let temp={
-                    userId:doc.userId,
-                    userImg:doc.userImg,
-                    status:doc.status,
-                    userName:doc.userName,
-                    email:doc.email,
-                    userPhone:doc.userPhone,
-                    guideList:list,
-                    company:doc.company,
-                    job:doc.job,
-                    introduce:doc.introduce
-                }
-                res.json({
-                    status:'0',
-                    msg:'',
-                    result:{
-                        count:doc.length,
-                        info:temp
-                    }
-                })
-                */
+                
                 let arr=doc.guideList;
                 let temp={
                     userId:doc.userId,
@@ -480,7 +449,7 @@ router.post('/modifyUserImg',function(req,res,next){
         }
     })
 })
-//添加课程
+//添加旅程
 router.post('/addGuide',function(req,res,next){
     let params={
         userId:req.body.userId
@@ -513,7 +482,7 @@ router.post('/addGuide',function(req,res,next){
         }
     })
 })
-//添加学生
+//添加游客
 router.post('/addVisitor',function(req,res,next){
     let params={
         userId:req.body.userId

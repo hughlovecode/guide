@@ -5,8 +5,12 @@
 
 ##  结果
 	
-	项目分为server,web和wechat三个部分,分别是后端,web前端和小程序
+	项目分为server,web和weguide三个部分,分别是后端,web前端和小程序
 
 ###  web使用
 	 npm install
+	 npm install yarn
 	 yarn start
+
+##	tips
+	为了脱敏,/server/routes里删除了config.js,这个文件是小程序的appid和sercret,导出为一个wx
