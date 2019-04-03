@@ -1,2 +1,3 @@
 ##ignore this
 /server/routes/config.js
+/server/sftp-config.json
