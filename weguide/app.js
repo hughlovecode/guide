@@ -18,6 +18,9 @@ App({
           if(data.status==='3'){
             prompt.modal('提示','请先绑定账号')
             .then(res=>{
+              wx.redirectTo({
+                url: '/pages/bindAccount/bindAccount',
+              })
               
             })
             .catch(err=>{
@@ -25,6 +28,16 @@ App({
             })
           }else if(data.status==='0'){
             prompt.toast('成功')
+            getApp().globalData.user = data.res;
+            if (data.res.status === 'g') {
+              wx.redirectTo({
+                url: '/pages/user/guider',
+              })
+            } else {
+              wx.redirectTo({
+                url: '/pages/user/tourist',
+              })
+            }
           }else{
             prompt.toast('异常!code=0')
           }
@@ -38,6 +51,7 @@ App({
       }
     })
     // 获取用户信息
+    
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {

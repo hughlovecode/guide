@@ -607,10 +607,9 @@ router.post('/wxLogin',function(req,res,next){
             })
         }else{
             let b=JSON.parse(body)
-            console.log(b.openid)
             if(b.openid){
                 let params={
-                    openid:b.openid
+                    openId:b.openid
                 }
                 User.findOne(params,function(err,doc){
                     if(err){
@@ -642,6 +641,63 @@ router.post('/wxLogin',function(req,res,next){
         }
     })
 });
+//绑定接口
+router.post('/wxBind',function(req,res,next){
+    let params={
+        userId:req.body.userId,
+        password:req.body.password,
+        code:req.body.code,
+        appid:wx.wx.appid,
+        appsercret:wx.wx.appsercret
+    }
+    console.log(params);
+    let url='https://api.weixin.qq.com/sns/jscode2session?appid='+params.appid+'&secret='+params.appsercret+'&js_code='+params.code+'&grant_type=authorization_code';
+    request(url,function(err,response,body){
+        if(err){
+            res.json({
+                status:'2',
+                msg:'openid请求出错'
+            })
+        }else{
+            let b=JSON.parse(body)
+            let openId=b.openid;
+            let params2={
+                userId:params.userId
+            }
+            User.findOne(params2,function(err,doc){
+                if(err){
+                    res.json({
+                        status:'2',
+                        msg:'用户查找过程出错'
+                    })
+                }else{
+                    if(doc){
+                        if(doc.password===params.password){
+                            doc.openId=openId;
+                            doc.save(function(){
+                                res.json({
+                                    status:'0',
+                                    msg:'成功',
+                                    res:doc //这里最后不要所有信息都返回,得改掉
+                                })
+                            })
+                        }else{
+                            res.json({
+                                status:'3',
+                                msg:'密码错误'
+                            })
+                        }
+                    }else{
+                        res.json({
+                            status:'1',
+                            msg:'这个用户不存在'
+                        })
+                    }
+                }
+            })
+        }
+    })
+})
 
 module.exports = router;
 

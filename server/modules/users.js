@@ -11,7 +11,7 @@ var userSchame=new Schema({
 	"company":String,
 	"job":String,
 	"introduce":String,
-	"openid":String,
+	"openId":String,
 	"guideList":[
 	{
 		"guideId":String,

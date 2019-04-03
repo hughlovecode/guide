@@ -18,7 +18,7 @@ prompt.modal=function(title,content){
         if (res.confirm) {
           resolve()
         } else if (res.cancel) {
-          reject()
+          reject('拒绝')
         }
       }
     })
