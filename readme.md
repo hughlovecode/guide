@@ -13,4 +13,4 @@
 	 yarn start
 
 ##	tips
-	为了脱敏,/server/routes里删除了config.js,这个文件是小程序的appid和sercret,导出为一个wx
+	为了脱敏,/server/routes里删除了config.js,这个文件是小程序的appid和sercret,导出为一个wx,同时服务器的域名也隐藏了,请注意
