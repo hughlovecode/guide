@@ -27,7 +27,7 @@ export default class MyGuide extends React.Component{
                // alert('好像出了点以外刷新看看')
                this.setState({
                 isShowTip:true,
-                tipInfo:'出问题了,快联系程序猿排查'
+                tipInfo:res.msg
                })
             }else{
                 let temp=res.result.guidelist;

@@ -5,8 +5,10 @@ var User=require('./../modules/users');
 var Guide=require('./../modules/guides');
 var request=require('request')
 var wx=require('./config.js')
+var server=require('./config.js')
 //连接mongodb test
-mongoose.connect('mongodb://59.110.162.130:27017/guide');
+console.log(server.server.url)
+mongoose.connect(server.server.url);
 mongoose.connection.on('connected',function(){
     console.log('mongodb connected success')
 });
@@ -218,6 +220,7 @@ router.post('/info',function(req,res,next){
     let params={
         userId:req.body.userId
     }
+    console.log('/info')
     User.findOne(params,function(err,doc){
         if(err){
             res.json({
@@ -226,7 +229,7 @@ router.post('/info',function(req,res,next){
             })
         }else{
             if(doc){
-                
+                console.log('doc')
                 let arr=doc.guideList;
                 let temp={
                     userId:doc.userId,
@@ -256,6 +259,7 @@ router.post('/info',function(req,res,next){
                                     reject()
                                 }else{
                                     if(doc){
+                                        console.log('doc')
                                         let s={
                                             guideId:doc.guideId,
                                             guideSN:doc.guideSN,
@@ -264,8 +268,10 @@ router.post('/info',function(req,res,next){
                                             guideImg:doc.guideImg
                                         }
                                         guideList.push(s)
+                                        console.log(arr.length,guideList.length)
                                         if(guideList.length===arr.length){
                                             resolve()
+                                            console.log('p1 end')
                                         }
                                     }else{
                                         res.json({
@@ -279,15 +285,23 @@ router.post('/info',function(req,res,next){
                         })
                     })
                 }
-                p1(arr).then(result=>{
+                if(arr.length>0){
+                    p1(arr).then(result=>{
                     temp.guideList=guideList;
-                    console.log(temp.guideList)
+                    console.log('end')
                     res.json({
                         status:'0',
                         msg:'',
                         info:temp
                     })
                 })
+                }else{
+                    res.json({
+                        status:'0',
+                        msg:'',
+                        info:temp
+                    })
+                }
             }else{
                 res.json({
                     status:'2',

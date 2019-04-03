@@ -43,8 +43,6 @@ export default class AddMyGuide extends React.Component{
 				guiderId:localStorage.getItem('userId'),
 				guiderName:localStorage.getItem('userName')
 			}
-			alert(params.guideId)
-			alert(params.guideSN)
 			http.post('/guide/addGuide',params).then(res=>{
 				if(res.status === '0'){
 					this.setState({

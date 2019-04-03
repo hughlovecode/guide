@@ -23,7 +23,7 @@ router.post('/',function(req,res,next){
                     let arr=doc.guideList;
                     if(arr.length<=0){
                         res.json({
-                            status:'2',
+                            status:'4',
                             msg:'请注意,您还没有任何相关的行程!'
                         })
                     }else{
