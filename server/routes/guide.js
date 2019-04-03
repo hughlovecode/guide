@@ -10,7 +10,6 @@ router.post('/',function(req,res,next){
         userId:req.body.userId
     }
     User.findOne(params,function(err,doc){
-        //console.log(doc.length)
         if(err){
             res.json({
                 status:'1',
