@@ -27,14 +27,13 @@ App({
               prompt.toast('异常!code=3')
             })
           }else if(data.status==='0'){
-            prompt.toast('成功')
             getApp().globalData.user = data.res;
             if (data.res.status === 'g') {
-              wx.redirectTo({
+              wx.reLaunch({
                 url: '/pages/user/guider',
               })
             } else {
-              wx.redirectTo({
+              wx.reLaunch({
                 url: '/pages/user/tourist',
               })
             }

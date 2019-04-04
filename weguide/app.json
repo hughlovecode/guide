@@ -4,7 +4,8 @@
     "pages/logs/logs",
     "pages/bindAccount/bindAccount",
     "pages/user/guider",
-    "pages/user/tourist"
+    "pages/user/tourist",
+    "pages/touristList/touristList"
   ],
   "window":{
     "backgroundTextStyle":"light",
