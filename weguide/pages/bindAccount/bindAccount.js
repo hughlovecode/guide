@@ -44,15 +44,9 @@ Page({
                   //登录成功的操作
                   getApp().globalData.user=data.res;
                   console.log(data)
-                  if(data.res.status==='g'){
-                    wx.redirectTo({
-                      url: '/pages/user/guider',
+                  wx.reLaunch({
+                      url: '/pages/user/user',
                     })
-                  }else{
-                    wx.redirectTo({
-                      url: '/pages/user/tourist',
-                    })
-                  }
                 }else if(data.status==='1'){
                   prompt.toast('请先注册')
                 }else if(data.status==='3'){
