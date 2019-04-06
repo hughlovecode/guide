@@ -216,6 +216,45 @@ router.post('/register',function(req,res,next){
         }
     })
 })
+router.post('/userInfo',function(req,res,next){
+    let params={
+        userId:req.body.userId
+    }
+    User.findOne(params,function(err,doc){
+        if(err){
+            res.json({
+                status:'1',
+                msg:err.message
+            })
+        }else{
+            if(doc){
+                let temp={
+                    userId:doc.userId,
+                    userImg:doc.userImg,
+                    status:doc.status,
+                    userName:doc.userName,
+                    email:doc.email,
+                    userPhone:doc.userPhone,
+                    company:doc.company,
+                    job:doc.job,
+                    introduce:doc.introduce
+                }
+                console.log(temp)
+                res.json({
+                    status:'0',
+                    msg:'',
+                    userInfo:temp
+                })
+                
+            }else{
+                res.json({
+                    status:'2',
+                    msg:'没有返回值'
+                })
+            }
+        }
+    })
+})
 router.post('/info',function(req,res,next){
     let params={
         userId:req.body.userId

@@ -131,7 +131,11 @@ router.post('/detail',function(req,res,next){
                                             touristId:doc.userId,
                                             signInCount:item.signInCount,
                                             guideName:doc.userName,
-                                            guideImg:doc.userImg
+                                            guideImg:doc.userImg,
+                                            touristPhone:doc.userPhone,
+                                            touristEmail:doc.email,
+                                            touristIntroduce:doc.introduce,
+                                            touristJob:doc.job
                                         }
                                         newtourists.push(temp)
                                         tourists[index]=temp
@@ -324,7 +328,8 @@ router.get('/addVisitor',function(req,res,next){
     }
     let newGuide={
                     touristId:req.body.touristId,
-                    signInCount:[]
+                    signInCount:[],
+                    touristState:"1"
                 }
     Guide.findOne(index,function(err,doc){
         if(err){
@@ -505,7 +510,7 @@ router.post('/finishSignIn',function(req,res,next){
             }else{
                 res.json({
                     status:'2',
-                    msg:'找不到你准备修改的课程'
+                    msg:'找不到你准备修改的旅程'
                 })
             }
         }
@@ -513,11 +518,14 @@ router.post('/finishSignIn',function(req,res,next){
 });
 //老师代签接口
 router.post('/TSignIn',function(req,res,next){
+    let body=JSON.parse(body)
     let params={
         guideId:req.body.guideId,
         guideSN:req.body.guideSN
     }
-    let info = req.body.info
+    let signInCount = JSON.parse(body.signInCount);
+    console.log(signInCount)
+    let touristId=req.body.touristId
     Guide.findOne(params,function(err,doc){
         if(err){
             res.json({
@@ -527,10 +535,11 @@ router.post('/TSignIn',function(req,res,next){
         }else{
             if(doc){
                 //学生状态修改
-                doc.tourists.forEach(item=>{
-                    if(item.touristId === info.touristId){
-                        item.signInCount = info.signInCount
-                       // console.log(item)
+                doc.tourists.forEach((item,index)=>{
+                    if(item.touristId === touristId){
+                        //item.signInCount = signInCount
+                        doc.tourists[index].signInCount=signInCount
+                        console.log(signInCount[2])
                     }
                 })
                 doc.save()
