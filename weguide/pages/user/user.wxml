@@ -1,0 +1,51 @@
+<!--pages/user/user.wxml-->
+<view class='body'>
+<view class='allbody'>
+  <header></header>
+    <view wx:for="{{guideList}}" wx:key=''>
+    <view class='ArrayItem'>
+      <view class='guideImg'>
+        <image class="guide-img" src="{{item.guideImg}}"></image>
+      </view>
+      <view class='guideName'>{{item.guideName}}</view>
+      <view class='guiderName'>{{item.guideId}}</view>
+      <button class='SignInBtn' bindtap="sign" data-info="{{item}}">签到</button>
+      <button class='guideInfoBtn' bindtap='getInfo' data-info="{{item}}">详情</button>  
+      <span class="guideState">{{item.status==="0"?"正在签到":""}}</span>
+    </view>
+    </view>
+  </view>
+</view>
+
+<modal hidden="{{hidden}}" title="旅程详情" confirm-text="确认" cancel-text="取消" bindcancel="cancel" bindconfirm="cancel" >
+    <view class='detail'>
+      <view>
+        <span>旅程名:</span>
+        <span>{{detail.guideName}}</span>
+      </view>
+      <view>
+        <span>导游: </span>
+        <span>{{detail.guiderName}}</span>
+      </view>
+      <view>
+        <span>出发地: </span>
+        <span>{{detail.guideAddress}}</span>
+      </view>
+      <view>
+        <span>签到状态: </span>
+        <span wx:if='{{detail.status==="0"}}'>
+        正在签到
+        </span>
+        <span wx:if='{{detail.status==="1"}}'>
+        未签到
+        </span>
+      </view>
+      <view>
+        <span>详情: </span>
+        <span>{{detail.guideInfo}}</span>
+      </view>
+    </view>
+</modal>
+
+
+

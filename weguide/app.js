@@ -28,15 +28,9 @@ App({
             })
           }else if(data.status==='0'){
             getApp().globalData.user = data.res;
-            if (data.res.status === 'g') {
-              wx.reLaunch({
-                url: '/pages/user/guider',
-              })
-            } else {
-              wx.reLaunch({
-                url: '/pages/user/tourist',
-              })
-            }
+            wx.reLaunch({
+              url: '/pages/user/user',
+            })
           }else{
             prompt.toast('异常!code=0')
           }

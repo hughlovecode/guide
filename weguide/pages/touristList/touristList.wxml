@@ -1,2 +1,110 @@
-<!--pages/touristList/touristList.wxml-->
-<text>pages/touristList/touristList.wxml</text>
+<!--pages/student/studentList.wxml-->
+<view class='fixBtn'>
+<view wx:if="{{btnState}}">  
+<view class="btnItem" bindtap='finish'>结束签到</view>
+</view>
+<view wx:else>
+<picker bindchange="bindCasPickerChange"value=" {{casIndex1}}" range="{{casArray}}">
+    <view class="btnItem" bindtap='start'>开始签到</view>
+</picker>
+</view>
+<view class="btnItem" bindtap='notice'>添加通知</view>
+</view>
+
+<modal hidden="{{hiddenmodalput}}" title="请输入所建立的wifi" confirm-text="提交" cancel-text="取消" bindcancel="wifiCancel" bindconfirm="wifiConfirm">
+    <input type='text'placeholder="请输入内容" bindinput="WifiInput" auto-focus/>
+</modal> 
+
+<view class="container"> 
+<view class='innerContainer'>
+
+ <!--用户基本信息-->
+ <view class='userInfo'>
+ <!--头像和姓名-->
+ <view class='row1'>
+ <view class='userImg'>
+ <image class="user-img" src="{{detail.guideImg}}"></image> 
+ </view>
+ <view class='nameText'>{{detail.guiderName}}</view>
+ <view class='touristNameText'>{{detail.guideName}}</view>
+ </view>
+  <!--旅程信息-->
+  <view class='InfoText'>旅程信息</view>
+  <view class='guideInfo'>
+  <label class='guideAddress'>{{detail.guideAddress}}</label>
+  <label class='guideId'>旅程号：{{detail.guideId}}</label>
+  <label class='guideSN'>序号：{{detail.guideSN}}</label>
+  <label class='guideCount'>总人数：{{touristList.length}}</label>
+  <!--签到进度条-->
+  <view class='pbar'>
+  <view class='innerbar' style='width:{{barwidth}}rpx'></view>
+  </view>
+  <text class='barText1'>已签：{{signCount}}人</text>
+   <text class='barText2'>未签：{{touristList.length-signCount}}人</text>
+  </view>
+ </view>
+
+<!--列表-->
+
+<view wx:for="{{touristList}}" wx:key="">
+
+<view class='touristArrayItem'>
+<view class='touristImg'>
+ <image class="tourist-img" src="{{item.guideImg}}"></image> 
+</view>
+<view class='touristName'>{{item.guideName}}</view>
+<view class='touristId'>{{item.guideId}}</view>
+
+<button class='touristInfo' bindtap='getTouristInfo' data-info="{{item}}">详情</button>
+<view wx:if="{{item.touristState === 'true'}}">
+<button class='signInBtn' bindtap='signOut' data-info="{{item}}">取消</button>
+<view class='state'>完成签到</view>
+</view>
+<view wx:else>
+<button class='signInBtn' bindtap='signIn' data-info="{{item}}">签到</button>
+</view>
+
+
+
+</view>
+
+
+</view>
+</view>
+</view>
+
+
+<!--通知-->
+<modal hidden="{{hiddenNotice}}" title="请输入通知" confirm-text="提交" cancel-text="取消" bindcancel="cancelSetNotice" bindconfirm="confirmSetNotice">
+    <input placeholder='请输入标题' bindinput="HTitleInput"></input>
+    <text>\n</text>
+    <textarea type='text' placeholder='请输入详细内容' bindinput="HContentInput"></textarea>
+</modal>
+<!--下拉输入框-->
+<view class="section {{reply?'on':'off'}}">
+  <modal hidden="{{!reply}}" title="请输入次数" confirm-text="提交" cancel-text="取消" bindcancel="cancelSignIn" bindconfirm="confirmSignIn">
+    <input placeholder='请输入第几次' bindinput="setCountInput"></input>
+  </modal>
+
+</view>
+
+<!--游客信息-->
+<modal hidden="{{hiddenTouristInfo}}" title="游客信息" confirm-text="确认" cancel-text="取消" bindcancel="cancelTouristInfo" bindconfirm="cancelTouristInfo" >
+    <view>
+      <view>
+        <span>姓名:</span>
+        <span>{{info.guideName}}</span>
+      </view>
+      <view>
+        <span>手机号:</span>
+        <span>{{info.touristPhone}}</span>
+      </view> 
+      <view>
+        <span>邮箱:</span>
+        <span>{{info.touristEmail}}</span>
+      </view>    
+    </view>
+</modal>
+
+
+

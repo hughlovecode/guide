@@ -516,15 +516,12 @@ router.post('/finishSignIn',function(req,res,next){
         }
     })
 });
-//老师代签接口
+//代签接口
 router.post('/TSignIn',function(req,res,next){
-    let body=JSON.parse(body)
     let params={
         guideId:req.body.guideId,
         guideSN:req.body.guideSN
     }
-    let signInCount = JSON.parse(body.signInCount);
-    console.log(signInCount)
     let touristId=req.body.touristId
     Guide.findOne(params,function(err,doc){
         if(err){
@@ -537,9 +534,51 @@ router.post('/TSignIn',function(req,res,next){
                 //学生状态修改
                 doc.tourists.forEach((item,index)=>{
                     if(item.touristId === touristId){
-                        //item.signInCount = signInCount
-                        doc.tourists[index].signInCount=signInCount
-                        console.log(signInCount[2])
+                        item.signInCount.forEach(item2=>{
+                            if(item2.tag===doc.guideCount){
+                                item2.isSign='true';
+                                console.log(item2)
+                            }
+                        })
+                    }
+                })
+                doc.save()
+                res.json({
+                    status:'0',
+                    msg:'success'
+                })
+
+            }else{
+                res.json({
+                    status:'2',
+                    msg:'找不到你准备修改的课程'
+                })
+            }
+        }
+    })
+});
+router.post('/TSignOut',function(req,res,next){
+    let params={
+        guideId:req.body.guideId,
+        guideSN:req.body.guideSN
+    }
+    let touristId=req.body.touristId
+    Guide.findOne(params,function(err,doc){
+        if(err){
+            res.json({
+                status:'1',
+                msg:err.message
+            })
+        }else{
+            if(doc){
+                //状态修改
+                doc.tourists.forEach((item,index)=>{
+                    if(item.touristId === touristId){
+                        item.signInCount.forEach(item2=>{
+                            if(item2.tag===doc.guideCount){
+                                item2.isSign='false';
+                            }
+                        })
                     }
                 })
                 doc.save()

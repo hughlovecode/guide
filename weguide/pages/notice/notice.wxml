@@ -1,0 +1,63 @@
+<!--pages/notice/notice.wxml-->
+<view class="container"> 
+<view class='innerContainer'>
+<!--通知列表-->
+<view style='display:{{ListDisplay}}'>
+
+<view wx:for="{{guideList}}" wx:key="">
+
+
+<view class='guideArrayItem'>
+<view class='guideImg'>
+ <image class="guide-img" src="{{item.guideImg}}"></image> 
+</view>
+<view class='guideName'>{{item.guideName}}</view>
+<view class='guiderName'>{{item.guiderName}}</view>
+<button class='guideInfo' bindtap='open' data-info="{{item}}">通知详情</button>
+</view>
+
+
+</view>
+
+</view>
+<!--通知详情的框-->
+<view style='display:{{guideDisplay}}'>
+<view class='guideArrayItem'>
+<view class='guideImg'>
+ <image class="guide-img" src="{{info.guideImg}}"></image> 
+</view>
+<view class='guideName'>{{info.guideName}}</view>
+<view class='guiderName'>{{info.guiderName}}</view>
+<button class='guideInfo' bindtap='close' >关闭</button>
+</view>
+<view wx:if="{{info.notice.length!==0}}">
+<view wx:for="{{info.notice}}" wx:key="">
+<view class='Notice'>
+<text class='title'>{{item.title}}</text>
+<text class='time'>{{item.time}}</text>
+<textarea class='content'>{{item.content}}</textarea>
+</view>
+</view>
+</view>
+<view wx:else>
+<view >
+没有数据啦
+</view>
+</view>
+
+</view>
+
+
+
+
+
+ 
+
+ 
+</view>
+</view>
+
+
+
+
+

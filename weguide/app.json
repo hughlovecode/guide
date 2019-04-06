@@ -3,14 +3,48 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/bindAccount/bindAccount",
-    "pages/user/guider",
-    "pages/user/tourist",
-    "pages/touristList/touristList"
+    "pages/user/user",
+    "pages/touristList/touristList",
+    "pages/notice/notice",
+    "pages/tripNote/tripNote",
+    "pages/callPolice/callPolice"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#6e6d6b",
+    "selectedColor": "#e64340",
+    "borderStyle": "white",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/user/user",
+        "iconPath": "pages/assets/nav/my-off.png",
+        "selectedIconPath": "pages/assets/nav/my-on.png",
+        "text": "我的"
+      },
+      {
+        "pagePath": "pages/tripNote/tripNote",
+        "iconPath": "pages/assets/nav/add-off.png",
+        "selectedIconPath": "pages/assets/nav/add-on.png",
+        "text": "游记"
+      },
+      {
+        "pagePath": "pages/notice/notice",
+        "iconPath": "pages/assets/nav/home-off.png",
+        "selectedIconPath": "pages/assets/nav/home-on.png",
+        "text": "通知"
+      },
+      {
+        "pagePath": "pages/callPolice/callPolice",
+        "iconPath": "pages/assets/nav/my-off.png",
+        "selectedIconPath": "pages/assets/nav/my-on.png",
+        "text": "报警"
+      }
+    ]
   }
 }

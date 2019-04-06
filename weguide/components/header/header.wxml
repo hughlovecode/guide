@@ -7,7 +7,7 @@
 <view class='nameText'>{{userName}}</view>
 <view class='StudentIdText'>{{userId}}</view>
 </view>
-<!--广告-->
+<!--快讯-->
 <view class='InfoText'>快讯</view> 
 <view class='adviseImg'>
 <image class="adv-img" src="/pages/assets/images/bindBack.jpg"></image> 
