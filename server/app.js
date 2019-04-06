@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 //定义入口路由
 var userInfo=require('./routes/userInfo');
 var guide=require('./routes/guide')
+var tripNote=require('./routes/tripNote')
 var app = express();
 
 // view engine setup
@@ -23,9 +24,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-//2.使用路由 
+//使用路由 
 app.use('/userInfo',userInfo);
 app.use('/guide',guide);
+app.use('/trip',tripNote);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
