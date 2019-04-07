@@ -77,7 +77,7 @@ Page({
   },
   getTripList:function(){
     let params={
-      city:'chengdu'
+      city:'beijing'
     }
     console.log(params)
     http.post('/trip/',params).then(res=>{

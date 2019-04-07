@@ -11,7 +11,7 @@
 <view class='title'>[{{detail.title}}]</view>
 <view class='content'>
 <view wx:for="{{detail.pList}}" wx:key="">
-<text class='content-p'>{{item}}</text>
+<text class='content-p' decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item}}</text>
 </view>
 </view>
 <view class='tag'>

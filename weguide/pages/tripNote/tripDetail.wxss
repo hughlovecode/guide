@@ -45,6 +45,5 @@
   margin-bottom:30rpx;
 }
 .content-p{
-  font-size: 30rpx;
-  color:black;
+  margin-bottom:10rpx
 }
