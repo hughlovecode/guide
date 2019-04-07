@@ -15,7 +15,7 @@
 </view>
 </view>
 <view class='tag'>
-<span class='tagItem'>#北京</span>
+<span class='tagItem'># 北京</span>
 <span class='tagItem'># {{detail.triCost}}</span>
 <span class='tagItem'># {{detail.triDay}}</span>
 <span class='tagItem'># {{detail.triPeople}}</span>
