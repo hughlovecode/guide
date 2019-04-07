@@ -1,0 +1,25 @@
+<!--pages/tripNote/tripDetail.wxml-->
+<view class='body'>
+<swiper indicator-dots='true' autoplay='true' interval='2000' style='height:500rpx'>
+<view wx:for="{{detail.imgList}}" wx:key="">
+<swiper-item>
+<image src='{{item}}' class='swiperImg' mode='widthFix'></image>
+</swiper-item>
+</view>
+</swiper>
+<view class='container'>
+<view class='title'>[{{detail.title}}]</view>
+<view class='content'>
+<view wx:for="{{detail.pList}}" wx:key="">
+<text class='content-p'>{{item}}</text>
+</view>
+</view>
+<view class='tag'>
+<span class='tagItem'>#北京</span>
+<span class='tagItem'># {{detail.triCost}}</span>
+<span class='tagItem'># {{detail.triDay}}</span>
+<span class='tagItem'># {{detail.triPeople}}</span>
+<span class='tagItem'># {{detail.triTime}}</span>
+</view>
+</view>
+</view>

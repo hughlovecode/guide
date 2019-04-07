@@ -1,4 +1,6 @@
 // pages/tripNote/tripNote.js
+import http from './../../utils/http.js'
+import prompt from './../../utils/prompt.js'
 Page({
 
   /**
@@ -12,6 +14,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    /*
+    prompt.modal('请求获取当前位置', '请允许我们访问您的当前位置').then(() => { this.getTripList()},
+    ()=>{
+      prompt.toast('已取消')
+    }
+    ).catch(err=>{
+      prompt.toast('错误!code=12')
+    })
+    */
+    this.getTripList()
 
   },
 
@@ -62,5 +74,35 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  getTripList:function(){
+    let params={
+      city:'chengdu'
+    }
+    console.log(params)
+    http.post('/trip/',params).then(res=>{
+      if(res.data.status==='0'){
+        let list=res.data.res;
+        let leftList = list.slice(0, Math.floor(list.length / 2));
+        let rightList = list.slice(Math.floor(list.length / 2));
+        this.setData({
+          city:params.city,
+          leftList:leftList,
+          rightList:rightList
+        })
+        console.log(res)
+      }else{
+        prompt.toast('失败!code=13')
+      }
+    }).catch(err=>{
+      prompt.toast('失败!code=11')
+    })
+  },
+  toDetail:function(e){
+    let info=e.target.dataset.info;
+    getApp().globalData.glDetail=info;
+    wx.navigateTo({
+      url: '/pages/tripNote/tripDetail',
+    })
   }
 })

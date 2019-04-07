@@ -1,2 +1,30 @@
 <!--pages/tripNote/tripNote.wxml-->
-<text>pages/tripNote/tripNote.wxml</text>
+<view class='body'>
+<image src='/pages/assets/images/beijing.jpg' class='topImg' mode='widthFix'></image>
+<view class='city'>
+  <text class='cityName'>北京</text>
+</view>
+<view class='container'>
+<view class='cityGL'>北京攻略</view>
+<view class='main'>
+<view class='.row' style="padding-left:30rpx;padding-right:10rpx">
+<view wx:for="{{leftList}}" wx:key="index">
+<view class='glItem' bindtap='toDetail' data-info="{{item}}">
+<image class='itemImg' src='{{item.imageUrl}}' mode='widthFix' data-info="{{item}}"></image>
+<text class='itemTitle' data-info="{{item}}">{{item.title}}</text>
+<text class='itemBrief' data-info="{{item}}">{{item.brief}}</text>
+</view>
+</view>
+</view>
+<view class='.row' style="padding-right:30rpx">
+<view wx:for="{{rightList}}" wx:key="index">
+<view class='glItem' bindtap='toDetail' data-info="{{item}}">
+<image class='itemImg' src='{{item.imageUrl}}' mode='widthFix' data-info="{{item}}"></image>
+<text class='itemTitle' data-info="{{item}}">{{item.title}}</text>
+<text class='itemBrief' data-info="{{item}}">{{item.brief}}</text>
+</view>
+</view>
+</view>
+</view>
+</view>
+</view>

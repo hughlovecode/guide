@@ -7,6 +7,7 @@
     "pages/touristList/touristList",
     "pages/notice/notice",
     "pages/tripNote/tripNote",
+    "pages/tripNote/tripDetail",
     "pages/callPolice/callPolice"
   ],
   "window":{

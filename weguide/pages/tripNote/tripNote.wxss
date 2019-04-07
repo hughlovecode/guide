@@ -1,1 +1,71 @@
 /* pages/tripNote/tripNote.wxss */
+
+.topImg{
+  width:100%;
+}
+.city{
+  position: absolute;
+  top:20vh;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center
+}
+.cityName{
+  font-size: 70rpx;
+  font-weight: 900;
+  color: white
+}
+.container{
+  width:100%;
+  min-height:50vh;
+  position: absolute;
+  top: 60vh;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  background-color: #f2f2f2;
+}
+.cityGL{
+  position: absolute;
+  top: 30rpx;
+  left:30rpx;
+  width: 100%;
+  font-size:40rpx;
+  font-weight: 900
+}
+.main{
+  position: absolute;
+  top: 100rpx;
+  width: 100%;
+  display: flex;
+  column-count: 2;
+  background-color:#f2f2f2 
+}
+.row{
+  width:calc(50% -30rpx);
+}
+.glItem{
+  height:auto;
+  margin-bottom: 10rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10rpx;
+}
+.itemImg{
+  width:100%;
+}
+.itemTitle{
+  padding-left:10rpx;
+  padding-right: 10rpx;
+  font-size: 30rpx;
+}
+.itemBrief{
+  padding-left:10rpx;
+  padding-right: 10rpx;
+  font-size: 20rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+}
