@@ -7,8 +7,7 @@
     "pages/touristList/touristList",
     "pages/notice/notice",
     "pages/tripNote/tripNote",
-    "pages/tripNote/tripDetail",
-    "pages/callPolice/callPolice"
+    "pages/tripNote/tripDetail"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -39,12 +38,6 @@
         "iconPath": "pages/assets/nav/home-off.png",
         "selectedIconPath": "pages/assets/nav/home-on.png",
         "text": "通知"
-      },
-      {
-        "pagePath": "pages/callPolice/callPolice",
-        "iconPath": "pages/assets/nav/my-off.png",
-        "selectedIconPath": "pages/assets/nav/my-on.png",
-        "text": "报警"
       }
     ]
   }

@@ -59,19 +59,21 @@ router.post('/login',function(req,res,next){
                 msg:err.message
             })
         }else{
-            console.log(params.userName,params.password)
+            console.log(params.userId,params.password)
             if(doc){
                 //console.log(doc)
                 res.cookie('userId',doc.userId,{
                     path:'/',
                     maxAge:1000*60*60
                 });
+                console.log(doc)
                 let temp={
                     userId:doc.userId,
                     userName:doc.userName,
                     userImg:doc.userImg,
                     status:doc.status,
-                    guideList:doc.guideList
+                    guideList:doc.guideList,
+                    status:doc.status
                 }
 
                 res.json({
@@ -117,7 +119,8 @@ router.post('/loginByPhone',function(req,res,next){
                     userName:doc.userName,
                     userImg:doc.userImg,
                     status:doc.status,
-                    guideList:doc.guideList
+                    guideList:doc.guideList,
+                    status:doc.status
                 }
 
                 res.json({
@@ -136,7 +139,7 @@ router.post('/loginByPhone',function(req,res,next){
                     msg:'未找到',
                     result:[]
                 })
-            }
+            } 
         }
     })
 })

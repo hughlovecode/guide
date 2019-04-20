@@ -101,7 +101,7 @@ export default class Login extends React.Component{
                     }else{
                         
 
-                        if(res.result.userInfo.status !=='t'){
+                        if(res.result.userInfo.status !=='g'){
                                 this.setState({
                                 isShowLoginTip:true,
                                 tipMessage:'错误',
@@ -182,7 +182,7 @@ export default class Login extends React.Component{
                     console.log(response);
                     http.post('/userInfo/loginByPhone',params).then(res=>{
                         if(res.status==='0'){
-                            if(res.result.userInfo.status !=='t'){
+                            if(res.result.userInfo.status !=='g'){
                                     this.setState({
                                     isShowLoginTip:true,
                                     tipMessage:'错误',
